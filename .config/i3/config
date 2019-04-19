@@ -124,6 +124,7 @@ bindsym $mod+x exec --no-startup-id emacsclient -c
 
 #layout xkblayout-state from aur
 bindsym $mod+Tab exec --no-startup-id ~/.config/i3/i3scripts/kbdlayout.sh
+bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
 
 # bindsym --release $mod exec pkill -SIGRTMIN+11 i3blocks
 
