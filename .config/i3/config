@@ -397,7 +397,7 @@ exec_always --no-startup-id nm-applet --sm-disable
 # exec_always --no-startup-id setxkbmap -option ctrl:swapcaps
 # exec --no-startup-id cbatticon
 exec --no-startup-id volumeicon 
-exec_always --no-startup-id feh --bg-scale ~/Pictures/lynx.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/lynx.jpg
 
 ########scripts########
 # exec_always --no-startup-id ~/.config/i3/i3scripts/alternating_layouts.py
