@@ -17,5 +17,6 @@ c.tabs.position = "left"
 c.tabs.show = "switching"
 c.tabs.width = 230
 c.tabs.show_switching_delay=1200
+c.scrolling.bar = "never"
 c.statusbar.hide = True
 c.completion.shrink = True

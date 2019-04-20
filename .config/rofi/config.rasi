@@ -85,7 +85,7 @@ window {
     background-color: @xbg;
     border: 0;
     border-color: @x14;
-    border-radius: 12px;
+    border-radius: 0;
     padding: 40;
     width: 25%;
     height: 50%;
