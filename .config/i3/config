@@ -247,7 +247,8 @@ bindsym $mod+Shift+b border toggle
 ######## BINDING SCRIPTS ########
 #toggle gaps
 bindsym $mod+c       exec --no-startup-id $scripts/cabl
-bindsym $mod+Shift+f exec --no-startup-id rofi -show find -modi find:$scripts/finder.sh -columns 1
+bindsym $mod+Shift+f exec --no-startup-id rofi -show find -modi find:~/.config/i3/i3scripts/finder.sh -columns 1 -lines 8 -width 60%
+
 
 bindsym $mod+Shift+e exec --no-startup-id $scripts/exit.sh  #Exit menu
 bindsym $mod+Shift+n exec --no-startup-id $scripts/tog.sh	  #Night light
@@ -355,7 +356,7 @@ exec --no-startup-id emacs --daemon=workspace4
 
 exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/grey-tone.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/dark-grey.jpg
 
 exec_always --no-startup-id nm-applet --sm-disable
 exec        --no-startup-id cbatticon
