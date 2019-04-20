@@ -21,12 +21,12 @@ function send_notification {
     # Send the notification
     if (( $volume > 70 ))
     then
-	dunstify -i ~/.local/share/icons/audio-volume-high.svg -r 2593 -u normal  "$volume $bar"
+	dunstify -i ~/.local/share/icons/audio-volume-high.svg -r 2593 -u low  "$volume $bar"
     elif (( $volume > 35 )) && (( $volume < 75 ))
     then
-	dunstify -i ~/.local/share/icons/audio-volume-medium.svg -r 2593 -u normal  "$volume $bar"
+	dunstify -i ~/.local/share/icons/audio-volume-medium.svg -r 2593 -u low  "$volume $bar"
     else
-	dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u normal  "$volume $bar"
+	dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u low  "$volume $bar"
     fi
 }
 
@@ -47,7 +47,7 @@ case $1 in
     	# Toggle mute
 	amixer -D pulse set Master 1+ toggle > /dev/null
 	if is_mute ; then
-	    dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u normal "Mute"
+	    dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u low "Mute"
 	else
 	    send_notification
 	fi

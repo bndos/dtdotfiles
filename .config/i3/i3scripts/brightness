@@ -18,12 +18,12 @@ function send_notification {
     # Send the notification
     if (( $brightness > 70 ))
     then
-	dunstify -i ~/.local/share/icons/brightness-high.svg -r 2593 -u normal  "$brightness $bar"
+	dunstify -i ~/.local/share/icons/brightness-high.svg -r 2593 -u low  "$brightness $bar"
     elif (( $brightness > 35 )) && (( $brightness < 75 ))
     then
-	dunstify -i ~/.local/share/icons/brightness-medium.svg -r 2593 -u normal  "$brightness $bar"
+	dunstify -i ~/.local/share/icons/brightness-medium.svg -r 2593 -u low  "$brightness $bar"
     else
-	dunstify -i ~/.local/share/icons/brightness-low.svg -r 2593 -u normal  "$brightness $bar"
+	dunstify -i ~/.local/share/icons/brightness-low.svg -r 2593 -u low  "$brightness $bar"
     fi
    
 }
