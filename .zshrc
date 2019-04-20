@@ -282,7 +282,7 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 # Custom helper aliases
 alias rm='rm -v'
 
-alias emacs="emacs -nw -q"
+alias emacs="emacsclient -s workspace1 -t"
 alias cat="bat"
 alias cl="colorls"
 alias ls='ls -l --color=always --group-directories-first --human-readable'
@@ -314,7 +314,7 @@ viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
 # Auto cd
 
 # Aliases
-alias emax='emacsclient -c'
+alias emax='emacsclient -s workspace1 -c .&; disown'
 # alias grep='grep --color=auto'
 # alias pgrep='pgrep -ai'
 
