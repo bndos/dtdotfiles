@@ -301,7 +301,7 @@ alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias backup='cd ~/Documents/backup'
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias school='cd ~/Documents/poly'
 alias tps='cd ~/Documents/poly-tps'
 
