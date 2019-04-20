@@ -1,158 +1,10 @@
 set $mod Mod4
-
-# set gaps
-gaps inner 12
-gaps outer 0
-
-# smart_gaps on
-# No title bar
-# new_window 1pixel
+set $scripts ~/.config/i3/i3scripts/
 
 # No title bar even on tabbed display
 font pango:MonacoB2 0
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec --no-startup-id terminator --geometry=700x300
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-# change focus
-bindsym $mod+h focus left;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+j focus down;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+k focus up;    exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+l focus right; exec --no-startup-id pkill -RTMIN+11 i3blocks
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
-
-# splits
-bindsym $mod+g split h
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
- 
-# focus the parent container
-# bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# rofi instead of dmenu
-bindsym $mod+d exec --no-startup-id rofi -show run -columns 1
-bindsym $mod+Shift+d exec --no-startup-id terminator --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
-
-####################
-#  CUSTOM BINDS	   #
-####################
-
-# Cycle through active workspaces
-bindsym $mod+Mod1+l workspace next
-bindsym $mod+Mod1+h workspace prev
-
-bindsym $mod+i       move scratchpad
-bindsym $mod+Shift+i scratchpad show
-
-bindsym $mod+Shift+Return exec --no-startup-id ~/.config/i3/i3scripts/samedir.sh
-bindsym $mod+m            exec --no-startup-id polybar-msg cmd toggle
-bindsym $mod+n            exec --no-startup-id --no-startup-id flash_window 
-
-bindsym $mod+z       workspace back_and_forth
-bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_and_forth
-bindsym $mod+Shift+b border toggle
-######## BINDING SCRIPTS ########
-#toggle gaps
-bindsym $mod+o       exec --no-startup-id ~/.config/i3/i3scripts/tog_gaps.sh
-bindsym $mod+c       exec --no-startup-id ~/.config/i3/i3scripts/cabl
-bindsym $mod+Shift+f exec --no-startup-id rofi -show find -modi find:~/.config/i3/i3scripts/finder.sh -columns 1
-
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/i3scripts/exit.sh  #Exit menu
-bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/i3scripts/tog.sh	  #Night light
-#screenshots
-bindsym Print        exec --no-startup-id ~/.config/i3/i3scripts/screen.sh
-bindsym Shift+Print  exec --no-startup-id ~/.config/i3/i3scripts/screen_delay.sh
-bindsym $mod+Print   exec  --no-startup-id ~/.config/i3/i3scripts/screen_focus.sh
-
-# layout manager
-bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
-bindsym $mod+Shift+w exec --no-startup-id qutebrowser
-
-bindsym $mod+shift+x exec --no-startup-id emacsclient -s workspace2 -c
-bindsym $mod+x       exec --no-startup-id emacsclient -s workspace1 -c
-
-bindsym $mod+control+1 exec --no-startup-id emacsclient -s workspace1 -c
-bindsym $mod+control+2 exec --no-startup-id emacsclient -s workspace2 -c
-bindsym $mod+control+3 exec --no-startup-id emacsclient -s workspace3 -c
-bindsym $mod+control+4 exec --no-startup-id emacsclient -s workspace4 -c
-# bindsym $mod+Shift+f exec --no-startup-id nautilus
-
-#layout xkblayout-state from aur
-bindsym $mod+Tab exec --no-startup-id ~/.config/i3/i3scripts/kbdlayout.sh
-bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
-
-########Fkeys########
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioMute        exec --no-startup-id amixer sset Master toggle && pkill -SIGRTMIN+2 i3blocks 
-
-# Sreen brightness controls
-# using light from aur instead of backlight
-bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 2 && pkill -SIGRTMIN+10 i3blocks 
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2 && pkill -SIGRTMIN+10 i3blocks
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-# set $ws1 "1 "
-#
-#
-#
-#
-#
-#
-
+####################################WORKSPACES####################################
 exec_always --no-startup-id xrandr --output eDP-1 --primary
 exec_always --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
 
@@ -177,7 +29,6 @@ workspace $ws17 output HDMI-1
 workspace $ws18 output HDMI-1
 workspace $ws19 output HDMI-1
 workspace $ws20 output HDMI-1
-
 
 set $ws1  "1"
 set $ws2  "2"
@@ -256,6 +107,16 @@ bindsym $mod+Mod1+Shift+7 move container to workspace $ws17; workspace $ws17
 bindsym $mod+Mod1+Shift+8 move container to workspace $ws18; workspace $ws18
 bindsym $mod+Mod1+Shift+9 move container to workspace $ws19; workspace $ws19
 bindsym $mod+Mod1+Shift+0 move container to workspace $ws20; workspace $ws20
+####################################WORKSPACES####################################
+
+#######################################GAPS#######################################
+# set gaps
+gaps inner 12
+gaps outer 0
+
+# smart_gaps on
+# No title bar
+# new_window 1pixel
 
 # change gaps
 bindsym $Mod+plus                gaps inner current plus  5
@@ -267,37 +128,12 @@ bindsym $Mod+Control+minus       gaps inner all     minus 5
 bindsym $Mod+Control+Shift+plus  gaps outer all     plus  5
 bindsym $Mod+Control+Shift+minus gaps outer all     minus 5
 
-########default workspaces########
-assign [class="Zathura"] $ws3
-assign [class="Firefox"] $ws4
+bindsym $mod+o       exec --no-startup-id $scripts/tog_gaps.sh
+#######################################GAPS#######################################
 
-########borders########
-for_window [class="^.*"] border pixel 0
 
-# switch to workspace with urgent window
-# for_window [urgent="latest"] focus
-# focus_on_window_activation   focus
-for_window [class="Zathura"]  focus
 
-focus_follows_mouse no
-
-########floating########
-# floating_minimum_size 500 x 200
-# floating_maximum_size 1320 x 700 
-# for_window [class="^.*"] floating enable
-for_window [class="Nautilus"] floating enable
-# for_window [class="Terminator"] floating enable
-for_window [class="Lxappearance"] floating enable
-for_window [class="Arandr"] floating enable
-for_window [class="feh"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="URxvt"] floating enable
-for_window [class="mpv"] floating enable
-# for_window [workspace=$ws10] layout tabbed 
-
-########hide edges########
-hide_edge_borders both
-
+######################################################BINDSYMS######################################################
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -335,6 +171,152 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left;  exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+j focus down;  exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+k focus up;    exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+l focus right; exec --no-startup-id pkill -RTMIN+11 i3blocks
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# splits
+bindsym $mod+g split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# floating
+floating_modifier $mod
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# rofi instead of dmenu
+bindsym $mod+d exec --no-startup-id rofi -show run -columns 1
+bindsym $mod+Shift+d exec --no-startup-id terminator --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
+
+####################
+#  CUSTOM BINDS	   #
+####################
+
+# Cycle through active workspaces
+bindsym $mod+Mod1+l workspace next
+bindsym $mod+Mod1+h workspace prev
+
+bindsym $mod+i       move scratchpad
+bindsym $mod+Shift+i scratchpad show
+
+bindsym $mod+Shift+Return exec --no-startup-id $scripts/samedir.sh
+bindsym $mod+m            exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+n            exec --no-startup-id --no-startup-id flash_window 
+
+bindsym $mod+z       workspace back_and_forth
+bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Shift+b border toggle
+######## BINDING SCRIPTS ########
+#toggle gaps
+bindsym $mod+c       exec --no-startup-id $scripts/cabl
+bindsym $mod+Shift+f exec --no-startup-id rofi -show find -modi find:$scripts/finder.sh -columns 1
+
+bindsym $mod+Shift+e exec --no-startup-id $scripts/exit.sh  #Exit menu
+bindsym $mod+Shift+n exec --no-startup-id $scripts/tog.sh	  #Night light
+#screenshots
+bindsym Print        exec --no-startup-id $scripts/screen.sh
+bindsym Shift+Print  exec --no-startup-id $scripts/screen_delay.sh
+bindsym $mod+Print   exec  --no-startup-id $scripts/screen_focus.sh
+
+# layout manager
+bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
+bindsym $mod+Return exec --no-startup-id terminator --geometry=700x300
+bindsym $mod+Shift+w exec --no-startup-id qutebrowser
+
+bindsym $mod+shift+x exec --no-startup-id emacsclient -s workspace2 -c
+bindsym $mod+x       exec --no-startup-id emacsclient -s workspace1 -c
+
+bindsym $mod+control+1 exec --no-startup-id emacsclient -s workspace1 -c
+bindsym $mod+control+2 exec --no-startup-id emacsclient -s workspace2 -c
+bindsym $mod+control+3 exec --no-startup-id emacsclient -s workspace3 -c
+bindsym $mod+control+4 exec --no-startup-id emacsclient -s workspace4 -c
+# bindsym $mod+Shift+f exec --no-startup-id nautilus
+
+#layout xkblayout-state from aur
+bindsym $mod+Tab exec --no-startup-id $scripts/kbdlayout.sh
+bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
+
+########Fkeys########
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ && pkill -RTMIN+2 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- && pkill -RTMIN+2 i3blocks
+bindsym XF86AudioMute        exec --no-startup-id amixer sset Master toggle && pkill -SIGRTMIN+2 i3blocks 
+
+# Sreen brightness controls
+# using light from aur instead of backlight
+bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 2 && pkill -SIGRTMIN+10 i3blocks 
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2 && pkill -SIGRTMIN+10 i3blocks
+######################################################BINDSYMS######################################################
+
+
+########default workspaces########
+assign [class="Zathura"] $ws3
+assign [class="Firefox"] $ws4
+
+########borders########
+for_window [class="^.*"] border pixel 0
+
+# switch to workspace with urgent window
+# for_window [urgent="latest"] focus
+# focus_on_window_activation   focus
+for_window [class="Zathura"]  focus
+
+focus_follows_mouse no
+
+########floating########
+# floating_minimum_size 500 x 200
+# floating_maximum_size 1320 x 700 
+# for_window [class="^.*"] floating enable
+for_window [class="Nautilus"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Arandr"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="URxvt"] floating enable
+for_window [class="mpv"] floating enable
+
+########hide edges########
+hide_edge_borders both
+
 # Colors
 set $black		 #000000
 set $red		 #FF320D
@@ -371,21 +353,21 @@ exec --no-startup-id emacs --daemon=workspace2
 exec --no-startup-id emacs --daemon=workspace3
 exec --no-startup-id emacs --daemon=workspace4
 
-exec --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
+exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-
-exec_always --no-startup-id nm-applet --sm-disable
-exec --no-startup-id cbatticon
-exec --no-startup-id volumeicon 
 exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/lynx.jpg
 
+exec_always --no-startup-id nm-applet --sm-disable
+exec        --no-startup-id cbatticon
+exec        --no-startup-id volumeicon 
+
 ########scripts########
-exec --no-startup-id ~/.config/i3/i3scripts/touchpad.sh
+exec        --no-startup-id $scripts/touchpad.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 ########layout########
 exec_always --no-startup-id "setxkbmap -layout us,ca"
 
-exec_always --no-startup-id xrdb /home/bndo/.Xresources
-#exec xautolock -time 1 -locker "~/.config/i3/i3scripts/lock.sh"
-#exec --no-startup-id xautolock -detectsleep -time 10 -locker "~/.config/i3/i3scripts/lock1.sh" -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
+exec_always --no-startup-id xrdb ~/.Xresources
+#exec xautolock -time 1 -locker "$scripts/lock.sh"
+#exec --no-startup-id xautolock -detectsleep -time 10 -locker "$scripts/lock1.sh" -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
