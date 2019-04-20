@@ -111,7 +111,7 @@ bindsym $mod+Mod1+Shift+0 move container to workspace $ws20; workspace $ws20
 
 #######################################GAPS#######################################
 # set gaps
-gaps inner 12
+gaps inner 17
 gaps outer 0
 
 # smart_gaps on
@@ -223,7 +223,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # rofi instead of dmenu
-bindsym $mod+d exec --no-startup-id rofi -show run -columns 1
+bindsym $mod+d exec --no-startup-id rofi -show drun -columns 1
 bindsym $mod+Shift+d exec --no-startup-id terminator --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
 
 ####################
@@ -277,14 +277,14 @@ bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
 ########Fkeys########
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioMute        exec --no-startup-id amixer sset Master toggle && pkill -SIGRTMIN+2 i3blocks 
+bindsym XF86AudioRaiseVolume exec --no-startup-id $scripts/volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id $scripts/volume down
+bindsym XF86AudioMute        exec --no-startup-id $scripts/volume mute
 
 # Sreen brightness controls
 # using light from aur instead of backlight
-bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 2 && pkill -SIGRTMIN+10 i3blocks 
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2 && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86MonBrightnessUp   exec --no-startup-id $scripts/brightness up
+bindsym XF86MonBrightnessDown exec --no-startup-id $scripts/brightness down
 ######################################################BINDSYMS######################################################
 
 

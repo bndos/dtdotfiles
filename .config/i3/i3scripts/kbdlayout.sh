@@ -2,7 +2,7 @@
 currentlayout=$(xkblayout-state print "%s")
 
 if [ "$currentlayout" == "us" ]
-  then
+then
     setxkbmap -layout ca
 else
     setxkbmap -layout us
