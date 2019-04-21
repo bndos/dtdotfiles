@@ -319,7 +319,7 @@ for_window [class="mpv"] floating enable
 hide_edge_borders both
 
 # Colors
-set $black		 #000000
+set $black		 #181818
 set $red		 #FF320D
 set $white	         #FFFFFF
 set $almost-white	 #eeeeee
