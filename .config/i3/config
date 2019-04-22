@@ -356,7 +356,7 @@ exec --no-startup-id emacs --daemon=workspace4
 
 exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/dark-grey.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/grey-tone.jpg
 
 exec        --no-startup-id cbatticon
 exec        --no-startup-id volumeicon 
@@ -368,6 +368,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 ########layout########
 exec_always --no-startup-id "setxkbmap -layout us,ca"
+exec_always --no-startup-id xinput -disable "MELF0410:00 1FD2:7010 Touchscreen"
 
 exec_always --no-startup-id xrdb ~/.Xresources
 #exec xautolock -time 1 -locker "$scripts/lock.sh"
