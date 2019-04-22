@@ -356,3 +356,7 @@ if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"
     bindkey -s "^[" "^U exit \n"
 fi
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi

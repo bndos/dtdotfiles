@@ -224,7 +224,7 @@ bindsym $mod+Shift+r restart
 
 # rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id rofi -show drun -columns 1
-bindsym $mod+Shift+d exec --no-startup-id terminator --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
+bindsym $mod+Shift+d exec --no-startup-id alacritty --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
 
 ####################
 #  CUSTOM BINDS	   #
@@ -259,7 +259,7 @@ bindsym $mod+Print   exec  --no-startup-id $scripts/screen_focus.sh
 
 # layout manager
 bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
-bindsym $mod+Return exec --no-startup-id terminator --geometry=700x300
+bindsym $mod+Return exec --no-startup-id alacritty
 bindsym $mod+Shift+w exec --no-startup-id qutebrowser
 
 bindsym $mod+shift+x exec --no-startup-id emacsclient -s workspace2 -c
