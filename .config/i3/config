@@ -175,10 +175,10 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+q kill
 
 # change focus
-bindsym $mod+h focus left;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+j focus down;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+k focus up;    exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+l focus right; exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+h focus left;
+bindsym $mod+j focus down;
+bindsym $mod+k focus up;
+bindsym $mod+l focus right;
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left  focus left
@@ -224,7 +224,6 @@ bindsym $mod+Shift+r restart
 
 # rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id rofi -show drun -columns 1
-bindsym $mod+Shift+d exec --no-startup-id alacritty --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
 
 ####################
 #  CUSTOM BINDS	   #
@@ -319,7 +318,7 @@ for_window [class="mpv"] floating enable
 hide_edge_borders both
 
 # Colors
-set $black		 #181818
+set $black		 #101010
 set $red		 #FF320D
 set $white	         #FFFFFF
 set $almost-white	 #eeeeee
@@ -356,7 +355,7 @@ exec --no-startup-id emacs --daemon=workspace4
 
 exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/dark-grey.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/firewatch.jpg
 
 exec        --no-startup-id cbatticon
 exec        --no-startup-id volumeicon 
