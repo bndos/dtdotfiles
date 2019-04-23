@@ -18,25 +18,30 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #000
-background-alt = #D46C41
+background = #181818
+background-alt = #2f2f2f
 ;foreground = ${xrdb:color7:#222}
 foreground = #ffffff
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
-purple = #D46C41
+purple = #2f2f2f
 
 
+<<<<<<< HEAD
 
 [bar/example]
 monitor = ${env:MONITOR:HDMI-1}
+=======
+[bar/top]
+monitor = ${env:MONITOR:eDP-1}
+>>>>>>> laptop
 width = 100%
 height = 29
-offset-x = 0
-offset-y = 0%
-radius = 6.0
+; offset-x = 0
+; offset-y = 0%
+radius = 0.0
 fixed-center = true
 enable-ipc=true
 background = ${colors.background}
@@ -47,12 +52,12 @@ line-size = 3
 line-color = #f00
 
 ;margin of bar
-border-right-size = 15
-border-left-size = 15
+border-right-size = 0
+border-left-size = 0
 border-color = #00000000
 
 padding-left = 2
-padding-right = 1
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 1
@@ -63,7 +68,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = xwindow 
 modules-center = i3
-modules-right = date mpd xkeyboard 
+modules-right = date 
 
 tray-position = right
 tray-padding = 2
@@ -82,6 +87,65 @@ tray-background = ${colors.purple}
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+bottom=false
+
+
+
+[bar/bottom]
+monitor = ${env:MONITOR:eDP-1}
+width = 100%
+height = 29
+offset-x = 0%
+offset-y = 0%
+radius = 15.0
+fixed-center = true
+enable-ipc=true
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+
+line-size = 0
+line-color = #f00
+
+;margin of bar
+border-right-size = 10%
+border-left-size = 10%
+border-color = #00000000
+
+padding-left = 2
+padding-right = 9
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Monaco Nerd Font:weight=bold:pixelsize=13:antalias=false;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+
+modules-left = xwindow 
+modules-center = i3
+modules-right = date
+
+tray-detached = true 
+tray-offset-x = -15
+tray-position = right
+tray-background = ${colors.purple} 
+;wm-restack = bspwm
+; wm-restack = i3
+
+; override-redirect = false
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+bottom=true
+
 [bar/edp]
 monitor = ${env:MONITOR:DP-1}
 width = 100%
@@ -99,8 +163,8 @@ line-size = 3
 line-color = #f00
 
 ;margin of bar
-border-right-size = 200
-border-left-size = 200
+border-right-size = 20%
+border-left-size = 20%
 border-color = #00000000
 
 padding-left = 2
@@ -137,7 +201,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:35:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -284,12 +348,12 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = " %b %m-%d"
 
-time = %H:%M
-time-alt = %H:%M:%S
+time = " %H:%M"
+time-alt = " %H:%M"
 
-format-prefix = 
+format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 ; format-underline = #0a6cf5
 

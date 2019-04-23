@@ -6,23 +6,59 @@
  */
 
 /* Global settings and color variables */
+configuration {
+    columns: 2;
+    font: "MonacoB2 13";
+    bw: 0;
+    location: 0;
+    padding: 0;
+    click-to-exit: true;
+    display-window: "";
+    display-windowcd: "";
+    display-drun: ">";
+    display-combi: "";
+    kb-remove-word-back: "Control+BackSpace,Alt+d,Alt+BackSpace";
+    kb-accept-entry: "Control+m,Return,KP_Enter,Alt+m";
+    kb-mode-next: "Shift+Right,Control+Tab,Alt+l,Alt+Tab";
+    kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab,Alt+h";
+    kb-row-left: "Control+Page_Up,Control+Alt+h";
+    kb-row-right: "Control+Page_Down,Control+Alt+l";
+    kb-row-up: "Up,Control+p,ISO_Left_Tab,Alt+k";
+    kb-row-down: "Down,Control+n,Alt+j";
+    kb-select-1: "";
+    kb-select-2: "";
+    kb-select-3: "";
+    kb-select-4: "";
+    kb-select-5: "";
+    kb-select-6: "";
+    kb-select-7: "";
+    kb-select-8: "";
+    kb-select-9: "";
+    kb-select-10: "";
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+    me-accept-custom: "MouseMiddle";
+}
+
 * {
-   maincolour:   #4F91A4;
-   highlight:    bold #ffffff;
+   maincolour:   #2f2f2f;
+   highlight:    #ffffff;
    urgentcolour: #C40000;
-   fgwhite:      #ffffff;
-   bgcolour:     #111111;
-   lightblue:    #ffffff;
+   fgwhite:      #777777;
+   white:        #ffffff;
+   bgcolour:     #080808;
+   lightblue:    #777777;
    lightgreen:   #394F61;
-   font: "SauceCodePro Nerd Font Bold 14";
+   font: "MonacoB2 12";
    background-color: @bgcolour;
 }
+
 
 window {
    background-color: @bgcolour;
    anchor: north;
    location: north;
-   y-offset: 10%;
+   y-offset: 20%;
 }
 
 mainbox {
@@ -42,11 +78,11 @@ textbox {
 }
 
 listview {
-   fixed-height: false;
+   fixed-height: true;
    dynamic: true;
-   scrollbar: true;
+   scrollbar: false;
    spacing: 0px;
-   padding: 1px 0px 0px 0px;
+   padding: 8px 8px 8px 8px;
    margin: 0px 0px 1px 0px;
    background: @bgcolour;
 }
@@ -68,12 +104,12 @@ element normal.urgent {
 
 element normal.active {
    background-color: @blueentry;
-   text-color: @maincolour;
+   text-color: @fgwhite;
 }
 
 element selected.normal {
     background-color: @maincolour;
-    text-color: @blueentry;
+    text-color: @white;
 }
 
 element selected.urgent {
@@ -98,7 +134,7 @@ element alternate.urgent {
 
 element alternate.active {
     background-color: @lightgreen;
-    text-color: @maincolour;
+    text-color: @white;
 }
 
 scrollbar {
@@ -117,7 +153,7 @@ button {
 }
 
 button selected {
-    text-color: @maincolour;
+    text-color: @white;
 }
 
 inputbar {
@@ -127,8 +163,8 @@ inputbar {
 
 prompt {
    padding: 6px 9px;
-   background-color: @maincolour;
-   text-color: @bgcolour;
+   background-color: @bgcolor;
+   text-color: @white;
 }
 
 entry {

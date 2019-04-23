@@ -301,7 +301,7 @@ alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias backup='cd ~/Documents/backup'
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias school='cd ~/Documents/poly'
 alias tps='cd ~/Documents/poly-tps'
 
@@ -355,4 +355,8 @@ yt(){
 if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"
     bindkey -s "^[" "^U exit \n"
+fi
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
 fi

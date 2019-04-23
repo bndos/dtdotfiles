@@ -1,6 +1,6 @@
 
 
-gap_inner=12
+gap_inner=17
 gap_outer=0
 
 if [ `i3-msg -t get_tree | grep -Po \
