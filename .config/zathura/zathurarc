@@ -24,13 +24,13 @@ set guioptions ""
 
 # zathurarc-dark
 set font "MonacoB2 14"
-set default-bg "#181818" #00
+set default-bg "#101010" #00
 set default-fg "#ffffff" #01
 
 set statusbar-fg "#ffffff" #04
-set statusbar-bg "#181818" #01
+set statusbar-bg "#101010" #01
 
-set inputbar-bg "#181818" #00 currently not used
+set inputbar-bg "#101010" #00 currently not used
 set inputbar-fg "#FFFFFF" #02
 
 set notification-error-bg "#AC4142" #08
@@ -45,13 +45,13 @@ set highlight-active-color "#6A9FB5" #0D
 set completion-highlight-fg "#151515" #02
 set completion-highlight-bg "#90A959" #0C
 
-set completion-bg "#181818" #02
+set completion-bg "#101010" #02
 set completion-fg "#E0E0E0" #0C
 
 set notification-bg "#90A959" #0B
 set notification-fg "#151515" #00
 
-set recolor-lightcolor "#181818" #00
+set recolor-lightcolor "#101010" #00
 set recolor-darkcolor "#E0E0E0" #06
 set recolor-reverse-video "true"
 set recolor-keephue "true"

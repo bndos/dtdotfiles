@@ -314,7 +314,7 @@ viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
 # Auto cd
 
 # Aliases
-alias emax='emacsclient -s workspace1 -c .&; disown'
+alias emax='emacsclient -c'
 # alias grep='grep --color=auto'
 # alias pgrep='pgrep -ai'
 

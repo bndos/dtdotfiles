@@ -4,149 +4,7 @@ set $scripts ~/.config/i3/i3scripts/
 # No title bar even on tabbed display
 font pango:MonacoB2 0
 
-<<<<<<< HEAD
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec --no-startup-id terminator --geometry=700x300
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-# change focus
-bindsym $mod+h focus left;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+j focus down;  exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+k focus up;    exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+l focus right; exec --no-startup-id pkill -RTMIN+11 i3blocks
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
-
-# splits
-bindsym $mod+g split h
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
- 
-# focus the parent container
-# bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# rofi instead of dmenu
-bindsym $mod+d exec --no-startup-id rofi -show run -columns 1
-bindsym $mod+Shift+d exec --no-startup-id terminator --role stick --geometry=500x40 -e "bash -c 'LAUNCHER=true /bin/zsh -i -t' "
-
-####################
-#  CUSTOM BINDS	   #
-####################
-
-# Cycle through active workspaces
-bindsym $mod+Mod1+l workspace next
-bindsym $mod+Mod1+h workspace prev
-
-bindsym $mod+i       move scratchpad
-bindsym $mod+Shift+i scratchpad show
-
-bindsym $mod+Shift+Return exec --no-startup-id ~/.config/i3/i3scripts/samedir.sh
-bindsym $mod+m            exec --no-startup-id polybar-msg cmd toggle
-bindsym $mod+n            exec --no-startup-id --no-startup-id flash_window 
-
-bindsym $mod+z       workspace back_and_forth
-bindsym $mod+Shift+z move container to workspace back_and_forth; workspace back_and_forth
-bindsym $mod+Shift+b border toggle
-######## BINDING SCRIPTS ########
-#toggle gaps
-bindsym $mod+o       exec --no-startup-id ~/.config/i3/i3scripts/tog_gaps.sh
-bindsym $mod+c       exec --no-startup-id ~/.config/i3/i3scripts/cabl
-bindsym $mod+Shift+f exec --no-startup-id rofi -show find -modi find:~/.config/i3/i3scripts/finder.sh -columns 1
-
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/i3scripts/exit.sh  #Exit menu
-bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/i3scripts/tog.sh	  #Night light
-#screenshots
-bindsym Print        exec --no-startup-id ~/.config/i3/i3scripts/screen.sh
-bindsym Shift+Print  exec --no-startup-id ~/.config/i3/i3scripts/screen_delay.sh
-bindsym $mod+Print   exec  --no-startup-id ~/.config/i3/i3scripts/screen_focus.sh
-
-# layout manager
-bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
-bindsym $mod+Shift+w exec --no-startup-id qutebrowser
-
-bindsym $mod+shift+x exec --no-startup-id emacsclient -s workspace2 -c
-bindsym $mod+x       exec --no-startup-id emacsclient -s workspace1 -c
-
-bindsym $mod+control+1 exec --no-startup-id emacsclient -s workspace1 -c
-bindsym $mod+control+2 exec --no-startup-id emacsclient -s workspace2 -c
-bindsym $mod+control+3 exec --no-startup-id emacsclient -s workspace3 -c
-bindsym $mod+control+4 exec --no-startup-id emacsclient -s workspace4 -c
-# bindsym $mod+Shift+f exec --no-startup-id nautilus
-
-#layout xkblayout-state from aur
-bindsym $mod+Tab exec --no-startup-id ~/.config/i3/i3scripts/kbdlayout.sh
-bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
-
-########Fkeys########
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- && pkill -RTMIN+2 i3blocks
-bindsym XF86AudioMute        exec --no-startup-id amixer sset Master toggle && pkill -SIGRTMIN+2 i3blocks 
-
-# Sreen brightness controls
-# using light from aur instead of backlight
-bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 2 && pkill -SIGRTMIN+10 i3blocks 
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2 && pkill -SIGRTMIN+10 i3blocks
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-# set $ws1 "1 "
-#
-#
-#
-#
-#
-#
-
+####################################WORKSPACES####################################
 exec_always --no-startup-id xrandr --output HDMI-1 --primary
 exec_always --no-startup-id xrandr --output DP-1 --auto --right-of HDMI-1
 
@@ -171,33 +29,6 @@ workspace $ws17 output DP-1
 workspace $ws18 output DP-1
 workspace $ws19 output DP-1
 workspace $ws20 output DP-1
-=======
-####################################WORKSPACES####################################
-exec_always --no-startup-id xrandr --output eDP-1 --primary
-exec_always --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
-
-workspace $ws1  output eDP-1
-workspace $ws2  output eDP-1
-workspace $ws3  output eDP-1
-workspace $ws4  output eDP-1
-workspace $ws5  output eDP-1
-workspace $ws6  output eDP-1
-workspace $ws7  output eDP-1
-workspace $ws8  output eDP-1
-workspace $ws9  output eDP-1
-workspace $ws10 output eDP-1
-
-workspace $ws11 output HDMI-1
-workspace $ws12 output HDMI-1
-workspace $ws13 output HDMI-1
-workspace $ws14 output HDMI-1
-workspace $ws15 output HDMI-1
-workspace $ws16 output HDMI-1
-workspace $ws17 output HDMI-1
-workspace $ws18 output HDMI-1
-workspace $ws19 output HDMI-1
-workspace $ws20 output HDMI-1
->>>>>>> laptop
 
 set $ws1  "1"
 set $ws2  "2"
@@ -525,7 +356,7 @@ exec --no-startup-id emacs --daemon=workspace4
 
 exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/grey-tone.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/dark-grey.jpg
 
 exec        --no-startup-id cbatticon
 exec        --no-startup-id volumeicon 
