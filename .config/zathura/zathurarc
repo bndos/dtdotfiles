@@ -1,0 +1,72 @@
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+set page-padding 4
+
+# One page per row by default
+set pages-per-row 1
+
+#stop at page boundries
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 100
+
+#title
+set window-title-basename true
+set window-title-page true
+set statusbar-home-tilde true
+
+#zoom settings
+set zoom-min 10
+#remove status bar
+set guioptions ""
+
+# zathurarc-dark
+set font "MonacoB2 14"
+set default-bg "#181818" #00
+set default-fg "#ffffff" #01
+
+set statusbar-fg "#ffffff" #04
+set statusbar-bg "#181818" #01
+
+set inputbar-bg "#181818" #00 currently not used
+set inputbar-fg "#FFFFFF" #02
+
+set notification-error-bg "#AC4142" #08
+set notification-error-fg "#151515" #00
+
+set notification-warning-bg "#AC4142" #08
+set notification-warning-fg "#151515" #00
+
+set highlight-color "#F4BF75" #0A
+set highlight-active-color "#6A9FB5" #0D
+
+set completion-highlight-fg "#151515" #02
+set completion-highlight-bg "#90A959" #0C
+
+set completion-bg "#181818" #02
+set completion-fg "#E0E0E0" #0C
+
+set notification-bg "#90A959" #0B
+set notification-fg "#151515" #00
+
+set recolor-lightcolor "#181818" #00
+set recolor-darkcolor "#E0E0E0" #06
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+
+set render-loading "false"
+set scroll-step 50
+
+#bindings
+map [normal]     h   navigate previous
+map [fullscreen] h   navigate previous
+map [normal]     l navigate next
+map [fullscreen] l navigate next
+map i recolor
+
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
