@@ -1,5 +1,5 @@
 rofi.modi: drun,window
-rofi.lines: 15 
+rofi.lines: 25 
 rofi.columns: 1
 rofi.width: 23%
 # rofi.drun-icon-theme: Pop
