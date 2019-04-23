@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# You can call this script like this:
+# $./volume up
+# $./volume down
+# $./volume mute
+
+function get_brightness {
+    brightness=$(light)
+    echo ${brightness%.*}
+}
+
+function send_notification {
+    brightness=`get_brightness`
+    light -S $brightness
+    # Make the bar with the special character ─ (it's not dash -)
+    # https://en.wikipedia.org/wiki/Box-drawing_character
+    bar=$(seq -s "─" $(($brightness / 5)) | sed 's/[0-9]//g')
+    # Send the notification
+    if (( $brightness > 70 ))
+    then
+	dunstify -i ~/.local/share/icons/brightness-high.svg -r 2593 -u low  "$brightness $bar"
+    elif (( $brightness > 35 )) && (( $brightness < 75 ))
+    then
+	dunstify -i ~/.local/share/icons/brightness-medium.svg -r 2593 -u low  "$brightness $bar"
+    else
+	dunstify -i ~/.local/share/icons/brightness-low.svg -r 2593 -u low  "$brightness $bar"
+    fi
+   
+}
+
+case $1 in
+    up)
+	light -A 5.05
+	send_notification
+	;;
+    down)
+	light -U 5
+	send_notification
+	;;
+esac
