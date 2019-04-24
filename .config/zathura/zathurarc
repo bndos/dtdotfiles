@@ -67,6 +67,7 @@ map [normal]     l navigate next
 map [fullscreen] l navigate next
 map i recolor
 
-unmap f
-map f toggle_fullscreen
-map [fullscreen] f toggle_fullscreen
+set recolor "true"
+
+#clipboard
+set selection-clipboard "clipboard"

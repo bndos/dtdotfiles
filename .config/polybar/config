@@ -107,7 +107,7 @@ border-left-size = 300
 border-color = #00000000
 
 padding-left = 2
-padding-right = 7
+padding-right = 8
 
 module-margin-left = 1
 module-margin-right = 1
@@ -121,7 +121,7 @@ modules-center = i3
 modules-right = date
 
 tray-detached = true 
-tray-offset-x = -15
+tray-offset-x = -22
 tray-position = right
 tray-background = ${colors.purple} 
 ;wm-restack = bspwm
@@ -196,7 +196,7 @@ bottom=true
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:35:...%
+label = %title:0:45:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard

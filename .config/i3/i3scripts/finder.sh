@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ #!/usr/bin/env bash
 
 # Various options for the file browser script:
 ROFI_FB_GENERIC_FO="xdg-open" # command used for opening the selection
@@ -94,4 +94,4 @@ then
     tac "${ROFI_FB_HISTORY_FILE}" | grep "${ROFI_FB_CUR_DIR}"
 fi
 #echo ".."
-find . -type f -printf "%P\n" -maxdepth 4
+find ~ -type f -printf "%P\n" | grep -v ".cache\|.git\|.eclipse\|.vim"
