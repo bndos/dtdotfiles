@@ -2,7 +2,7 @@ set $mod Mod4
 set $scripts ~/.config/i3/i3scripts/
 
 # No title bar even on tabbed display
-font pango:MonacoB2 0
+font pango:MonacoB2 3
 
 ####################################WORKSPACES####################################
 exec_always --no-startup-id xrandr --output HDMI-1 --primary
@@ -258,8 +258,9 @@ bindsym $mod+Print   exec  --no-startup-id $scripts/screen_focus.sh
 
 # layout manager
 bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return  exec --no-startup-id alacritty
 bindsym $mod+Shift+w exec --no-startup-id qutebrowser
+# bindsym Control+n    exec --no-startup-id $(ps -e | grep $(xdotool getwindowpid $(xdotool getwindowfocus)) | grep -v grep | awk '{print $4}')
 
 bindsym $mod+shift+x exec --no-startup-id emacsclient -s workspace2 -c
 bindsym $mod+x       exec --no-startup-id emacsclient -s workspace1 -c
@@ -340,7 +341,7 @@ set $darkorange		 #a13910
 # window colors         border              background         text                 indicator
 client.focused          $black		    $black	       $black               $lightgreen
 client.focused_inactive $black		    $black	       $black		    $black
-client.unfocused	$transparent	    $transparent       $black		    $black
+client.unfocused	$transparent	    $transparent       $transparent	    $black
 client.urgent           $red		    $red	       $white		    $red
 
 ########applications########

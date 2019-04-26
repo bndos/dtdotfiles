@@ -314,7 +314,7 @@ viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
 # Auto cd
 
 # Aliases
-alias emax='emacsclient -c'
+alias emax='emacsclient -s workspace1 -c'
 # alias grep='grep --color=auto'
 # alias pgrep='pgrep -ai'
 
@@ -351,6 +351,31 @@ yt(){
     youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' $link --restrict-filenames
 
 }
+
+em1 () {
+	emacsclient -s workspace1 -c -n $1&
+	exit
+}
+
+em2 () {
+	emacsclient -s workspace2 -c -n $1&
+	exit
+}
+
+em3 () {
+	emacsclient -s workspace3 -c -n $1&
+	exit
+}
+
+em4 () {
+	emacsclient -s workspace4 -c -n $1&
+	exit
+}
+
+pkgsearch () {
+	  pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
+}
+
 
 if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"
