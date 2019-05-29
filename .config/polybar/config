@@ -343,7 +343,7 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %b %m-%d"
+date-alt = " %b-%d"
 
 time = " %H:%M"
 time-alt = " %H:%M"

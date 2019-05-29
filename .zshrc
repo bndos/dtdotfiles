@@ -17,7 +17,8 @@ export LC_ALL="en_US.UTF-8"
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --inline-info --color=dark,bg+:235,hl+:10,pointer:5'
 
 export ENHANCD_FILTER="fzf:peco:percol"
-export ENHANCD_COMMAND='c'
+export ENHANCD_COMMAND='x'
+export FZF_ALT_C_COMMAND=""
 
 # =============================================================================
 #                                   Plugins
@@ -36,15 +37,12 @@ source ~/.zplug/repos/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.
 autoload -Uz compinit
 # oh-my-zsh
 
-# Miscellaneous commands
-zplug "k4rthik/git-cal",  as:command
-zplug "peco/peco",        as:command, from:gh-r
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, \
-use:"*${(L)$(uname -s)}*amd64*"
-zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin
-
-# Simple zsh calculator
-zplug "arzzen/calc.plugin.zsh"
+# # Miscellaneous commands
+# zplug "k4rthik/git-cal",  as:command
+# zplug "peco/peco",        as:command, from:gh-r
+# zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, \
+# use:"*${(L)$(uname -s)}*amd64*"
+# zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin
 
 
 # zplug "plugins/common-aliases",    from:oh-my-zsh
@@ -119,6 +117,7 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # bindkey "^d" delete-char
 # # bindkey "^y" accept-and-hold
 bindkey "^[h" backward-kill-word
+# bindkey "^[c" capitalize-word
 # # bindkey "^u" backward-kill-line
 # # bindkey "^R" history-incremental-pattern-search-backward
 # # bindkey "^F" history-incremental-pattern-search-forward
@@ -314,7 +313,7 @@ viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
 # Auto cd
 
 # Aliases
-alias emax='emacsclient -s workspace1 -c'
+alias emax='emacsclient -s workspace1 -c -n'
 # alias grep='grep --color=auto'
 # alias pgrep='pgrep -ai'
 
@@ -354,28 +353,40 @@ yt(){
 
 em1 () {
 	emacsclient -s workspace1 -c -n $1&
+	sleep 0.1
+	disown
 	exit
 }
 
 em2 () {
 	emacsclient -s workspace2 -c -n $1&
+	disown
 	exit
 }
 
 em3 () {
 	emacsclient -s workspace3 -c -n $1&
+	disown
 	exit
 }
 
 em4 () {
 	emacsclient -s workspace4 -c -n $1&
+	disown
 	exit
 }
 
 pkgsearch () {
-	  pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
+	  pacman -Ss $1 | grep "community\|extra" | cut -d"/" -f 2 | cut -d" " -f 1
 }
 
+grep-finals () {
+	    curl -s https://www.polymtl.ca/etudes/cours/horaires-examens-controles | grep $1 -A 6
+}
+
+grep-excel () {
+	   xlsx2csv $1 | grep $2
+}
 
 if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"

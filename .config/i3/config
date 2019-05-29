@@ -236,7 +236,7 @@ bindsym $mod+Mod1+h workspace prev
 bindsym $mod+i       move scratchpad
 bindsym $mod+Shift+i scratchpad show
 
-bindsym $mod+Shift+Return exec --no-startup-id $scripts/samedir.sh
+bindsym $mod+Shift+Return exec --no-startup-id $scripts/samedir
 bindsym $mod+m            exec --no-startup-id polybar-msg cmd toggle
 bindsym $mod+n            exec --no-startup-id --no-startup-id flash_window 
 
@@ -258,7 +258,7 @@ bindsym $mod+Print   exec  --no-startup-id $scripts/screen_focus.sh
 
 # layout manager
 bindsym $mod+Shift+s exec --no-startup-id i3-layout-manager
-bindsym $mod+Return  exec --no-startup-id alacritty
+bindsym $mod+Return  exec --no-startup-id alacritty -d 100 20
 bindsym $mod+Shift+w exec --no-startup-id qutebrowser
 # bindsym Control+n    exec --no-startup-id $(ps -e | grep $(xdotool getwindowpid $(xdotool getwindowfocus)) | grep -v grep | awk '{print $4}')
 
@@ -272,8 +272,8 @@ bindsym $mod+control+4 exec --no-startup-id emacsclient -s workspace4 -c
 # bindsym $mod+Shift+f exec --no-startup-id nautilus
 
 #layout xkblayout-state from aur
-bindsym $mod+Tab exec --no-startup-id $scripts/kbdlayout.sh
-bindsym Mod1+Tab exec --no-startup-id setxkbmap -option "ctrl:swapcaps"
+bindsym $mod+Tab exec --no-startup-id $scripts/kbdlayout
+bindsym Mod1+Tab exec --no-startup-id $scripts/swapcaps
 
 ########Fkeys########
 
@@ -307,6 +307,8 @@ focus_follows_mouse no
 # floating_minimum_size 500 x 200
 # floating_maximum_size 1320 x 700 
 # for_window [class="^.*"] floating enable
+# for_window [workspace="3"] floating enable
+# for_window [workspace="6"] floating enable
 for_window [class="Nautilus"] floating enable
 for_window [class="Lxappearance"] floating enable
 for_window [class="Arandr"] floating enable
@@ -356,7 +358,7 @@ exec --no-startup-id emacs --daemon=workspace4
 
 exec        --no-startup-id "compton -b --config ~/.config/compton/compton.conf"
 exec_always --no-startup-id flashfocus
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/firewatch.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/bricks.jpg
 
 exec        --no-startup-id cbatticon
 exec        --no-startup-id volumeicon 

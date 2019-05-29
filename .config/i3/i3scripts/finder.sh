@@ -94,4 +94,4 @@ then
     tac "${ROFI_FB_HISTORY_FILE}" | grep "${ROFI_FB_CUR_DIR}"
 fi
 #echo ".."
-find ~ -type f -printf "%P\n" | grep -v ".cache\|.git\|.eclipse\|.vim"
+find ~ -type f -printf "%P\n" | grep -v ".cache\|.git\|.eclipse\|.vim\|.w3m\|.webclipse\|.wget-hsts\|VirtualBox\|.oh-my-zsh\|.pki\|.dotfiles\|.zplug\|.m2\|eclim\|elpa\|.texlive"
