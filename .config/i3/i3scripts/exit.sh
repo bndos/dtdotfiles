@@ -10,7 +10,7 @@ fi
 if [ $res = "logout" ]; then
     rm ~/.config/i3/i3scripts/.night
     rm ~/.config/i3/i3scripts/.toggle
-    i3-msg exit
+    pkill dwm
 fi
 if [ $res = "reboot" ]; then
     rm ~/.config/i3/i3scripts/.night
