@@ -1,0 +1,2 @@
+#!/bin/bash
+emacsclient -s workspace4 -c -n
