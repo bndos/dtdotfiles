@@ -1,12 +1,6 @@
-rofi.modi: drun,window
-rofi.lines: 25 
-rofi.columns: 1
-rofi.width: 23%
-# rofi.drun-icon-theme: Pop
-# rofi.show-icons: true
-rofi.sidebar-mode: true
-rofi.m: -4
-rofi.location:0
-rofi.yoffset: 0
-rofi.xoffset: 0
-rofi.theme: andrea
+rofi.modi:          window,drun,run
+rofi.sidebar-mode:  true
+rofi.lines:    	    4
+rofi.theme:         andrea.rasi
+rofi.show-icons:    true
+rofi.drun-icon-theme: Papirus-Dark
