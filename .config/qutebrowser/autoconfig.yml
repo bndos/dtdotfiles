@@ -140,9 +140,7 @@ settings:
   fonts.messages.warning:
     global: 12pt MonacoB2
   fonts.monospace:
-    global: '"xos4 Terminus", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream
-      Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace,
-      Fixed, Consolas, Terminal'
+    global: Ubuntu
   fonts.prompts:
     global: 12pt MonacoB2
   fonts.statusbar:
@@ -150,7 +148,17 @@ settings:
   fonts.tabs:
     global: 12pt Monaco
   fonts.web.family.cursive:
-    global: null
+    global: Ubuntu
+  fonts.web.family.fantasy:
+    global: Ubuntu
+  fonts.web.family.fixed:
+    global: Ubuntu
+  fonts.web.family.sans_serif:
+    global: Ubuntu
+  fonts.web.family.serif:
+    global: Ubuntu
+  fonts.web.family.standard:
+    global: Ubuntu
   scrolling.bar:
     global: never
   statusbar.hide:

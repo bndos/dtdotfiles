@@ -30,7 +30,6 @@
 	expand:            false;
 	background-color:  @bg-color;
 	spacing:           1em;
-  	padding:           0;
   	border: 0px 0px 0px 0px;
 	border-color: #666666;
 }
@@ -74,7 +73,7 @@
 
 #entry {
 	font: "MonacoB2 13";
-	width: 13em;
+	width: 24%;
 }
 /* ================================================= */
 
