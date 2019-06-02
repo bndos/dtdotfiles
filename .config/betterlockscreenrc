@@ -1,0 +1,18 @@
+# configuration file for betterlockscreen
+
+insidecolor=00000000
+ringcolor=ffffffff
+keyhlcolor=d23c3dff
+bshlcolor=d23c3dff
+separatorcolor=ffffffff
+insidevercolor=00000000
+insidewrongcolor=d23c3dff
+ringvercolor=ffffffff
+ringwrongcolor=ffffffff
+verifcolor=ffffffff
+timecolor=ffffffff
+datecolor=ffffffff
+loginbox=1e1e1e33
+font="Monaco Nerd Font"
+locktext="%A, %d %m | $(/home/bndo/bin/battery)$(cat /sys/class/power_supply/BAT0/capacity)%"
+lock_timeout=60
