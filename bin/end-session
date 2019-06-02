@@ -1,0 +1,24 @@
+#!/bin/bash
+
+res=$(echo -e "      Lock\n      Suspend\n      Logout\n      Reboot\n      Poweroff" | rofi -dmenu -i -p ">" )
+
+if [ "$res" = "      Lock" ]; then
+    betterlockscreen -l dimblur
+fi
+if [ "$res" = "      Suspend" ]; then
+    betterlockscreen -l dimblur&
+    sleep 0.5
+    systemctl suspend
+fi
+if [ "$res" = "      Logout" ]; then
+    pkill flashfocus
+    pkill autostart.sh
+    pkill dwm
+fi
+if [ "$res" = "      Reboot" ]; then
+    reboot
+fi
+if [ "$res" = "      Poweroff" ]; then
+    poweroff
+fi
+exit 0

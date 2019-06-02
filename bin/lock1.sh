@@ -10,21 +10,21 @@ V='#1C211FBB'  # verifying
 
 i3lock \
     --insidevercolor=$C   \
-    --ringvercolor=$V     \
+    --ringvercolor=#ffffffff\
     \
     --insidewrongcolor=$C \
     --ringwrongcolor=$W   \
     \
     --insidecolor=#00000000     \
-    --ringcolor=$D        \
-    --linecolor=#ffffff44        \
-    --separatorcolor=$D   \
+    --ringcolor=#ffffff11\
+    --linecolor=#ffffff77        \
+    --separatorcolor=#ffffffff\
     \
     --verifcolor=$T        \
     --wrongcolor=$T        \
     --timecolor=$T        \
     --datecolor=$T        \
-    --layoutcolor=$T      \
+    --layoutcolor=#ffffffff\
     --keyhlcolor=#ffffffee \
     --bshlcolor=#ffffffee   \
     \

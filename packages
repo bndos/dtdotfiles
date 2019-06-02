@@ -1,0 +1,47 @@
+#!/bin/bash
+cp bin .zprofile .zshrc Pictures ~ -r
+cp .config/* ~/.config -r
+
+sudo pacman -S xf86-video-intel \
+               dunst \
+               compton \
+               pulseaudio \
+               pavucontrol \
+               xorg \
+               xorg-session \
+               xorg-server \
+               emacs \
+               mpd \
+               mpv \
+               youtube-dl \
+               cmus \
+               light \
+               qutebrowser \
+               zathura \
+               nautilus \
+               firefox \
+               chromium \
+               gvim \
+               alacritty \
+               cmake \
+               python-pip \
+               zsh \
+               lsd
+
+cd ~
+mkdir Downloads Desktop Documents School
+cd ~/.local/share/
+git clone https://github.com/bndos/fonts
+cp ~/Downloads/clones/dtdotfiles/.local/share/icons . -r
+cd ~/Downloads
+mkdir programs clones
+cd programs
+git clone https://github.com/bndos/dwm
+cd ~
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay -S cava bat
+
+localectl set-locale LANG=en_US.UTF-8

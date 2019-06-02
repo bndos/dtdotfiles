@@ -17,16 +17,22 @@ function send_notification {
     volume=`get_volume`
     # Make the bar with the special character ─ (it's not dash -)
     # https://en.wikipedia.org/wiki/Box-drawing_character
-    bar=$(seq -s "─" $(($volume / 3)) | sed 's/[0-9]//g')
+    bar=$(seq -s "─" $(($volume / 5 + 1)) | sed 's/[0-9]//g')
     # Send the notification
-    if (( $volume > 70 ))
+    if (( $volume == 100 ))
     then
 	dunstify -i ~/.local/share/icons/audio-volume-high.svg -r 2593 -u low  "$volume $bar"
+    elif (( $volume > 70 ))
+    then
+	dunstify -i ~/.local/share/icons/audio-volume-high.svg -r 2593 -u low  "$volume  $bar"
     elif (( $volume > 35 )) && (( $volume < 75 ))
     then
-	dunstify -i ~/.local/share/icons/audio-volume-medium.svg -r 2593 -u low  "$volume $bar"
+	dunstify -i ~/.local/share/icons/audio-volume-medium.svg -r 2593 -u low  "$volume  $bar"
+    elif (( $volume <= 5 ))
+    then
+	dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u low  "$volume   $bar"
     else
-	dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u low  "$volume $bar"
+	dunstify -i ~/.local/share/icons/audio-volume-muted.svg -r 2593 -u low  "$volume  $bar"
     fi
 }
 

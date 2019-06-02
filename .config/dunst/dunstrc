@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "400-30-20"
+    geometry = "350-30-20"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = no
@@ -247,9 +247,9 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#2f2f2f"
+    background = "#1e1e1e"
     foreground = "#FFFFFF"
-    frame_color = "#2f2f2f"
+    frame_color = "#1e1e1e"
     timeout = 2
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
@@ -257,9 +257,9 @@
 # Used for most types of warnings : 
 # Used for Locking screen warnings
 [urgency_normal]
-    background = "#2f2f2f"
+    background = "#1e1e1e"
     foreground = "#ffffff"
-    frame_color = "#2f2f2f"
+    frame_color = "#1e1e1e"
     timeout = 5
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
