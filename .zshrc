@@ -1,5 +1,5 @@
 export TERM="xterm-256color"
-export EDITOR="emax"
+export EDITOR="em1"
 export TERMINAL="terminator"
 export BROWSER="firefox"
 export READER="zathura"
@@ -17,8 +17,7 @@ export LC_ALL="en_US.UTF-8"
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --inline-info --color=dark,bg+:235,hl+:10,pointer:5'
 
 export ENHANCD_FILTER="fzf:peco:percol"
-export ENHANCD_COMMAND='x'
-export FZF_ALT_C_COMMAND=""
+export ENHANCD_COMMAND='c'
 
 # =============================================================================
 #                                   Plugins
@@ -37,12 +36,15 @@ source ~/.zplug/repos/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.
 autoload -Uz compinit
 # oh-my-zsh
 
-# # Miscellaneous commands
-# zplug "k4rthik/git-cal",  as:command
-# zplug "peco/peco",        as:command, from:gh-r
-# zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, \
-# use:"*${(L)$(uname -s)}*amd64*"
-# zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin
+# Miscellaneous commands
+zplug "k4rthik/git-cal",  as:command
+zplug "peco/peco",        as:command, from:gh-r
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, \
+use:"*${(L)$(uname -s)}*amd64*"
+zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin
+
+# Simple zsh calculator
+zplug "arzzen/calc.plugin.zsh"
 
 
 # zplug "plugins/common-aliases",    from:oh-my-zsh
@@ -117,7 +119,6 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # bindkey "^d" delete-char
 # # bindkey "^y" accept-and-hold
 bindkey "^[h" backward-kill-word
-# bindkey "^[c" capitalize-word
 # # bindkey "^u" backward-kill-line
 # # bindkey "^R" history-incremental-pattern-search-backward
 # # bindkey "^F" history-incremental-pattern-search-forward
@@ -318,8 +319,8 @@ alias emax='emacsclient -s workspace1 -c -n'
 # alias pgrep='pgrep -ai'
 
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
-export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+export EDITOR="em1"
+export VISUAL="em1"
 # export PATH=$PATH:/usr/local/avr
 
 autoload -Uz bracketed-paste-magic
@@ -339,21 +340,18 @@ umntphone () {
 	fusermount -u ~/phone
 }
 
-yt(){
-    
+yttomp3(){
     link=$1
+    youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" $link
+}
 
-    # link="https://youtu.be/YFD2PPAqNbw"
-    musicName=`youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' $link --restrict-filenames --get-filename`
-    echo $musicName
-
-    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' $link --restrict-filenames
-
+ytdl(){
+    link=$1
+    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' $link
 }
 
 em1 () {
 	emacsclient -s workspace1 -c -n $1&
-	sleep 0.1
 	disown
 	exit
 }
@@ -377,7 +375,7 @@ em4 () {
 }
 
 pkgsearch () {
-	  pacman -Ss $1 | grep "community\|extra" | cut -d"/" -f 2 | cut -d" " -f 1
+	  pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
 }
 
 grep-finals () {
@@ -387,6 +385,16 @@ grep-finals () {
 grep-excel () {
 	   xlsx2csv $1 | grep $2
 }
+
+ef() {
+     fzf | xargs -r -I % $EDITOR % ;
+}
+
+goto() {
+       cd $(cat ~/.config/bmdirs | fzf)
+}
+
+
 
 if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"
