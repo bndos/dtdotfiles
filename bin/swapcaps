@@ -1,0 +1,16 @@
+#!/bin/bash
+
+swapped=$(setxkbmap -print | grep swapcaps)
+
+if [ "$swapped" == "" ]
+then
+    echo "not swapped"
+    setxkbmap -option "ctrl:swapcaps"
+    notify-send "ctrl->maj
+maj->ctrl"
+else
+    echo "swapped"
+    setxkbmap -option
+    notify-send "maj->maj
+ctrl->ctrl"
+fi
