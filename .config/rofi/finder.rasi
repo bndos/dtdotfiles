@@ -14,14 +14,11 @@
 /* Main container                                    */
 /* ================================================= */
 #window {
-	fullscreen:    true;
 	location:      center;
 	anchor:        center;
 	border:        0px 0px 0px 0px;
 	transparency:  "real";
 
-	orientation:  horizontal;
-	children:     [mainbox, dummy];
     	spacing: 0;
 }
 
@@ -35,11 +32,6 @@
 	border-color: #666666;
 }
 
-/* Dummy container */
-#dummy {
-	expand: true;
-  	background-color: rgba(0, 0, 0, 0.5);
-}
 /* ================================================= */
 
 /* ================================================= */
@@ -74,7 +66,7 @@
 
 #entry {
 	font: "MonacoB2 13";
-	width: 30em;
+	width: 80em;
 }
 /* ================================================= */
 

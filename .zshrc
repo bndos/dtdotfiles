@@ -246,7 +246,8 @@ fi
 #POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Set name of the theme to load.
-ZSH_THEME="sorin"
+# ZSH_THEME="sorin"
+ZSH_THEME="edvardm"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
