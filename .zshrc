@@ -246,7 +246,10 @@ fi
 #POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Set name of the theme to load.
-ZSH_THEME="sorin"
+# ZSH_THEME="sorin"
+# ZSH_THEME="edvardm"
+# ZSH_THEME="awesomepanda"
+ZSH_THEME="gozilla"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
@@ -394,7 +397,9 @@ goto() {
        cd $(cat ~/.config/bmdirs | fzf)
 }
 
-
+open() {
+       nohup $1 $2 </dev/null >/dev/null 2>&1 &
+}
 
 if [[ -n ${LAUNCHER} ]]; then
     bindkey -s "^M" " & \n"

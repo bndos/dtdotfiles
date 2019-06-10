@@ -1,6 +1,7 @@
 rofi.modi:          window,drun,run
 rofi.sidebar-mode:  true
 rofi.lines:    	    4
+rofi.width:    	    1000px
 rofi.theme:         finder.rasi
 rofi.show-icons:    true
 rofi.drun-icon-theme: Papirus-Dark

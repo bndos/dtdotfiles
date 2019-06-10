@@ -4,29 +4,25 @@
 	
 	fc-color: #00b29800;
 	bg-color: #1e1e1e;
-	fc-color-trans: #9392AD;
+	fc-color-trans: #726F9E;
 	bg-color-trans: #003c4100;
 
-	font: "MonacoB2 13";
+	font: "Monaco Nerd Font Bold 13";
 }
 
 /* ================================================= */
 /* Main container                                    */
 /* ================================================= */
 #window {
-	fullscreen:    true;
 	location:      center;
 	anchor:        center;
 	border:        0px 0px 0px 0px;
-	transparency:  "real";
-
-	orientation:  horizontal;
-	children:     [mainbox, dummy];
-    	spacing: 0;
+	
 }
 
 /* First container */
 #mainbox {
+
 	expand:            false;
 	background-color:  @bg-color;
 	spacing:           1em;
@@ -34,46 +30,39 @@
 	border-color: #666666;
 }
 
-/* Dummy container */
-#dummy {
-	expand: true;
-  	background-color: rgba(0, 0, 0, 0.5);
-}
 /* ================================================= */
 
 /* ================================================= */
 /* Sidebar and its elements                          */
 /* ================================================= */
-#sidebar {
-	border:  0px 0px 0px 0px;
-}
 
 #button {
-	font:       "MonacoB2 13";
-	padding:    0.7em;
+	font:          "Monaco Nerd Font Bold 13";
+	padding:       0.4em;
+	margin:       0.4em;
+	border-radius: 0.75em;
 }
 
 #button selected {
-	font:              "MonacoB2 13";
+	font:              "Monaco Nerd Font Bold 13";
 	background-color:  @fc-color-trans;
 }
-/* ================================================= */
 
 /* ================================================= */
 /*  Input bar                                        */
 /* ================================================= */
 #inputbar {
-	padding:       1.4em 2em 0 2em;
-	spacing:		   0.2em;
+	padding:       1.4em 2em 0 1.2em;
+	spacing:		   0.6em;
 }
 
 #prompt {
-	font: "MonacoB2 13";
+	font: "Monaco Nerd Font Bold 13";
 }
 
 #entry {
-	font: "MonacoB2 13";
-	width: 24%;
+	font: "Monaco Nerd Font Bold 13";
+	width: 0%;
 }
 /* ================================================= */
 
@@ -86,8 +75,10 @@
 }
 
 #element {
-	font:     "MonacoB2 13";
-	padding:  0.4em 1.5em 0.4em 1.5em;
+	font:     "Monaco Nerd Font Bold 13";
+	padding:  0.4em 0;
+	margin:   0 0.3em 0 0.3em;
+	border-radius: 0.75em;
 }
 
 #element selected normal {
