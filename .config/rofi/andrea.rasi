@@ -7,7 +7,7 @@
 	fc-color-trans: #726F9E;
 	bg-color-trans: #003c4100;
 
-	font: "MonacoB2 13";
+	font: "Monaco Nerd Font Bold 13";
 }
 
 /* ================================================= */
@@ -37,14 +37,14 @@
 /* ================================================= */
 
 #button {
-	font:          "MonacoB2 13";
+	font:          "Monaco Nerd Font Bold 13";
 	padding:       0.4em;
 	margin:       0.4em;
 	border-radius: 0.75em;
 }
 
 #button selected {
-	font:              "MonacoB2 13";
+	font:              "Monaco Nerd Font Bold 13";
 	background-color:  @fc-color-trans;
 }
 
@@ -57,11 +57,11 @@
 }
 
 #prompt {
-	font: "MonacoB2 13";
+	font: "Monaco Nerd Font Bold 13";
 }
 
 #entry {
-	font: "MonacoB2 13";
+	font: "Monaco Nerd Font Bold 13";
 	width: 0%;
 }
 /* ================================================= */
@@ -75,7 +75,7 @@
 }
 
 #element {
-	font:     "MonacoB2 13";
+	font:     "Monaco Nerd Font Bold 13";
 	padding:  0.4em 0;
 	margin:   0 0.3em 0 0.3em;
 	border-radius: 0.75em;
