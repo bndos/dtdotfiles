@@ -11,17 +11,28 @@ sudo pacman -S xf86-video-intel \
                xorg-session \
                xorg-server \
                emacs \
+               xdotool \
+               redshift \
+               arandr \
+               papirus-icon-theme \
                mpd \
+               scrot \
+               alsa-utils \
+               imagemagick \
+               htop \
+               lxappearance \
                mpv \
                youtube-dl \
                cmus \
                light \
                qutebrowser \
                zathura \
+	       zathura-pdf-mupdf \
                nautilus \
                firefox \
                chromium \
                gvim \
+               w3m \
                alacritty \
                cmake \
                python-pip \
@@ -42,6 +53,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
-yay -S cava bat
+yay -S cava bat i3lock-color flat-remix-gtk etcher-bin
 
 localectl set-locale LANG=en_US.UTF-8
