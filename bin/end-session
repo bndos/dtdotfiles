@@ -13,6 +13,7 @@ fi
 if [ "$res" = "      Logout" ]; then
     pkill flashfocus
     pkill autostart.sh
+    pkill firefox
     pkill dwm
 fi
 if [ "$res" = "      Reboot" ]; then

@@ -1,35 +1,35 @@
 * {
-	text-color:        #ccd2be;
-	background-color:  rgba(30, 30, 30, 0.4);
-	
-	fc-color: #00b29800;
-	bg-color: #1e1e1e;
-	fc-color-trans: #726F9E;
-	bg-color-trans: #003c4100;
+    text-color:        #ffffff;
+    background-color:  rgba(30, 30, 30, 0.4);
+    
+    fc-color: #00b29800;
+    bg-color: #1e1e1e;
+    fc-color-trans: #51474F;
+    bg-color-trans: #003c4100;
 
-	font: "MonacoB2 13";
+    font: "MonacoB Nerd Font Bold 13";
 }
 
 /* ================================================= */
 /* Main container                                    */
 /* ================================================= */
 #window {
-	location:      center;
-	anchor:        center;
-	border:        0px 0px 0px 0px;
-	transparency:  "real";
+    location:      center;
+    anchor:        center;
+    border:        0px 0px 0px 0px;
+    transparency:  "real";
 
-    	spacing: 0;
+    spacing: 0;
 }
 
 /* First container */
 #mainbox {
-	expand:            false;
-	background-color:  @bg-color;
-	spacing:           1em;
-  	padding:           0;
-  	border: 0px 0px 0px 0px;
-	border-color: #666666;
+    expand:            false;
+    background-color:  @bg-color;
+    spacing:           1em;
+    padding:           0;
+    border: 0px 0px 0px 0px;
+    border-color: #666666;
 }
 
 /* ================================================= */
@@ -38,17 +38,21 @@
 /* Sidebar and its elements                          */
 /* ================================================= */
 #sidebar {
-	border:  0px 0px 0px 0px;
+    border:  0px 0px 0px 0px;
 }
 
 #button {
-	font:       "MonacoB2 13";
-	padding:    0.7em;
+    font:       "MonacoB Nerd Font Bold 13";
+    border-radius: 0.75em;
+    /*
+     * padding:    0.7em;
+     */
+    padding:  0.4em 1.5em 0.4em 1.5em;
 }
 
 #button selected {
-	font:              "MonacoB2 13";
-	background-color:  @fc-color-trans;
+    font:              "MonacoB Nerd Font Bold 13";
+    background-color:  @fc-color-trans;
 }
 /* ================================================= */
 
@@ -56,17 +60,17 @@
 /*  Input bar                                        */
 /* ================================================= */
 #inputbar {
-	padding:       1.4em 2em 0 2em;
-	spacing:		   0.2em;
+    padding:       1.4em 2em 0 2em;
+    spacing:		   0.2em;
 }
 
 #prompt {
-	font: "MonacoB2 13";
+    font: "MonacoB Nerd Font Bold 13";
 }
 
 #entry {
-	font: "MonacoB2 13";
-	width: 80em;
+    font: "MonacoB Nerd Font Bold 13";
+    width: 80em;
 }
 /* ================================================= */
 
@@ -75,41 +79,42 @@
 /* List view					     */
 /* ================================================= */
 #listview {
-	spacing: 0px;
+    spacing: 0px;
 }
 
 #element {
-	font:     "MonacoB2 13";
-	padding:  0.4em 1.5em 0.4em 1.5em;
+    font:     "MonacoB Nerd Font Bold 13";
+    border-radius: 0.75em;
+    padding:  0.4em 1.5em 0.4em 1.5em;
 }
 
 #element selected normal {
-	background-color: @fc-color-trans;
+    background-color: @fc-color-trans;
 }
 
 #element normal active {
-	background-color: @fc-color-trans;
+    background-color: @fc-color-trans;
 }
 
 #element normal urgent {
-	background-color: Orange;
+    background-color: Orange;
 }
 
 #element alternate normal {
 }
 
 #element alternate active {
-	text-color: @focus-col;
+    text-color: @focus-col;
 }
 
 #element alternate urgent {
-	background-color: OrangeRed;
+    background-color: OrangeRed;
 }
 
 #element selected active {
-	background-color:  @fc-color-trans;
+    background-color:  @fc-color-trans;
 }
 
 #element selected urgent {
-	background-color:  DarkOrange;
+    background-color:  DarkOrange;
 }

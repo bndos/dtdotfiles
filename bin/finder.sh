@@ -94,4 +94,9 @@ then
     tac "${ROFI_FB_HISTORY_FILE}" | grep "${ROFI_FB_CUR_DIR}"
 fi
 #echo ".."
-find ~ -type f -printf "%P\n" | grep -v ".cache\|.git\|.eclipse\|.vim\|.w3m\|.webclipse\|.wget-hsts\|VirtualBox\|.oh-my-zsh\|.pki\|.dotfiles\|.zplug\|.m2\|eclim\|elpa\|.texlive"
+# find ~ -type f -printf "%P\n" | grep -v ".cache\|.git\|.eclipse\|.vim\|.w3m\|.webclipse\|.wget-hsts\|VirtualBox\|.oh-my-zsh\|.pki\|.dotfiles\|.zplug\|.m2\|eclim\|elpa\|.texlive"
+
+# find ~ -type f -printf "%P\n" | grep "bin\|build\|Desktop\|Documents\|Downloads\|Drop\|Music\|phone\|Pictures\|Projects\|School\|startup-page.html\|Videos\|.local\|.config"
+
+find . -type f -not -path '*/\.*' -printf "%P\n" -maxdepth 4
+# find ~  \( -type f -and -path '/home/bndo/Documents/*' -or -path '/home/bndo/Downloads/*' -or -path '/home/bndo/Desktop/*' -or -path '/home/bndo/bin/*' -or -path '/home/bndo/Pictures*' -or -path '/home/bndo/Videos/*' -or -path '/home/bndo/Videos/*' -or -path '/home/bndo/Projects/*' \) -printf "%P\n"

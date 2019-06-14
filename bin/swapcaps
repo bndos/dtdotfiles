@@ -6,11 +6,9 @@ if [ "$swapped" == "" ]
 then
     echo "not swapped"
     setxkbmap -option "ctrl:swapcaps"
-    notify-send "ctrl->maj
-maj->ctrl"
+    notify-send "keys swapped"
 else
     echo "swapped"
     setxkbmap -option
-    notify-send "maj->maj
-ctrl->ctrl"
+    notify-send "keys unswapped"
 fi
