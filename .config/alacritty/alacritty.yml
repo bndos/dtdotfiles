@@ -92,19 +92,19 @@ tabspaces: 8
 font:
   # Normal (roman) font face
   normal:
-    family: Monaco Nerd Font
+    family: MonacoB Nerd Font
     # The `style` can be specified to pick a specific face.
     style: Bold
 
   # Bold font face
   bold:
-    family: Monaco Nerd Font
+    family: MonacoB Nerd Font
     # The `style` can be specified to pick a specific face.
     style: Bold
 
   # Italic font face
   italic:
-    family: Monaco Nerd Font
+    family: MonacoB Nerd Font
     # The `style` can be specified to pick a specific face.
     style: Italic
 
@@ -137,7 +137,7 @@ draw_bold_text_with_bright_colors: true
 # colors:
 #   # Default colors
 #   primary:
-#     background: '0x1e1e1e'
+#     background: '0x212121'
 #     foreground: '0xffffff'
 
 #     # Bright and dim foreground colors
@@ -158,7 +158,7 @@ draw_bold_text_with_bright_colors: true
 
 # colors:
 #   primary:
-#     background: '0x1e1e1e'
+#     background: '0x212121'
 #     foreground: '0xf8f8f2'
 #   cursor:
 #     text: '0x44475a'
@@ -198,7 +198,7 @@ colors:
   # Default colors
   primary:
     # background: '0x282a36'
-    background: '0x1e1e1e'
+    background: '0x212121'
     foreground: '0xf8f8f2'
   cursor:
     text: '0x000000'
@@ -229,8 +229,8 @@ colors:
   #
   # The indexed colors include all colors from 16 to 256.
   # When these are not set, they're filled with sensible defaults.
-  #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
+  indexed_colors:
+   - { index: 16, color: '0x000000' }
 
 # Visual Bell
 #
@@ -256,7 +256,7 @@ colors:
 visual_bell:
   animation: EaseOutExpo
   duration: 0
-  color: '0xffffff'
+  color: '0x444444'
 
 # Background opacity
 #

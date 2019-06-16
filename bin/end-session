@@ -11,6 +11,8 @@ if [ "$res" = "      Suspend" ]; then
     systemctl suspend
 fi
 if [ "$res" = "      Logout" ]; then
+    pkill --signal SIGKILL firefox
+    pkill qutebrowser
     pkill flashfocus
     pkill autostart.sh
     pkill dwm
