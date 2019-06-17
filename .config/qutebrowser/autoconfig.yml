@@ -6,7 +6,6 @@ settings:
   aliases:
     global:
       folio: open https://cas.polymtl.ca/cas/login?service=https%3A%2F%2Fpolyfolio.polymtl.ca%2Flogin
-      fy: hint links spawn --detach mpv --force-window yes {hint-url}
       imp: open https://www.imp.polymtl.ca/login.php
       moodle: open https://moodle.polymtl.ca/login/index.php
       q: close
@@ -19,7 +18,6 @@ settings:
   bindings.commands:
     global:
       normal:
-        <Ctrl+Shift+y>: hint links spawn --detach mpv --force-window yes {hint-url}
   bindings.key_mappings:
     global:
       <Ctrl+6>: <Ctrl+^>
@@ -161,8 +159,6 @@ settings:
     global: Ubuntu
   scrolling.bar:
     global: never
-  statusbar.hide:
-    global: true
   tabs.width:
     global: 300
   url.default_page:
