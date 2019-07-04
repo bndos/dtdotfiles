@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Change the coordinates for your primary and secondary monitor here
+MONITOR_1='1920x1080+0+0'
+MONITOR_2='1360x768+1920+312'
+
+eval $(xdotool getmouselocation --shell)
+
+max_width_monitor1=$(echo $MONITOR_1 | grep -Po '^\d+')
+
+# Cursor is at the primary monitor
+if [ $X -lt $max_width_monitor1 ]; then
+    coords=$MONITOR_1
+# Cursor is at the secondary monitor
+else
+    coords=$MONITOR_2
+fi
+
+maim -g ${coords} -u ~/Pictures/screenshots/screenshot`ls ~/Pictures/screenshots/screenshot* | wc -l`_$(date +%s).png $@
+notify-send -t 1000 "screenshot";
