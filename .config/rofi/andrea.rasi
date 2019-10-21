@@ -1,13 +1,13 @@
 * {
 	text-color:        #ffffff;
-	background-color:  rgba(33, 33, 33, 0.4);
+	background-color:  rgba(16, 16, 16, 0.4);
 	
 	fc-color: #00b29800;
-	bg-color: #212121;
+	bg-color: #101010;
 	fc-color-trans: #51474F;
 	bg-color-trans: #003c4100;
 
-	font: "MonacoB Nerd Font Bold 13";
+	font: "Monego bold 12";
 }
 
 /* ================================================= */
@@ -17,6 +17,8 @@
 	location:      center;
 	anchor:        center;
 	border:        0px 0px 0px 0px;
+	border-radius: 0.75em;
+	width:         17em;	
 }
 
 /* First container */
@@ -36,14 +38,14 @@
 /* ================================================= */
 
 #button {
-	font:          "MonacoB Nerd Font Bold 13";
+	font:          "Monego bold 12";
 	padding:       0.6em;
 	margin:        0.6em;
 	border-radius: 0.75em;
 }
 
 #button selected {
-	font:              "MonacoB Nerd Font Bold 13";
+	font:              "Monego bold 12";
 	background-color:  @fc-color-trans;
 }
 
@@ -56,11 +58,11 @@
 }
 
 #prompt {
-	font: "MonacoB Nerd Font Bold 13";
+	font: "Monego bold 12";
 }
 
 #entry {
-	font: "MonacoB Nerd Font Bold 13";
+	font: "Monego bold 12";
 	width: 0%;
 }
 /* ================================================= */
@@ -74,7 +76,7 @@
 }
 
 #element {
-	font:     "MonacoB Nerd Font Bold 13";
+	font:     "Monego bold 12";
 	padding:  0.3em 0;
 	margin:   0 0.3em 0 0.3em;
 	border-radius: 0.75em;

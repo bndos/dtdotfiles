@@ -1,6 +1,6 @@
 rofi.modi:          window,drun,run
 rofi.sidebar-mode:  true
-rofi.lines:    	    5
+rofi.lines:    	    10
 rofi.theme:         andrea.rasi
 rofi.show-icons:    true
 rofi.drun-icon-theme: Papirus-Dark

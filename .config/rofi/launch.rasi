@@ -1,9 +1,9 @@
 * {
 	text-color:        #ffffff;
-	background-color:  rgba(33, 33, 33, 0.4);
+	background-color:  rgba(16, 16, 16, 0.4);
 	
 	fc-color: #00b29800;
-	bg-color: #212121;
+	bg-color: #101010;
 	fc-color-trans: #51474F;
 	bg-color-trans: #003c4100;
 
