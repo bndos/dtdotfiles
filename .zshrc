@@ -54,14 +54,6 @@ if [[ $OSTYPE = (linux)* ]]; then
     zplug "plugins/dnf",           from:oh-my-zsh, if:"(( $+commands[dnf] ))"
 fi
 
-if [[ $OSTYPE = (darwin)* ]]; then
-    zplug "lib/clipboard",         from:oh-my-zsh
-    zplug "plugins/osx",           from:oh-my-zsh
-    zplug "plugins/brew",          from:oh-my-zsh, if:"(( $+commands[brew] ))"
-    zplug "plugins/macports",      from:oh-my-zsh, if:"(( $+commands[port] ))"
-fi
-
-zplug "hlissner/zsh-autopair", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 # zsh-syntax-highlighting must be loaded after executing compinit command
@@ -249,7 +241,13 @@ fi
 # ZSH_THEME="sorin"
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
-ZSH_THEME="gozilla"
+# ZSH_THEME="gozilla"
+# ZSH_THEME="dracula"
+# ZSH_THEME="af-magic"
+# ZSH_THEME="dpoggi"
+# ZSH_THEME="suvash"
+# ZSH_THEME="arrow"
+ZSH_THEME="avit"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
@@ -304,7 +302,7 @@ alias doc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias backup='cd ~/Documents/backup'
-alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dot='cd ~/Downloads/clones/dtdotfiles'
 alias school='cd ~/Documents/poly'
 alias tps='cd ~/Documents/poly-tps'
 
@@ -354,27 +352,23 @@ ytdl(){
 }
 
 em1 () {
-	emacsclient -s workspace1 -c -n $1&
+	emacsclient -s workspace1 -c -n "$1"&
 	disown
-	exit
 }
 
 em2 () {
-	emacsclient -s workspace2 -c -n $1&
+	emacsclient -s workspace2 -c -n "$1"&
 	disown
-	exit
 }
 
 em3 () {
-	emacsclient -s workspace3 -c -n $1&
+	emacsclient -s workspace3 -c -n "$1"&
 	disown
-	exit
 }
 
 em4 () {
-	emacsclient -s workspace4 -c -n $1&
+	emacsclient -s workspace4 -c -n "$1"&
 	disown
-	exit
 }
 
 pkgsearch () {
