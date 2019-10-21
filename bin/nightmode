@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# TOGGLE=~/.config/i3/i3scripts/.toggle
-
-# if [ ! -e $TOGGLE ]; then
-#     touch $TOGGLE
-#     redshift -PO 3000
-# else
-#     rm $TOGGLE
-#     redshift -x
-# fi
-
-redshift -PO 3000
+redshift -PO 3300
+echo 60 > /tmp/filter
+bluefilter up
+bluefilter down

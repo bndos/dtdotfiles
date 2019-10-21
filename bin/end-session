@@ -1,14 +1,14 @@
 #!/bin/bash
 
-res=$(echo -e "      Lock\n      Suspend\n      Logout\n      Reboot\n      Poweroff" | rofi -dmenu -i -p ">" )
+res=$(echo -e "      Lock\n      Blank\n      Logout\n      Reboot\n      Poweroff" | rofi -dmenu -i -p ">" )
 
 if [ "$res" = "      Lock" ]; then
     betterlockscreen -l dimblur
 fi
-if [ "$res" = "      Suspend" ]; then
+if [ "$res" = "      Blank" ]; then
     betterlockscreen -l dimblur&
     sleep 0.5
-    systemctl suspend
+    xset dpms force off
 fi
 if [ "$res" = "      Logout" ]; then
     pkill --signal SIGKILL firefox
