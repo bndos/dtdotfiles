@@ -244,10 +244,15 @@ fi
 # ZSH_THEME="gozilla"
 # ZSH_THEME="dracula"
 # ZSH_THEME="af-magic"
+# ZSH_THEME="afowler"
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="suvash"
 # ZSH_THEME="arrow"
-ZSH_THEME="avit"
+# ZSH_THEME="avit"
+# ZSH_THEME="dpoggi"
+# ZSH_THEME="sorin"
+# ZSH_THEME="afowler"
+ZSH_THEME="pi"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
