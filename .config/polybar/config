@@ -9,7 +9,10 @@ alert = #ebcb8b
 
 [bar/top]
 
-monitor = HDMI1
+monitor = eDP1
+; bottom = true
+width = 99%
+offset-x = 0.5%
 height = 30
 fixed-center = true
 background = ${colors.background}
@@ -23,7 +26,7 @@ font-1 = FontAwesome:pixelsize=8
 ;tray-position = right
 ;tray-padding = 2
 ;tray-background = ${colors.background}
-radius = 10
+; radius = 2
 wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
