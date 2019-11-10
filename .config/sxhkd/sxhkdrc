@@ -149,3 +149,6 @@ XF86AudioRaiseVolume
 
 super + shift + e
         end-session
+
+{Print, ctrl + Print, alt + Print, shift + Print}
+	{screenshot, sleep 1; screen_select, screen_focus, screen_delay}

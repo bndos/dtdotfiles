@@ -12,7 +12,7 @@ touchpad.sh &
 udiskie &
 light -N 5 &
 
-bspc monitor HDMI1 -d 1 2 3 4 5 6 7 8 9
+bspc monitor HDMI1 -d  "" "" "" "" "" "" "" "" "" ""
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9
 
 # bspc config ignore_ewmh_fullscreen all
@@ -25,6 +25,9 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      false
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Zathura desktop='^3' state=floating follow=on
+bspc rule -a libreoffice-writer desktop='^3' state=floating follow=on
+bspc rule -a libreoffice desktop='^3' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
