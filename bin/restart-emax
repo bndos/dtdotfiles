@@ -1,23 +1,12 @@
 #!/bin/bash
-
-dte(){
-  dte="$(date +"%l:%M%p")"
-  echo -e "$dte"
-}
-
-bati(){
-    bati="$(cat /sys/class/power_supply/BAT0/capacity)"
-    echo -e "$bati%"
-}
-
 pkill emacs
+cd ~
 
-xsetroot -name "em1... $(dte) $(battery)$(bati)"
 emacs --daemon=workspace1 -l ~/.emacs.d/ws1
-xsetroot -name "em2... $(dte) $(battery)$(bati)"
+dunstify -r 2593 "emacsd ws1 ready" &
 emacs --daemon=workspace2 -l ~/.emacs.d/ws2
-xsetroot -name "em3... $(dte) $(battery)$(bati)"
+dunstify -r 2593 "emacsd ws2 ready" &
 emacs --daemon=workspace3 -l ~/.emacs.d/ws3
-xsetroot -name "em4... $(dte) $(battery)$(bati)"
+dunstify -r 2593 "emacsd ws3 ready" &
 emacs --daemon=workspace4 -l ~/.emacs.d/ws4
-xsetroot -name "$(dte) $(battery)$(bati)"
+dunstify -r 2593 "emacsd ws4 ready" &

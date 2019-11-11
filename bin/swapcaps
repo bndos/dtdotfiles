@@ -4,11 +4,9 @@ swapped=$(setxkbmap -print | grep swapcaps)
 
 if [ "$swapped" == "" ]
 then
-    echo "not swapped"
     setxkbmap -option "ctrl:swapcaps"
-    notify-send "keys swapped"
+    dunstify -r 2593 "keys swapped"
 else
-    echo "swapped"
     setxkbmap -option
-    notify-send "keys unswapped"
+    dunstify -r 2593 "keys unswapped"
 fi

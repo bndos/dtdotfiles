@@ -1,26 +1,27 @@
 #!/bin/bash
 
-res=$(echo -e "      Lock\n      Blank\n      Logout\n      Reboot\n      Poweroff" | rofi -dmenu -i -p ">" )
+res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | rofi -dmenu -i -p ">" )
 
-if [ "$res" = "      Lock" ]; then
+if [ "$res" = "Lock" ]; then
     betterlockscreen -l dimblur
 fi
-if [ "$res" = "      Blank" ]; then
+if [ "$res" = "Suspend" ]; then
     betterlockscreen -l dimblur&
     sleep 0.5
-    xset dpms force off
+    systemctl suspend
 fi
-if [ "$res" = "      Logout" ]; then
+if [ "$res" = "Logout" ]; then
     pkill --signal SIGKILL firefox
     pkill qutebrowser
     pkill flashfocus
     pkill autostart.sh
     pkill dwm
+    bspc quit
 fi
-if [ "$res" = "      Reboot" ]; then
+if [ "$res" = "Reboot" ]; then
     reboot
 fi
-if [ "$res" = "      Poweroff" ]; then
+if [ "$res" = "Poweroff" ]; then
     poweroff
 fi
 exit 0
