@@ -26,6 +26,8 @@ bspc config gapless_monocle      false
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Zathura desktop='^3' state=floating follow=on
+bspc rule -a Alacritty state=pseudo_tiled
+bspc rule -a Emacs state=pseudo_tiled
 bspc rule -a libreoffice-writer desktop='^3' state=floating follow=on
 bspc rule -a libreoffice desktop='^3' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
