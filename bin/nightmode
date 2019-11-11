@@ -1,6 +1,43 @@
 #!/bin/bash
 
-redshift -PO 3300
-echo 60 > /tmp/filter
-bluefilter up
-bluefilter down
+function send_notification {
+    filter_perc=$1
+
+    bar=$(seq -s "─" $(($filter_perc / 5 + 1)) | sed 's/[0-9]//g')
+    # Send the notification
+    if (( $filter_perc == 100 ))
+    then
+	dunstify -i ~/.local/share/icons/colors-chromared.svg -r 2593 -u low  "$filter_perc $bar"
+    elif (( $filter_perc > 70 ))
+    then
+	dunstify -i ~/.local/share/icons/color-picker-black.svg -r 2593 -u low  "$filter_perc  $bar"
+    elif (( $filter_perc > 35 )) && (( $filter_perc < 75 ))
+    then
+	dunstify -i ~/.local/share/icons/color-picker-white.svg -r 2593 -u low  "$filter_perc  $bar"
+    elif (( $filter_perc <= 5 ))
+    then
+	dunstify -i ~/.local/share/icons/colors-chromablue.svg -r 2593 -u low  "$filter_perc   $bar"
+    else
+	dunstify -i ~/.local/share/icons/colors-chromablue.svg -r 2593 -u low  "$filter_perc  $bar"
+    fi
+}
+
+filter_file=/tmp/filter
+
+if [ ! -e $filter_file ]; then
+    echo "0" > $filter_file
+fi
+
+
+filter_perc=$(cat /tmp/filter)
+
+if [ $filter_perc -ne 60 ]
+then
+    redshift -PO 3300
+    echo 60 > /tmp/filter
+    send_notification 60
+else
+    redshift -PO 6500
+    echo 0 > /tmp/filter
+    send_notification 0
+fi
