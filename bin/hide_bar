@@ -1,3 +1,21 @@
 #!/bin/bash
-polybar-msg cmd toggle &
-bspc config top_padding 0 &
+
+bar_state_file=/tmp/bar_state_file
+
+if [ ! -e $state_file ]
+then
+    echo "show" > $bar_state_file
+fi
+
+state=$(cat /tmp/bar_state_file)
+
+if [ $state == "show" ]
+then
+    polybar-msg cmd toggle
+    bspc config top_padding 35
+    echo "hidden" > $bar_state_file
+else
+    polybar-msg cmd toggle
+    bspc config top_padding 0
+    echo "show" > $bar_state_file
+fi

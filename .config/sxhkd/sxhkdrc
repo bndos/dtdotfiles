@@ -144,8 +144,9 @@ super + z
 super + n
         flash_window
 
+# hide bar
 super + shift + n
-        polybar-msg cmd toggle&;bspc config top_padding 0
+        hide_bar
 
 XF86AudioLowerVolume
 	volume down

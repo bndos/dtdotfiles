@@ -2,7 +2,8 @@
 
 ~/.config/polybar/launch.sh &
 sxhkd &
-# xrandr --output HDMI1 --mode 1920x1080 --primary &
+xrandr --output HDMI1 --mode 1920x1080 --primary
+xrandr --output eDP1 --off
 feh --bg-fill ~/Pictures/wallpapers/background.jpg &
 /usr/lib/polkit-kde-authentication-agent-1 &
 compton &

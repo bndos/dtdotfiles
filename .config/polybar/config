@@ -6,10 +6,9 @@ foreground-alt = #585c46
 accent = #bd93f9
 alert = #ebcb8b
 
-
 [bar/top]
 
-monitor = eDP1
+monitor = HDMI1
 ; bottom = true
 width = 90%
 offset-x = 5%
@@ -33,7 +32,6 @@ wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
 modules-right = volume battery date
-
 
 [module/bspwm]
 
