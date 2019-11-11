@@ -150,6 +150,9 @@ XF86AudioLowerVolume
 XF86AudioRaiseVolume
 	volume up
 
+XF86AudioMute
+	volume mute
+
 super + shift + e
         end-session
 

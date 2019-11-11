@@ -30,7 +30,7 @@ font-1 = FontAwesome:pixelsize=8
 wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
-modules-right = volume date
+modules-right = volume battery date
 
 
 [module/bspwm]
@@ -114,7 +114,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 type = internal/battery
 full-at = 98
-battery = BAT1
+battery = BAT0
 adapter = ACAD
 poll-interval = 60
 format-charging = <ramp-capacity>  <label-charging>
