@@ -9,7 +9,7 @@ alert = #ebcb8b
 
 [bar/top]
 
-monitor = HDMI1
+monitor = eDP1
 ; bottom = true
 width = 90%
 offset-x = 5%
@@ -19,14 +19,16 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 padding-left = 3
 padding-right = 3
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 1
+module-margin-right = 1
 font-0 = Monego:style=Bold:pixelsize=12
 font-1 = FontAwesome:pixelsize=8
+enable-ipc = true
 ;tray-position = right
 ;tray-padding = 2
 ;tray-background = ${colors.background}
 ; radius = 2
+; override-redirect = true
 wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
@@ -97,9 +99,9 @@ ramp-signal-foreground = ${colors.accent}
 
 type = internal/volume
 format-volume = <label-volume> <bar-volume>
-label-volume = " "
+label-volume = ""
 label-volume-foreground = ${colors.accent}
-format-muted-prefix = " "
+format-muted-prefix = ""
 format-muted-foreground = ${colors.accent}
 label-muted = Muted
 label-muted-foreground= ${colors.foreground-alt}
@@ -117,10 +119,10 @@ full-at = 98
 battery = BAT0
 adapter = ACAD
 poll-interval = 60
-format-charging = <ramp-capacity>  <label-charging>
+format-charging = <ramp-capacity> <label-charging>
 label-charging =  %percentage%%
 label-full = Full
-format-discharging = <ramp-capacity>  <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -134,7 +136,7 @@ ramp-capacity-foreground = ${colors.accent}
 
 type = internal/date
 interval = 30
-label = " %date% %time%"
+label = "%date% %time%"
 date =
 date-alt = %a %d
 time = %H:%M

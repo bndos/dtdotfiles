@@ -1,19 +1,20 @@
 #! /bin/sh
 
+~/.config/polybar/launch.sh &
 sxhkd &
-xrandr --output HDMI1 --mode 1920x1080 --primary
-xrandr --output eDP1 --off
-feh --bg-scale ~/Pictures/wallpapers/background.jpg &
+# xrandr --output HDMI1 --mode 1920x1080 --primary &
+feh --bg-fill ~/Pictures/wallpapers/background.jpg &
+/usr/lib/polkit-kde-authentication-agent-1 &
 compton &
 flashfocus &
+swapcaps &
 restart-emax &
-~/.config/polybar/launch.sh
 touchpad.sh &
 udiskie &
 light -N 5 &
 
 bspc monitor HDMI1 -d  "" "" "" "" "" "" "" "" "" ""
-bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9
+bspc monitor eDP1 -d  "" "" "" "" "" "" "" "" "" ""
 
 # bspc config ignore_ewmh_fullscreen all
 bspc config border_width         0
@@ -26,8 +27,9 @@ bspc config gapless_monocle      false
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Zathura desktop='^3' state=floating follow=on
-bspc rule -a Alacritty state=tiled
 bspc rule -a Emacs state=tiled
+bspc rule -a mpv desktop='^4' state=pseudo_tiled follow=on
+# bspc rule -a Alacritty state=pseudo_tiled
 bspc rule -a libreoffice-writer desktop='^3' state=floating follow=on
 bspc rule -a libreoffice desktop='^3' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
