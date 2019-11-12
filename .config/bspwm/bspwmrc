@@ -8,14 +8,14 @@ feh --bg-fill ~/Pictures/wallpapers/background.jpg &
 /usr/lib/polkit-kde-authentication-agent-1 &
 compton &
 flashfocus &
-swapcaps &
+# swapcaps &
 restart-emax &
 touchpad.sh &
 udiskie &
 light -N 5 &
 
 bspc monitor HDMI1 -d  "" "" "" "" "" "" "" "" "" ""
-bspc monitor eDP1 -d  "" "" "" "" "" "" "" "" "" ""
+# bspc monitor eDP1 -d  "" "" "" "" "" "" "" "" "" ""
 
 # bspc config ignore_ewmh_fullscreen all
 bspc config border_width         0
