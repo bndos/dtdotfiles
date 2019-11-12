@@ -30,7 +30,7 @@ enable-ipc = true
 wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
-modules-right = volume battery date
+modules-right = alsa battery date
 
 [bar/mon]
 monitor = HDMI2
@@ -159,8 +159,7 @@ ramp-capacity-foreground = ${colors.accent}
 
 type = internal/date
 interval = 30
-click-left = alacritty
-label = " %date%%time%"
+label = "%date% %time%"
 date =
 date-alt = %a %d
 time = %H:%M
