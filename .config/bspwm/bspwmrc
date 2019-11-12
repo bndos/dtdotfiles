@@ -2,8 +2,7 @@
 
 ~/.config/polybar/launch.sh &
 sxhkd &
-xrandr --output HDMI1 --mode 1920x1080 --primary
-xrandr --output eDP1 --off
+xrandr --output HDMI2 --auto --right-of eDP1
 feh --bg-fill ~/Pictures/wallpapers/background.jpg &
 /usr/lib/polkit-kde-authentication-agent-1 &
 compton &
@@ -14,7 +13,7 @@ touchpad.sh &
 udiskie &
 light -N 5 &
 
-bspc monitor HDMI1 -d  "" "" "" "" "" "" "" "" "" ""
+bspc monitor HDMI2 -d  "" "" "" "" "" "" "" "" "" ""
 bspc monitor eDP1 -d  "" "" "" "" "" "" "" "" "" ""
 
 # bspc config ignore_ewmh_fullscreen all
