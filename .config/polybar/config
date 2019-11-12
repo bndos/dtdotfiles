@@ -56,7 +56,7 @@ enable-ipc = true
 wm-restack = bspwm
 modules-left = bspwm
 modules-center = xwindow
-modules-right = volume battery date
+modules-right = alsa battery date
 
 [module/bspwm]
 
@@ -118,9 +118,9 @@ ramp-signal-foreground = ${colors.accent}
 
 
 
-[module/volume]
+[module/alsa]
 
-type = internal/volume
+type = internal/alsa
 format-volume = <label-volume> <bar-volume>
 label-volume = ""
 label-volume-foreground = ${colors.accent}
@@ -159,7 +159,8 @@ ramp-capacity-foreground = ${colors.accent}
 
 type = internal/date
 interval = 30
-label = "%date% %time%"
+click-left = alacritty
+label = " %date%%time%"
 date =
 date-alt = %a %d
 time = %H:%M

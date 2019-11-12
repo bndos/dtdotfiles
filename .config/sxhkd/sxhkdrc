@@ -82,11 +82,22 @@ super + {_,shift + }c
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
+	bspc desktop -f {prev,next}.local.occupied
+
+super + shift + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
+<<<<<<< HEAD
 super + {grave,Tab}
 	bspc {node,desktop} -f last.occupied
+=======
+super + grave
+        bspc node -f last
+
+super + Tab
+        bspc desktop -f last.occupied
+>>>>>>> 3723ef070bbc801271561c8192c88a1e12eeeb38
 
 # focus the older or newer node in the focus history
 super + {o,i}
@@ -184,3 +195,9 @@ super + shift + e
 
 {Print, ctrl + Print, alt + Print, shift + Print}
 	{screenshot, sleep 1; screen_select, screen_focus, screen_delay}
+
+super + semicolon
+        scratchpad1
+
+super + apostrophe
+        scratchpad2
