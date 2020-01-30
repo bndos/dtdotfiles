@@ -1,3 +1,4 @@
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bndo/.mujoco/mujoco200/bin
 export TERM="xterm-256color"
 export EDITOR="em1"
 export TERMINAL="terminator"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | rofi -dmenu -i -p ">" )
+res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#ffa358' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14')
 
 if [ "$res" = "Lock" ]; then
     betterlockscreen -l dimblur
@@ -8,13 +8,14 @@ fi
 if [ "$res" = "Suspend" ]; then
     betterlockscreen -l dimblur&
     sleep 0.5
-    systemctl suspend
+    xset dpms force off
 fi
 if [ "$res" = "Logout" ]; then
     pkill --signal SIGKILL firefox
     pkill qutebrowser
     pkill flashfocus
     pkill autostart.sh
+    pkill spectrwm
     pkill dwm
     bspc quit
 fi
