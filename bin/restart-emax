@@ -1,12 +1,13 @@
 #!/bin/bash
+
 pkill emacs
 cd ~
 
 emacs --daemon=workspace1 -l ~/.emacs.d/ws1
-dunstify -r 2593 "emacsd ws1 ready" &
+notify-send "emacsd ws1 ready" &
 emacs --daemon=workspace2 -l ~/.emacs.d/ws2
-dunstify -r 2593 "emacsd ws2 ready" &
+notify-send "emacsd ws2 ready" &
 emacs --daemon=workspace3 -l ~/.emacs.d/ws3
-dunstify -r 2593 "emacsd ws3 ready" &
+notify-send "emacsd ws3 ready" &
 emacs --daemon=workspace4 -l ~/.emacs.d/ws4
-dunstify -r 2593 "emacsd ws4 ready" &
+notify-send "emacsd ws4 ready" &

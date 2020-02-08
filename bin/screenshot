@@ -1,5 +1,26 @@
 #!/bin/bash
 
-scrot ~/Pictures/screenshots/screenshot`ls ~/Pictures/screenshots/ | wc -l`_%y-%m-%d_%Hh%M.png
-notify-send -t 1000 "screenshot"
+screenshot_dir=$HOME/Pictures/screenshots
+mkdir -p $screenshot_dir
+
+case $1 in
+    all)
+	scrot $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
+	notify-send -t 1000 "screenshot saved"
+	;;
+    delay)
+	scrot -d 5 $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
+	notify-send -t 1000 "screenshot delay saved"
+	;;
+    focus)
+	scrot -u $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
+	notify-send -t 1000 "screenshot focused window saved"
+	;;
+    selection)
+	sleep 1
+	scrot -d 1 -s $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
+	notify-send -t 1000 "screenshot selection saved"
+	;;
+	
+esac
 

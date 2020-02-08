@@ -36,11 +36,11 @@ function send_notification {
 
 case $1 in
     up)
-	xbacklight -inc 5
+	light -A 5
 	send_notification
 	;;
     down)
-	xbacklight -dec 5
+	light -U 5
 	send_notification
 	;;
 esac

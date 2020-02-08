@@ -42,9 +42,10 @@ $percent = $2;
 
 # Display different icons for battery status
 if ($status eq 'Discharging') {
+    $full_text .= "BAT:";
     if ($percent < 7) {
-       # $full_text .= "\x{f244}";
-       `notify-send -u critical "      Battery low $full_text$percent%"`;
+	# $full_text .= "\x{f244}";
+	`notify-send -u critical "      Battery low $full_text$percent%"`;
     }elsif ($percent < 20) {
         # $full_text .= "\x{f244}";
     } elsif ($percent < 40) {
@@ -59,7 +60,7 @@ if ($status eq 'Discharging') {
 } else {
     $full_text .= "CH:";
 }
-    
+
 $short_text = "$percent%";
 
 # if ($acpi =~ /(\d\d:\d\d):/) {

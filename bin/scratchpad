@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file=/tmp/last_active_window
+file=/tmp/last_active_window$1
 if [[ -s $file ]] ; then
     xdotool windowmap `cat $file`
     cat /dev/null > $file

@@ -20,7 +20,7 @@ then
     SHELL_CWD=$(pwd -P)
     popd
     # Start alacritty with the working directory
-    alacritty --working-directory $SHELL_CWD
+    nohup alacritty --working-directory $SHELL_CWD >/dev/null 2>&1 &
 else
-    alacritty
+    nohup alacritty >/dev/null 2>&1 &
 fi
