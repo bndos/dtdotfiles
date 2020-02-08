@@ -12,17 +12,27 @@ if [ "$res" = "Suspend" ]; then
 fi
 if [ "$res" = "Logout" ]; then
     pkill --signal SIGKILL firefox
-    pkill qutebrowser
+    pkill emacs
+    pkill dunst
+    pkill compton
     pkill flashfocus
-    pkill autostart.sh
     pkill spectrwm
-    pkill dwm
-    bspc quit
 fi
 if [ "$res" = "Reboot" ]; then
+    pkill --signal SIGKILL firefox
+    pkill emacs
+    pkill dunst
+    pkill compton
+    pkill flashfocus
+    pkill spectrwm
     reboot
 fi
 if [ "$res" = "Poweroff" ]; then
+    pkill --signal SIGKILL firefox
+    pkill emacs
+    pkill dunst
+    pkill compton
+    pkill spectrwm
     poweroff
 fi
 exit 0
