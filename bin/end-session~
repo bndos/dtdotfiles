@@ -16,7 +16,6 @@ if [ "$res" = "Logout" ]; then
     pkill dunst
     pkill compton
     pkill flashfocus
-    pkill dwm
     pkill spectrwm
 fi
 if [ "$res" = "Reboot" ]; then
@@ -25,6 +24,7 @@ if [ "$res" = "Reboot" ]; then
     pkill dunst
     pkill compton
     pkill flashfocus
+    pkill spectrwm
     reboot
 fi
 if [ "$res" = "Poweroff" ]; then
@@ -32,6 +32,7 @@ if [ "$res" = "Poweroff" ]; then
     pkill emacs
     pkill dunst
     pkill compton
+    pkill spectrwm
     poweroff
 fi
 exit 0
