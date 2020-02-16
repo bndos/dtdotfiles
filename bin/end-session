@@ -16,6 +16,7 @@ if [ "$res" = "Logout" ]; then
     pkill dunst
     pkill compton
     pkill flashfocus
+    pkill autostart.sh
     pkill dwm
     pkill spectrwm
 fi
