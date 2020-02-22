@@ -30,26 +30,26 @@ fi
 
 if [ "$1" == "up" ]
 then
-    filter_perc=$(cat /tmp/filter)
+    filter_perc=$(cat $filter_file)
     send_notification $filter_perc
     if [ $filter_perc -ne 100 ]
        then
-	   filter_perc=$(($(cat /tmp/filter) + 5))
+	   filter_perc=$(($(cat $filter_file) + 5))
 	   send_notification $filter_perc
 	   gamma=$(( 6500 - $filter_perc * 55 ))
 	   redshift -PO $gamma
-	   echo $filter_perc > /tmp/filter
+	   echo $filter_perc > $filter_file
     fi
 elif [ "$1" == "down" ]
 then
-    filter_perc=$(cat /tmp/filter)
+    filter_perc=$(cat $filter_file)
     send_notification $filter_perc
     if [ $filter_perc -ne 0 ]
        then
-	   filter_perc=$(($(cat /tmp/filter) - 5))
+	   filter_perc=$(($(cat $filter_file) - 5))
 	   send_notification $filter_perc
 	   gamma=$(( 6500 - $filter_perc * 55 ))
 	   redshift -PO $gamma
-	   echo $filter_perc > /tmp/filter
+	   echo $filter_perc > $filter_file
     fi
 fi
