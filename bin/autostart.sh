@@ -1,13 +1,12 @@
 #!/bin/bash
 
-initscreen.sh
-feh --bg-scale ~/Pictures/wallpapers/background.jpg&
+initscreen.sh&
 flashfocus&
 restart-emax&
 picom&
-udiskie &
-light -N 5 &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+udiskie&
+light -N 5&
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 
 dte(){
     dte="$(date +"%l:%M%p")"

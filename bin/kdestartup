@@ -1,8 +1,0 @@
-#!/bin/bash
-
-setxkbmap -option "ctrl:swapcaps" &
-cd ~
-emacs --daemon=workspace1
-emacs --daemon=workspace2
-emacs --daemon=workspace3
-emacs --daemon=workspace4
