@@ -1,11 +1,37 @@
 #!/bin/bash
 
-file=/tmp/last_active_window$1
-if [[ -s $file ]] ; then
-    xdotool windowmap `cat $file`
-    cat /dev/null > $file
-else 
-    wid=`xdotool getactivewindow`      
+file=/tmp/active_windows
+
+case $1 in
+    
+--add)
+    wid=$(xdotool getactivewindow)
+    pid=$(xdotool getactivewindow getwindowpid)
+    wname=$(ps -p $pid -o comm=)
+    lines=$(wc -l $file | awk '{print $1}')
+
     xdotool windowunmap $wid
-    echo $wid > $file
-fi
+    echo "$wid $lines:$wname" >> $file
+    ;;
+
+--retreive)
+    res=$(cat $file | awk '{print $2}' | run_search)
+
+    if [[ ! -z "$res" ]] ; then
+	res=$(grep -e "$res" $file | awk '{print $1}')
+	xdotool windowmap $res
+	sed -i "/$res/d" $file
+    fi
+    ;;
+--toggle)
+    file=/tmp/last_active_window$2
+    if [[ -s $file ]] ; then
+	xdotool windowmap `cat $file`
+	cat /dev/null > $file
+    else
+	wid=$(xdotool getactivewindow)
+	xdotool windowunmap $wid
+	echo $wid > $file
+    fi
+    ;;
+esac
