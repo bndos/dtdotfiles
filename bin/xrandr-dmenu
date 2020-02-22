@@ -7,208 +7,218 @@
 
 
 PRIMARY=$(xrandr | grep -w  primary |  awk '{print $(1)}')
+NPRIMARY=$(xrandr | grep -w  connected | grep -vw -m 1 primary | awk '{print $(1)}')
 
 
 function choose_output {
 
-	OUTPUTS=$(xrandr | grep -w  connected ) 
-	MESSAGE="Connected outputs"
+    OUTPUTS=$(xrandr | grep -w  connected )
+    MESSAGE="Connected outputs"
 
-	if [ "$1" == "-a" ] ||  [ "$2" == "-a" ]
-	then
-		OUTPUTS=$(echo "$OUTPUTS" | grep --extended-regexp "connected\s(primary\s)?[0-9]+x[0-9]+") 
-		MESSAGE="Active outputs"
-	fi
+    if [ "$1" == "-a" ] ||  [ "$2" == "-a" ]
+    then
+	OUTPUTS=$(echo "$OUTPUTS" | grep --extended-regexp "connected\s(primary\s)?[0-9]+x[0-9]+")
+	MESSAGE="Active outputs"
+    fi
 
-	if [ "$1" == "-p" ] ||  [ "$2" == "-p" ]
-	then
-		OUTPUTS=$(echo "$OUTPUTS" | grep -v -w primary) 
-		MESSAGE="$MESSAGE (primary not listed)"
-	fi
+    if [ "$1" == "-p" ] ||  [ "$2" == "-p" ]
+    then
+	OUTPUTS=$(echo "$OUTPUTS" | grep -v -w primary)
+	MESSAGE="$MESSAGE (primary not listed)"
+    fi
 
-	OUTPUTS=$(echo "$OUTPUTS" | awk '{print $(1)}' | run_search -i -p "$MESSAGE")
-	echo "$OUTPUTS"
+    OUTPUTS=$(echo "$OUTPUTS" | awk '{print $(1)}' | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "$MESSAGE")
+    echo "$OUTPUTS"
 }
 
 
 function change_res {
 
-	RES=$(xrandr | awk '/'"$1"'/{f=1;next} /[A-Z]/{f=0} f' |  awk '{print $(1)}' | run_search -i -p "Choose resolution")
+    RES=$(xrandr | awk '/'"$1"'/{f=1;next} /[A-Z]/{f=0} f' |  awk '{print $(1)}' | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "Choose resolution")
 
-	if [ -z "$RES" ]
-	then
-		xrandr --output "$1" --mode "$RES"
-	fi
+    if [ -z "$RES" ]
+    then
+	xrandr --output "$1" --mode "$RES"
+    fi
 }
 
 
 function disconnect {
 
-	xrandr --output $1 --noprimary
-	xrandr --output $1 --off
-	CONNECTED=$(xrandr | grep --extended-regexp  "connected\s[0-9]+x[0-9]+")
+    if [ "$1" == $PRIMARY ]
+    then
+	xrandr --output $NPRIMARY --primary
+    fi
 
-	if [ -z "$CONNECTED" ]
-	then
-        	xrandr --output $PRIMARY --auto
-	fi
+    xrandr --output $1 --off
+    CONNECTED=$(xrandr | grep --extended-regexp  "connected\s[0-9]+x[0-9]+")
 }
 
+function choose_primary {
 
+    xrandr --output $1 --primary
+    CONNECTED=$(xrandr | grep --extended-regexp  "connected\s[0-9]+x[0-9]+")
+}
 
 function mirror {
 
-	xrandr --output "$1" --off
-	RESOLUTION=$(xrandr | grep -P "(?<=connected\sprimary\s)[0-9]+x[0-9]+"|  awk '{print $(4)}')
-	xrandr  --output "$1" --auto --same-as "$PRIMARY" --scale-from $RESOLUTION
+    xrandr --output "$1" --off
+    RESOLUTION=$(xrandr | grep -P "(?<=connected\sprimary\s)[0-9]+x[0-9]+"|  awk '{print $(4)}')
+    xrandr  --output "$1" --auto --same-as "$PRIMARY" --scale-from $RESOLUTION
 }
 
 
 
 function single_monitor {
 
-	xrandr --output $1 --primary
-	xrandr --output $1 --off
+    xrandr --output $1 --primary
+    xrandr --output $1 --off
+    CONNECTED=$(xrandr | grep -P "connected(\sprimary)?\s[0-9]+x[0-9]+"|  awk '{print $(1)}' | head -n 1)
+
+    while [ -n "$CONNECTED" ]
+    do
+	xrandr --output $CONNECTED --off
 	CONNECTED=$(xrandr | grep -P "connected(\sprimary)?\s[0-9]+x[0-9]+"|  awk '{print $(1)}' | head -n 1)
+    done
 
-	while [ -n "$CONNECTED" ]
-	do
-		xrandr --output $CONNECTED --off 
-		CONNECTED=$(xrandr | grep -P "connected(\sprimary)?\s[0-9]+x[0-9]+"|  awk '{print $(1)}' | head -n 1)
-	done
-
-	xrandr --output $1 --primary --auto
+    xrandr --output $1 --primary --auto
 }
 
 
 
 function extend {
 
-	POSITION=$(echo -e "Right\nLeft\nAbove\nBelow" | run_search  -i -p "Position")
-	xrandr --output "$1" --off
+    POSITION=$(echo -e "Right\nLeft\nAbove\nBelow" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'   -i -p "Position")
+    xrandr --output "$1" --off
 
-	case "$POSITION" in
+    case "$POSITION" in
 
-	        "Right")
-			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --right-of "$PRIMARY" --auto
-	                ;;
-	        "Left") 
-			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --left-of "$PRIMARY" --auto
-	                ;;
-	        "Above") 
-			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --above "$PRIMARY" --auto
-	                ;;
-	        "Below") 
-			xrandr --output "$PRIMARY" --primary --auto --output "$1"     --below "$PRIMARY" --auto
-	                ;;
-		*) exit
-			;;
-	esac
+	"Right")
+	    xrandr --output "$PRIMARY" --primary --auto --output "$1"     --right-of "$PRIMARY" --auto
+	    ;;
+	"Left")
+	    xrandr --output "$PRIMARY" --primary --auto --output "$1"     --left-of "$PRIMARY" --auto
+	    ;;
+	"Above")
+	    xrandr --output "$PRIMARY" --primary --auto --output "$1"     --above "$PRIMARY" --auto
+	    ;;
+	"Below")
+	    xrandr --output "$PRIMARY" --primary --auto --output "$1"     --below "$PRIMARY" --auto
+	    ;;
+	*) exit
+	   ;;
+    esac
 }
 
 
 function rotate {
 
-	ROTATION=$(echo -e "left\nright\nnormal\ninverted" | run_search -i -p "Rotation:")
+    ROTATION=$(echo -e "left\nright\nnormal\ninverted" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "Rotation:")
 
-	xrandr --output "$1" --rotate "$ROTATION" 
-	xrandr --output "$1" --auto 
+    xrandr --output "$1" --rotate "$ROTATION"
+    xrandr --output "$1" --auto
 }
 
 
-
-
- 
-CHOOSEN=$(echo -e "Connect monitor\nDisconnect external monitor\nRotate screen\nChange screen resolution" | run_search -l 4 -i -p "xranr-menu")
-
-
+CHOOSEN=$(echo -e "Connect monitor\nDisconnect monitor\nChoose primary\nRotate screen\nChange screen resolution" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "xranr-menu")
 
 case "$CHOOSEN" in
-	"Connect monitor") 
+    "Connect monitor")
 
-		OUTPUT=$(choose_output -p)
+	OUTPUT=$(choose_output -p)
 
-		if [ -z "$OUTPUT" ]
-		then
-       			exit
-		fi
-		;;
-
-
-	"Disconnect external monitor")
-
-		OUTPUT=$(choose_output -a -p)
-
-		if [ -z "$OUTPUT" ]
-		then
-		        exit
-		fi
-
-		disconnect "$OUTPUT"
-		exit
-		;;
+	if [ -z "$OUTPUT" ]
+	then
+       	    exit
+	fi
+	;;
 
 
-	"Rotate screen") 
+    "Disconnect monitor")
 
-		OUTPUT=$(choose_output -a)
+	OUTPUT=$(choose_output -a)
 
-		if [ -z "$OUTPUT" ]
-		then
-		        exit
-		fi
+	if [ -z "$OUTPUT" ]
+	then
+	    exit
+	fi
 
-		rotate "$OUTPUT"
-		exit
-		;;
-		
-	"Change screen resolution") 
+	disconnect "$OUTPUT"
+	exit
+	;;
 
-		OUTPUT=$(choose_output -a)
+    "Choose primary")
 
-		if [ -z "$OUTPUT" ]
-		then
-		        exit
-		fi
+	OUTPUT=$(choose_output -a -p)
 
-		change_res "$OUTPUT"
-		exit
-		;;
+	if [ -z "$OUTPUT" ]
+	then
+       	    exit
+	fi
 
-	*) exit
-		;;
+	choose_primary "$OUTPUT"
+	exit
+	;;
 
-esac
+    "Rotate screen")
 
+	OUTPUT=$(choose_output -a)
 
+	if [ -z "$OUTPUT" ]
+	then
+	    exit
+	fi
 
-CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | run_search  -i -p "Choose a mode:")
+	rotate "$OUTPUT"
+	exit
+	;;
 
+    "Change screen resolution")
 
-case "$CHOOSEN" in 
-	"Mirror mode") mirror "$OUTPUT"
-		;;
+	OUTPUT=$(choose_output -a)
 
-	"Extended mode") extend "$OUTPUT"
-		;;
+	if [ -z "$OUTPUT" ]
+	then
+	    exit
+	fi
 
-	"Single-monitor mode") single_monitor "$OUTPUT"
-		;;
+	change_res "$OUTPUT"
+	exit
+	;;
 
-	*) exit
-		;;
+    *) exit
+       ;;
 
 esac
 
 
-case "$1" in 
-	"-f") sh .fehbg
-		;;
 
-	"-n") nitrogen --restore &
-		;;
+CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "Choose a mode:")
 
-	*) exit
-		;;
+case "$CHOOSEN" in
+    "Mirror mode") mirror "$OUTPUT"
+		   ;;
+
+    "Extended mode") extend "$OUTPUT"
+		     ;;
+
+    "Single-monitor mode") single_monitor "$OUTPUT"
+			   ;;
+
+    *) exit
+       ;;
+
+esac
+
+
+case "$1" in
+    "-f") sh .fehbg
+	  ;;
+
+    "-n") nitrogen --restore &
+	  ;;
+
+    *) exit
+       ;;
 
 esac
