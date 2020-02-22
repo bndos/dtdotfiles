@@ -24,7 +24,7 @@ function send_notification {
 
 filter_file=/tmp/filter
 
-if [ ! -e $filter_file ]; then
+if [[ ! -e $filter_file || ! -s "$filter_file" ]]; then
     echo "0" > $filter_file
 fi
 
