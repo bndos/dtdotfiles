@@ -1,12 +1,14 @@
 #!/bin/bash
 
 initscreen.sh&
+dunst&
+nightmode --recover&
 flashfocus&
 restart-emax&
 picom&
 udiskie&
 light -N 5&
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
+/usr/lib/polkit-kde-authentication-agent-1&
 
 dte(){
     dte="$(date +"%l:%M%p")"

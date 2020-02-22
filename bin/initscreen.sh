@@ -1,5 +1,6 @@
 #!/bin/bash
 
+feh --bg-scale ~/Pictures/wallpapers/background.jpg
 declare -i count=2
 declare -i seconds=1
 

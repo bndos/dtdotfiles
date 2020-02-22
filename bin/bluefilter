@@ -22,7 +22,7 @@ function send_notification {
     fi
 }
 
-filter_file=/tmp/filter
+filter_file=$HOME/.cache/filter
 
 if [ ! -e $filter_file ]; then
     echo "0" > $filter_file

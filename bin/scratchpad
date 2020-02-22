@@ -1,5 +1,14 @@
 #!/bin/bash
 
+checkfor () {
+    command -v $1 >/dev/null 2>&1 || { 
+        echo >&2 "$1 required"; 
+        exit 1; 
+    }
+}
+
+checkfor "xdotool"
+
 file=/tmp/active_windows
 touch $file
 
