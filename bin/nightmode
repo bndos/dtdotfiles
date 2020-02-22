@@ -28,7 +28,7 @@ if [ ! -e $filter_file ]; then
     echo "0" > $filter_file
 fi
 
-filter_perc=$(cat /tmp/filter)
+filter_perc=$(cat $filter_file)
 
 if [[ "$1" == "--recover" ]]; then
     gamma=$(( 6500 - $filter_perc * 55 ))
@@ -36,10 +36,10 @@ if [[ "$1" == "--recover" ]]; then
     send_notification $filter_perc
 elif [ $filter_perc -ne 60 ]; then
     redshift -PO 3300
-    echo 60 > /tmp/filter
+    echo 60 > $filter_file
     send_notification 60
 else
     redshift -PO 6500
-    echo 0 > /tmp/filter
+    echo 0 > $filter_file
     send_notification 0
 fi
