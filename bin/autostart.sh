@@ -2,6 +2,7 @@
 
 initscreen.sh&
 dunst&
+dropbox&
 nightmode --recover&
 flashfocus&
 restart-emax&

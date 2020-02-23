@@ -1,16 +1,14 @@
 # Open document in fit-width mode by default
-set adjust-open "best-fit"
+# set adjust-open "best-fit"
 
-set page-padding 4
+set page-padding 6
 
 # One page per row by default
 set pages-per-row 1
 
 #stop at page boundries
 set scroll-page-aware "true"
-set smooth-scroll "true"
 set scroll-full-overlap 0.01
-set scroll-step 100
 
 #title
 set window-title-basename true
@@ -23,7 +21,7 @@ set zoom-min 10
 set guioptions ""
 
 # zathurarc-dark
-set font "MonacoB2 14"
+set font "Monego 14"
 set default-bg "#101010" #00
 set default-fg "#ffffff" #01
 
@@ -57,7 +55,7 @@ set recolor-reverse-video "true"
 set recolor-keephue "true"
 
 
-set render-loading "false"
+# set render-loading "false"
 set scroll-step 50
 
 #bindings
@@ -67,7 +65,6 @@ map [normal]     l navigate next
 map [fullscreen] l navigate next
 map i recolor
 
-set recolor "true"
-
+# set recolor "true"
 #clipboard
 set selection-clipboard "clipboard"
