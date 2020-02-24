@@ -12,7 +12,7 @@
 # @author Zeno Rocha <hi@zenorocha.com>
 
 # Initialization {{{
-source ${0:A:h}/lib/async.zsh
+source $ZSH/lib/async.zsh
 autoload -Uz add-zsh-hook
 setopt PROMPT_SUBST
 async_init
