@@ -119,6 +119,25 @@ function rotate {
     xrandr --output "$1" --auto
 }
 
+function connect_monitor {
+    CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "Choose a mode:")
+
+    case "$CHOOSEN" in
+	"Mirror mode") mirror "$OUTPUT"
+		       ;;
+
+	"Extended mode") extend "$OUTPUT"
+			 ;;
+
+	"Single-monitor mode") single_monitor "$OUTPUT"
+			       ;;
+
+	*) exit
+	   ;;
+
+    esac
+}
+
 
 CHOOSEN=$(echo -e "Connect monitor\nDisconnect monitor\nChoose primary\nRotate screen\nChange screen resolution" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "xranr-menu")
 
@@ -131,6 +150,8 @@ case "$CHOOSEN" in
 	then
        	    exit
 	fi
+
+	connect_monitor "$OUTPUT"
 	;;
 
 
@@ -144,7 +165,6 @@ case "$CHOOSEN" in
 	fi
 
 	disconnect "$OUTPUT"
-	exit
 	;;
 
     "Choose primary")
@@ -192,27 +212,10 @@ case "$CHOOSEN" in
 esac
 
 
-
-CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "Choose a mode:")
-
-case "$CHOOSEN" in
-    "Mirror mode") mirror "$OUTPUT"
-		   ;;
-
-    "Extended mode") extend "$OUTPUT"
-		     ;;
-
-    "Single-monitor mode") single_monitor "$OUTPUT"
-			   ;;
-
-    *) exit
-       ;;
-
-esac
-
-
+echo $1
 case "$1" in
-    "-f") sh .fehbg
+    "-f") sh $HOME/.fehbg
+	  echo fehhhhhhhhhh;
 	  ;;
 
     "-n") nitrogen --restore &
