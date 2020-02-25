@@ -243,7 +243,7 @@ fi
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
 # ZSH_THEME="gozilla"
-# ZSH_THEME="dracula"
+ZSH_THEME="dracula"
 # ZSH_THEME="af-magic"
 # ZSH_THEME="afowler"
 # ZSH_THEME="dpoggi"
@@ -253,7 +253,7 @@ fi
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="sorin"
 # ZSH_THEME="afowler"
-ZSH_THEME="pi"
+# ZSH_THEME="pi"
 
 # Command auto-correction.
 ENABLE_CORRECTION="true"
@@ -289,7 +289,7 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 # Custom helper aliases
 alias rm='rm -v'
 
-alias emacs="emacsclient -s workspace1 -t"
+# alias emacs="emacsclient -s workspace1 -t"
 alias cat="bat"
 alias cl="colorls"
 alias ls='ls -l --color=always --group-directories-first --human-readable'
