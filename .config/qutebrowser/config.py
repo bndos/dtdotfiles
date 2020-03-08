@@ -8,8 +8,8 @@ dracula.draw.blood(c, {
         'horizontal': 8
     },
     'font': {
-        'family': 'MonacoB2',
-        'size': 13
+        'family': 'Monego',
+        'size': 12
     }
 })
 
@@ -18,7 +18,7 @@ c.tabs.show = "switching"
 c.tabs.width = 230
 c.tabs.show_switching_delay=1200
 c.scrolling.bar = "never"
-# c.statusbar.hide = True
+c.statusbar.hide = True
 c.completion.shrink = True
 config.bind('<Ctrl-n>', 'completion-item-focus next', mode='command')
 config.bind('<Ctrl-p>', 'completion-item-focus prev', mode='command')
