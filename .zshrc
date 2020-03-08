@@ -243,13 +243,14 @@ fi
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
 # ZSH_THEME="gozilla"
-ZSH_THEME="dracula"
+# ZSH_THEME="dracula"
+# ZSH_THEME="cloud"
 # ZSH_THEME="af-magic"
 # ZSH_THEME="afowler"
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="suvash"
 # ZSH_THEME="arrow"
-# ZSH_THEME="avit"
+ZSH_THEME="avit"
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="sorin"
 # ZSH_THEME="afowler"
@@ -291,9 +292,7 @@ alias rm='rm -v'
 
 # alias emacs="emacsclient -s workspace1 -t"
 alias cat="bat"
-alias cl="colorls"
-alias ls='ls -l --color=always --group-directories-first --human-readable'
-alias ls="lsd"
+alias ls='ls --color=auto --group-directories-first'
 alias ip="ip -c"
 # alias rm="rm -i"
 alias x="ranger"
