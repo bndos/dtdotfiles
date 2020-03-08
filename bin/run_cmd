@@ -1,2 +1,0 @@
-#!/bin/bash
-dmenu_run -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'

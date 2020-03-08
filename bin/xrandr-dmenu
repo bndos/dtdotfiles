@@ -27,14 +27,14 @@ function choose_output {
 	MESSAGE="$MESSAGE (primary not listed)"
     fi
 
-    OUTPUTS=$(echo "$OUTPUTS" | awk '{print $(1)}' | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "$MESSAGE")
+    OUTPUTS=$(echo "$OUTPUTS" | awk '{print $(1)}' | dmenu -i -p "$MESSAGE")
     echo "$OUTPUTS"
 }
 
 
 function change_res {
 
-    RES=$(xrandr | awk '/'"$1"'/{f=1;next} /[A-Z]/{f=0} f' |  awk '{print $(1)}' | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "Choose resolution")
+    RES=$(xrandr | awk '/'"$1"'/{f=1;next} /[A-Z]/{f=0} f' |  awk '{print $(1)}' | dmenu -i -p "Choose resolution")
 
     if [ -z "$RES" ]
     then
@@ -88,7 +88,7 @@ function single_monitor {
 
 function extend {
 
-    POSITION=$(echo -e "Right\nLeft\nAbove\nBelow" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'   -i -p "Position")
+    POSITION=$(echo -e "Right\nLeft\nAbove\nBelow" | dmenu -i -p "Position")
     xrandr --output "$1" --off
 
     case "$POSITION" in
@@ -113,14 +113,14 @@ function extend {
 
 function rotate {
 
-    ROTATION=$(echo -e "left\nright\nnormal\ninverted" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14'  -i -p "Rotation:")
+    ROTATION=$(echo -e "left\nright\nnormal\ninverted" | dmenu -i -p "Rotation:")
 
     xrandr --output "$1" --rotate "$ROTATION"
     xrandr --output "$1" --auto
 }
 
 function connect_monitor {
-    CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "Choose a mode:")
+    CHOOSEN=$(echo -e "Mirror mode\nExtended mode\nSingle-monitor mode" | dmenu -i -p "Choose a mode:")
 
     case "$CHOOSEN" in
 	"Mirror mode") mirror "$OUTPUT"
@@ -139,7 +139,7 @@ function connect_monitor {
 }
 
 
-CHOOSEN=$(echo -e "Connect monitor\nDisconnect monitor\nChoose primary\nRotate screen\nChange screen resolution" | dmenu -i -nb '#0c0c0c' -nf '#ffffff' -sb '#984D58' -sf '#292d3e' -fn 'Monego:bold:pixelsize=14' -i -p "xranr-menu")
+CHOOSEN=$(echo -e "Connect monitor\nDisconnect monitor\nChoose primary\nRotate screen\nChange screen resolution" | dmenu -i -p "xrandr-menu")
 
 case "$CHOOSEN" in
     "Connect monitor")

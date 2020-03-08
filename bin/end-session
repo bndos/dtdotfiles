@@ -1,6 +1,6 @@
 #!/bin/bash
 
-res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | run_search)
+res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i)
 
 if [ "$res" = "Lock" ]; then
     betterlockscreen -l dimblur

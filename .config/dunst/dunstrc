@@ -2,7 +2,7 @@
     ### Display ###
 
     # Which monitor should the notifications be displayed on.
-    # monitor = 0
+    monitor = 0
 
     # Display notification on focused monitor.  Possible modes are:
     #   mouse: follow mouse pointer
@@ -15,10 +15,10 @@
     #
     # If this option is set to mouse or keyboard, the monitor option
     # will be ignored.
-    follow = mouse
+    # follow = mouse
 
     # The geometry of the window:
-
+    #   [{width}]x{height}[+/-{x}+/-{y}]
     # The geometry of the message window.
     # The height is measured in number of notifications everything else
     # in pixels.  If the width is omitted but the height is given
@@ -64,7 +64,7 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#984D58"
+    frame_color = "#5d7b68"
 
     # Define a color for the separator.
     # possible values are:
@@ -85,7 +85,7 @@
 
     ### Text ###
 
-    font = Monego 12
+    font = Monego Bold 12
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -228,7 +228,7 @@
     # Xev might be helpful to find names for keys.
 
     # Close notification.
-    # close = mod1+space
+    close = mod1+space
 
     # Close all notifications.
     close_all = ctrl+shift+space
@@ -249,7 +249,7 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#0c0c0c"
     foreground = "#ffffff"
-    frame_color = "#984D58"
+    frame_color = "#5d7b68"
     timeout = 2
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
@@ -259,7 +259,7 @@
 [urgency_normal]
     background = "#0c0c0c"
     foreground = "#ffffff"
-    frame_color = "#984D58"
+    frame_color = "#5d7b68"
     timeout = 5
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
@@ -270,7 +270,7 @@
 [urgency_critical]
     background = "#bd2c40"
     foreground = "#000000"
-    frame_color = "#984D58"
+    frame_color = "#5d7b68"
     timeout = 8
     # Icon for notifications with critical urgency, uncomment to enable
     #icon = /path/to/icon
