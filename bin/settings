@@ -1,0 +1,78 @@
+#!/bin/bash
+
+declare options=("alacritty
+autostart
+bin
+compton
+config
+dotfiles
+dunst
+dwm
+emacs.d/config.org
+polybar
+xresources
+zathura
+zsh
+quit"
+		)
+
+choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
+
+case "$choice" in
+    quit)
+	echo "Program terminated." && exit 1
+	;;
+    alacritty)
+	choice="$HOME/.config/alacritty/alacritty.yml"
+	;;
+    autostart)
+	choice="$HOME/bin/autostart.sh"
+	;;
+    bin)
+	choice="$HOME/bin/"
+	;;
+    compton)
+	choice="$HOME/.config/compton/compton.conf"
+	;;
+    config)
+	choice="$HOME/.config/"
+	;;
+    dotfiles)
+	choice="$HOME/Downloads/clones/dtdotfiles/"
+	;;
+    dunst)
+	choice="$HOME/.config/dunst/dunstrc"
+	;;
+    dwm)
+	choice="$HOME/Downloads/programs/dwm/config.h"
+	;;
+    emacs.d/config.org)
+	choice="$HOME/.emacs.d/config.org"
+	;;
+    polybar)
+	choice="$HOME/.config/polybar/config"
+	;;
+    xresources)
+	choice="$HOME/.Xresources"
+	;;
+    zathura)
+	choice="$HOME/.config/zathura/"
+	;;
+    zsh)
+	choice="$HOME/.zshrc"
+	;;
+    *)
+	exit 1
+	;;
+esac
+
+emacs_settings () {
+    emacsclient -s workspace4 -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+    if [ "$?" = "1" ]; then
+	emacsclient -s workspace4 -c -n -a "" "$@"
+    else
+	emacsclient -s workspace4 -n -a "" "$@"
+    fi
+}
+
+emacs_settings "$choice"
