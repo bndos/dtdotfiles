@@ -13,8 +13,7 @@ light -N 5&
 dropbox&
 qutebrowser -R moodle.polymtl.ca/login&
 qutebrowser -R https://www.imp.polymtl.ca/login.php&
-# ao&
-google-calendar&
+my-study-life&
 
 dte(){
     dte="$(date +"%l:%M%p")"
