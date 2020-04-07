@@ -290,9 +290,9 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 # Custom helper aliases
 alias rm='rm -v'
 
-# alias emacs="emacsclient -s workspace1 -t"
+alias emacs="emacsclient -s workspace1 -t"
 alias cat="bat"
-alias ls='ls --color=auto --group-directories-first'
+# alias ls='ls -l --color=always --group-directories-first --human-readable'
 alias ip="ip -c"
 # alias rm="rm -i"
 alias x="ranger"
@@ -308,8 +308,11 @@ alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias backup='cd ~/Documents/backup'
 alias dot='cd ~/Downloads/clones/dtdotfiles'
-alias school='cd ~/Documents/poly'
-alias tps='cd ~/Documents/poly-tps'
+alias school='cd /run/media/bndo/USBschool'
+alias labs='cd /run/media/bndo/USB/school/lab'
+alias cours='cd /run/media/bndo/USB/school/cours'
+alias cusb='cd /run/media/bndo/USB'
+alias cmount='cd /run/media/bndo'
 
 viman () { text=$(man "$@") && echo "$text" | vim -R +":set ft=man" - ; }
 
@@ -381,7 +384,7 @@ pkgsearch () {
 }
 
 grep-finals () {
-	    curl -s https://www.polymtl.ca/etudes/cours/horaires-examens-controles | grep $1 -A 6
+	    curl -s https://www.polymtl.ca/etudes/cours/horaires-examens-controles | grep $1 -A 25
 }
 
 grep-excel () {
@@ -398,6 +401,10 @@ goto() {
 
 open() {
        nohup $1 $2 </dev/null >/dev/null 2>&1 &
+}
+
+mhdays() {
+	 echo $((($(date +%s)-$(date +%s --date "2020-04-07"))/(3600*24))) days
 }
 
 if [[ -n ${LAUNCHER} ]]; then
