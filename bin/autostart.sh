@@ -11,9 +11,6 @@ udiskie&
 light -N 5&
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 dropbox&
-qutebrowser -R moodle.polymtl.ca/login&
-qutebrowser -R https://www.imp.polymtl.ca/login.php&
-my-study-life&
 
 dte(){
     dte="$(date +"%l:%M%p")"

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 feh --bg-scale ~/Pictures/wallpapers/background.jpg
+
 declare -i count=2
 declare -i seconds=1
 
@@ -10,5 +11,5 @@ while ((count)); do
     ((count--))
 done
 
-xrandr --output HDMI1 --right-of eDP1 --auto --primary
+xrandr --output HDMI-1 --right-of eDP-1 --auto --primary
 feh --bg-scale ~/Pictures/wallpapers/background.jpg
