@@ -250,7 +250,8 @@ fi
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="suvash"
 # ZSH_THEME="arrow"
-ZSH_THEME="avit"
+# ZSH_THEME="avit"
+ZSH_THEME="typewritten"
 # ZSH_THEME="dpoggi"
 # ZSH_THEME="sorin"
 # ZSH_THEME="afowler"
@@ -291,7 +292,7 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 alias rm='rm -v'
 
 alias emacs="emacsclient -s workspace1 -t"
-alias cat="bat"
+alias cat="batcat"
 # alias ls='ls -l --color=always --group-directories-first --human-readable'
 alias ip="ip -c"
 # alias rm="rm -i"
