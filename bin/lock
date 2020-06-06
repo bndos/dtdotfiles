@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+default_timeout=`cut -d ' ' -f4 <<< $(xset q | sed -n '25p')`
+
+init() {
+    # custom i3lock colors
+    theme_rc="$HOME/.config/betterlockscreenrc"
+    if [ -e $theme_rc ]; then
+	source "$theme_rc"
+    else
+	insidecolor=00000000
+	ringcolor=ffffffff
+	keyhlcolor=d23c3dff
+	bshlcolor=d23c3dff
+	separatorcolor=00000000
+	insidevercolor=00000000
+	insidewrongcolor=d23c3dff
+	ringvercolor=ffffffff
+	ringwrongcolor=ffffffff
+	verifcolor=ffffffff
+	timecolor=ffffffff
+	datecolor=ffffffff
+	loginbox=000000ff
+	font="Ubuntu"
+      	locktext='Type password...'
+    fi
+}
+
+init
+
+prelock() {
+    if [ -n lock_timeout ]; then
+	xset dpms $lock_timeout
+    fi
+    if [ ! -z "$(pidof dunst)" ]; then
+	pkill -u "$USER" -USR1 dunst
+    fi
+}
+
+
+lock() {
+    rectangles=" "
+    SR=$(xrandr --query | grep ' connected' | grep -o '[0-9][0-9]*x[0-9][0-9]*[^ ]*')
+    for RES in $SR; do
+	SRA=(${RES//[x+]/ })
+	CX=$((${SRA[2]} + $(logical_px 25 1)))
+	CY=$((${SRA[1]} - $(logical_px 30 2)))
+	rectangles+="rectangle $CX,$CY $((CX+$(logical_px 405 1))),$((CY-$(logical_px 120 2))) "
+    done
+
+    ICON=$HOME/Pictures/icons/lock.png
+    TMPBG=/tmp/screen.png
+    scrot /tmp/screen.png
+    convert $TMPBG -scale 5% -scale 2000% -fill black -colorize 70% $TMPBG
+    convert $TMPBG -draw "fill #$loginbox $rectangles" $TMPBG
+    convert $TMPBG $ICON -geometry 65x65+325+2039 -composite -matte $TMPBG
+    # convert $TMPBG $ICON -geometry 165x165+325+2033 -composite -matte $TMPBG
+
+    i3lock \
+	-i "$TMPBG" \
+	--timepos='x+120:h-60' \
+	--datepos='x+33:h-35' \
+	--clock --date-align 1 --datestr "$locktext"\
+	--insidecolor=$insidecolor --ringcolor=$ringcolor --line-uses-inside\
+	--keyhlcolor=$keyhlcolor --bshlcolor=$bshlcolor --separatorcolor=$separatorcolor \
+	--insidevercolor=$insidevercolor --insidewrongcolor=$insidewrongcolor \
+	--ringvercolor=$ringvercolor --ringwrongcolor=$ringwrongcolor --indpos='x+240:h-59' \
+	--radius=25 --ring-width=6 --veriftext='' --wrongtext='' \
+	--verifcolor="$verifcolor" --timecolor="$timecolor" --datecolor="$datecolor" \
+	--time-font="$font" --date-font="$font" --layout-font="$font" --verif-font="$font" --wrong-font="$font" \
+	--noinputtext='' --force-clock -n
+
+    rm $TMPBG
+}
+
+
+postlock() {
+    if [ -n lock_timeout ]; then
+	xset dpms $default_timeout
+    fi
+    if [ ! -z "$(pidof dunst)" ] ; then
+	pkill -u "$USER" -USR2 dunst
+    fi
+}
+
+
+# $1: number of pixels to convert
+# $2: 1 for width. 2 for height
+logical_px() {
+    # get dpi value from xrdb
+    local DPI=$(xdpyinfo | sed -En "s/\s*resolution:\s*([0-9]*)x([0-9]*)\s.*/\\$2/p" | head -n1)
+
+    # return the default value if no DPI is set
+    if [ -z "$DPI" ]; then
+	echo $1
+    else
+	local SCALE=$(echo "scale=2; $DPI / 96.0" | bc)
+
+	# check if scaling the value is worthy
+	if [ $(echo "$SCALE > 1.25" | bc -l) -eq 0 ]; then
+	    echo $1
+	else
+	    echo "$SCALE * $1 / 1" | bc
+	fi
+    fi
+}
+
+# Activate lockscreen
+prelock
+lock
+postlock
+
+exit 0

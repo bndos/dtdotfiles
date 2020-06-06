@@ -3,12 +3,12 @@
 res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i)
 
 if [ "$res" = "Lock" ]; then
-    betterlockscreen -l dimblur
+    lock
 fi
 if [ "$res" = "Suspend" ]; then
-    betterlockscreen -l dimblur&
-    sleep 0.5
-    xset dpms force off
+    lock&
+    sleep 3
+    systemctl suspend
 fi
 if [ "$res" = "Logout" ]; then
     pkill --signal SIGKILL firefox
