@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + d
-	rofi -show run
+	dmenu_run -w 3775 -x 15
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -154,13 +154,13 @@ super + shift + r
 super + r
         bspc node @/ -R 90
 
-super + x
+super + z
         em1
 
-super + shift + x
+super + shift + z
         em2
 
-super + z
+alt + space
         kbdlayout
 
 super + n
@@ -180,10 +180,10 @@ XF86AudioMute
 	volume mute
 
 XF86MonBrightnessUp
-	brightness up
+	bluefilter up
 
 XF86MonBrightnessDown
-	brightness down
+	bluefilter down
 
 super + shift + e
         end-session
@@ -192,4 +192,4 @@ super + {semicolon, apostrophe}
         {scratchpad1, scratchpad2}
 
 {Print, ctrl + Print, alt + Print, shift + Print}
-	{screenshot, sleep 1; screen_select, screen_focus, screen_delay}
+	{screenshot all, screenshot selection, screenshot focus, screenshot delay}

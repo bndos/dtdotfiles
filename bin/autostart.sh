@@ -1,14 +1,14 @@
 #!/bin/bash
 
-picom&
-initscreen.sh
+picom --config ~/.config/picom/picomdwm.conf&
+# initscreen.sh
 feh --bg-scale ~/Pictures/wallpapers/background.jpg&
 nightmode --recover&
 flashfocus&
 restart-emax&
 dunst&
 udiskie&
-light -N 5&
+# light -N 5&
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 dropbox&
 
@@ -18,6 +18,6 @@ dte(){
 }
 
 while true; do
-    xsetroot -name "$(dte) $(battery)"
+    xsetroot -name "$(dte)"
     sleep 15s
 done &

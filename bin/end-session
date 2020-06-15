@@ -1,6 +1,6 @@
 #!/bin/bash
 
-res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i)
+res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i -w 3775 -x 15)
 
 if [ "$res" = "Lock" ]; then
     lock
@@ -17,6 +17,7 @@ if [ "$res" = "Logout" ]; then
     pkill compton
     pkill flashfocus
     pkill autostart.sh
+    bspc quit
     pkill dwm
     pkill spectrwm
 fi
