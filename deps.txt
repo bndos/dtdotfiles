@@ -1,0 +1,9 @@
+git
+cmake
+make
+gcc
+autoconf
+python3-pip
+python3-virtualenv
+vim
+zsh
