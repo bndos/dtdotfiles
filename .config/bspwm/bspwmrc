@@ -2,13 +2,15 @@
 xrdb ~/.Xresources&
 xsetroot -cursor_name left_ptr &
 ~/.config/polybar/launch.sh &
+dunst&
 sxhkd &
 nitrogen --restore&
-picom &
 flashfocus &
 restart-emax &
 udiskie &
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1&
+picom &
+pavucontrol &
 
 bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
@@ -24,6 +26,7 @@ bspc config gapless_monocle       false
 bspc config focus_follows_pointer true
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Pavucontrol desktop='^7' state=floating follow=off
 bspc rule -a Zathura desktop='^3' state=floating follow=on
 bspc rule -a Emacs state=tiled
 bspc rule -a mpv desktop='^4' state=pseudo_tiled follow=on
