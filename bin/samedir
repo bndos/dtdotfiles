@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ACTIVE_WINDOW=$(xdotool getactivewindow)
 ACTIVE_WM_CLASS=$(xprop -id $ACTIVE_WINDOW | grep WM_CLASS)
 if [[ $ACTIVE_WM_CLASS == *"Alacritty"* ]]

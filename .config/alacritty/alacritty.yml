@@ -119,7 +119,7 @@ font:
     style: Italic
 
   # Point size
-  size: 10.0
+  size: 9.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -154,39 +154,37 @@ font:
 draw_bold_text_with_bright_colors: true
 
 # Colors (Dracula)
+
 colors:
   # Default colors
   primary:
     # background: '0x282a36'
-    background: '0x0c0c0c'
+    background: '0x000000'
     foreground: '0xffffff'
   cursor:
     text: '0x000000'
     cursor: '0x6a5acd'
   # Normal colors
   normal:
-    black:   '0x0c0c0c'
+    black:   '0x000000'
     red:     '0xff5555'
-    green:   '0x7affe4'
-    yellow:  '0xffa86f'
-    magenta: '0xbd93f9'
-    blue:    '0xff79c6'
-    cyan:    '0x7953FF'
-    orange:  '0xffa86f'
-    white:   '0xffffff'
+    green:   '0x50fa7b'
+    yellow:  '0xf1fa8c'
+    blue:    '0xcaa9fa'
+    magenta: '0xff79c6'
+    cyan:    '0x8be9fd'
+    white:   '0xbfbfbf'
 
   # Bright colors
   bright:
-    black:   '0x555555'
-    red:     '0xff5555'
-    green:   '0x7affe4'
-    yellow:  '0xffa86f'
+    black:   '0x282a35'
+    red:     '0xff6e67'
+    green:   '0x5af78e'
+    yellow:  '0xf4f99d'
     blue:    '0xcaa9fa'
-    magenta: '0xff79c6'
-    cyan:    '0x7953FF'
-    orange:  '0xffa86f'
-    white:   '0xffffff'
-
+    magenta: '0xff92d0'
+    cyan:    '0x9aedfe'
+    white:   '0xe6e6e6'
 
 
   # Dim colors

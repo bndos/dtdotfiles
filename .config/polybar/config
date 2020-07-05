@@ -1,5 +1,5 @@
 [colors]
-background = #0c0c0c
+background = #f00c0c0c
 background-alt = #51474F
 foreground = #d8dee8
 foreground-alt = #585c46
@@ -22,7 +22,7 @@ padding-left = 3
 padding-right = 3
 module-margin-left = 1
 module-margin-right = 1
-font-0 = Monego Nerd Font:style=Bold:pixelsize=10
+font-0 = Monego:style=Bold:pixelsize=10
 font-1 = FontAwesome:pixelsize=8
 enable-ipc = true
 ;tray-position = right
@@ -49,7 +49,7 @@ padding-left = 3
 padding-right = 3
 module-margin-left = 3
 module-margin-right = 3
-font-0 = Monego Nerd Font:style=Bold:pixelsize=10
+font-0 = Monego:style=Bold:pixelsize=10
 font-1 = FontAwesome:pixelsize=8
 enable-ipc = true
 ; tray-position = right
