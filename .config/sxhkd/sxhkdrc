@@ -36,7 +36,7 @@ super + y
 
 # swap the current node and the biggest node
 alt + Tab
-	bspc node -s last
+        bspc node -f last.local
 
 alt + shift + Tab
 	bspc node -s smallest.local
@@ -64,6 +64,8 @@ super + {_,shift + }{h,j,k,l}
 # focus the node for the given path jump
 # super + {p,b,comma,period}
 	# bspc node -f @{parent,brother,first,second}
+# super + {p,b}
+	# bspc node -f @{parent,brother}
 
 super + {period, comma}
           bspc monitor -f {east, west}.\!focused
@@ -92,7 +94,7 @@ super + Tab
         bspc desktop -f last.occupied
 
 super grave
-        bspc node -f last
+	bspc node -s last.local
 
 # focus the older or newer node in the focus history
 super + {o,i}
