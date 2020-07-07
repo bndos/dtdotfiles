@@ -1,5 +1,6 @@
 git
 pavucontrol
+udiskie
 cmake
 clang
 clangd
@@ -17,6 +18,7 @@ gcc
 autoconf
 python3-pip
 python3-virtualenv
+scrot
 vim
 zsh
 texinfo
