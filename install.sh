@@ -12,6 +12,7 @@ cp .zshrc ~
 cp -r .config/* ~/.config
 cp -r bin/ ~
 cp -r Pictures/* ~/Pictures
+cp -r .local/share/* ~/.local/share
 
 cd ~/Downloads/programs
 git clone https://github.com/dunst-project/dunst.git
