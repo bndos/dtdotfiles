@@ -1,5 +1,5 @@
 [colors]
-background = #f00c0c0c
+background = #da000000
 background-alt = #51474F
 foreground = #d8dee8
 foreground-alt = #585c46
@@ -63,6 +63,33 @@ modules-left =
 modules-center = date
 modules-right =
 dpi = 153
+
+[bar/full]
+monitor = DisplayPort-0
+; bottom = true
+width = 99.6%
+offset-x = 0.2%%
+height = 55
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+padding-left = 3
+padding-right = 3
+module-margin-left = 1
+module-margin-right = 1
+font-0 = Monego:style=Bold:pixelsize=10
+font-1 = FontAwesome:pixelsize=8
+enable-ipc = true
+;tray-position = right
+;tray-padding = 2
+;tray-background = ${colors.background}
+; radius = 2
+; override-redirect = true
+wm-restack = bspwm
+modules-left = bspwm
+modules-center =
+modules-right = date
+dpi = 143
 
 [module/bspwm]
 
