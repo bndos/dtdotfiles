@@ -13,6 +13,12 @@ cp -r .config/* ~/.config
 cp -r bin/ ~
 cp -r Pictures/* ~/Pictures
 cp -r .local/share/* ~/.local/share
+cp -r .oh-my-zsh/themes/* ~/.oh-my-zsh/themes
+cp -r .oh-my-zsh/lib/* ~/.oh-my-zsh/lib
+cp .Xresources ~
+cp .zprofile ~
+cp .bash_profile ~
+cp .profile ~
 
 cd ~/Downloads/programs
 git clone https://github.com/dunst-project/dunst.git
@@ -30,10 +36,21 @@ sudo apt update
 sudo apt install alacritty -y
 
 cd dunst
+make
 sudo make install
 
 cd ../bspwm
+make
 sudo make install
+
+cd ../dmenu
+sudo make install
+
+cd ../picom
+git submodule update --init --recursive
+meson --buildtype=release . build
+ninja -C build
+sudo ninja -C build install
 
 cd ../polybar
 mkdir build
@@ -43,5 +60,12 @@ make -j$(nproc)
 sudo make install
 
 cd ../../emacs
-make
+make -j$(nproc)
 sudo make install
+mkdir -p ~/.cache/emacs/saves
+
+cd
+git clone https://github.com/bndos/.emacs.d
+
+sudo mv ~/.local/share/themes/Kripton /usr/share/themes/
+sudo mv ~/.local/share/icons/FossaCursors /usr/share/icons
