@@ -15,6 +15,7 @@ cargo
 curl
 xdotool
 xdo
+imagemagick
 gcc
 autoconf
 python3-pip
