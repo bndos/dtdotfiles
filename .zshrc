@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bndo/.mujoco/mujoco200/bin
 export TERM="xterm-256color"
 export EDITOR="em1"
@@ -243,7 +250,9 @@ fi
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
 # ZSH_THEME="gozilla"
-ZSH_THEME="dracula"
+# ZSH_THEME="dracula"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="instantos"
 # ZSH_THEME="cloud"
 # ZSH_THEME="af-magic"
 # ZSH_THEME="afowler"
@@ -291,7 +300,10 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 # Custom helper aliases
 alias rm='rm -v'
 
-alias emacs="emacsclient -s workspace1 -t"
+alias em1="devour emacsclient -s workspace1 -c"
+alias em2="devour emacsclient -s workspace2 -c"
+alias em3="devour emacsclient -s workspace3 -c"
+alias em4="devour emacsclient -s workspace4 -c"
 alias cat="batcat"
 # alias ls='ls -l --color=always --group-directories-first --human-readable'
 alias ip="ip -c"
@@ -360,26 +372,6 @@ ytdl(){
     youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' $link
 }
 
-em1 () {
-	emacsclient -s workspace1 -c -n "$1"&
-	disown
-}
-
-em2 () {
-	emacsclient -s workspace2 -c -n "$1"&
-	disown
-}
-
-em3 () {
-	emacsclient -s workspace3 -c -n "$1"&
-	disown
-}
-
-em4 () {
-	emacsclient -s workspace4 -c -n "$1"&
-	disown
-}
-
 pkgsearch () {
 	  pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
 }
@@ -416,3 +408,6 @@ fi
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
