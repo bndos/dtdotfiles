@@ -14,6 +14,7 @@ nitrogen
 cargo
 curl
 xdotool
+xdo
 gcc
 autoconf
 python3-pip
