@@ -93,8 +93,9 @@ super + shift + bracket{left,right}
 super + Tab
         bspc desktop -f last.occupied
 
-super grave
-	bspc node -s last.local
+super + shift + Return
+	bspc node -s last.local; \
+	flash_window
 
 # focus the older or newer node in the focus history
 super + {o,i}
@@ -169,8 +170,8 @@ super + n
         flash_window
 
 # hide bar
-super + shift + n
-        hide_bar
+super + b
+        hidebar
 
 XF86AudioLowerVolume
 	volume down
