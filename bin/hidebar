@@ -11,7 +11,7 @@ state=$(cat /tmp/bar_state_file)
 if [ $state == "show" ]
 then
     polybar-msg cmd toggle
-    bspc config top_padding 55
+    bspc config top_padding 53
     echo "hidden" > $bar_state_file
 else
     polybar-msg cmd toggle

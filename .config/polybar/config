@@ -67,8 +67,8 @@ dpi = 153
 [bar/full]
 monitor = DisplayPort-0
 ; bottom = true
-width = 90%
-offset-x = 5%%
+width = 94%
+offset-x = 3%%
 height = 65
 fixed-center = true
 background = ${colors.background}
