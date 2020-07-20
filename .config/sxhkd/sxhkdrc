@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	alacritty
+	st
 
 # program launcher
 super + d
@@ -117,7 +117,7 @@ bspc
 #
 
 # preselect the direction
-super + {shift + g,v,shift + v,g}
+super + {shift + g, shift + v, v, g}
 	bspc node -p {west,south,north,east}
 
 super + e
