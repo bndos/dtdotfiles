@@ -47,4 +47,5 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=pseudo_tiled
 # bspc rule -a Alacritty state=pseudo_tiled
 bspc rule -a Firefox state=pseudo_tiled
+bspc rule -a Jami-gnome state=floating
 

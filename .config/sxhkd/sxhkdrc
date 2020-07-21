@@ -117,7 +117,7 @@ bspc
 #
 
 # preselect the direction
-super + {shift + g, shift + v, v, g}
+super + {shift + g,  v, shift + v, g}
 	bspc node -p {west,south,north,east}
 
 super + e
