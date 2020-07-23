@@ -1,26 +1,8 @@
-#!/bin/bash
-ACTIVE_WINDOW=$(xdotool getactivewindow)
-ACTIVE_WM_CLASS=$(xprop -id $ACTIVE_WINDOW | grep WM_CLASS)
-if [[ $ACTIVE_WM_CLASS == *"Alacritty"* ]]
-then
-    # Get PID. If _NET_WM_PID isn't set, bail.
-    PID=$(xprop -id $ACTIVE_WINDOW | grep _NET_WM_PID | grep -oP "\d+")
-    if [[ "$PID" == "" ]]
-    then
-        alacritty
-    fi
-    # Get first child of terminal
-    CHILD_PID=$(pgrep -P $PID)
-    if [[ "$PID" == "" ]]
-    then
-        alacritty
-    fi
-    # Get current directory of child. The first child should be the shell.
-    pushd "/proc/${CHILD_PID}/cwd"
-    SHELL_CWD=$(pwd -P)
-    popd
-    # Start alacritty with the working directory
-    nohup alacritty --working-directory $SHELL_CWD >/dev/null 2>&1 &
-else
-    nohup alacritty >/dev/null 2>&1 &
-fi
+#!/bin/sh
+
+# Open a terminal window in the same directory as the currently active window.
+
+PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
+PID="$(pstree -lpA "$PID" | tail -n 1 | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')"
+cd "$(readlink /proc/"$PID"/cwd)" || return 1
+"st"

@@ -192,7 +192,7 @@ super + shift + e
         end-session
 
 super + {semicolon, apostrophe}
-        {scratchpad1, scratchpad2}
+        {scratchpad --toggle 1, scratchpad --toggle 2}
 
 {Print, ctrl + Print, alt + Print, shift + Print}
 	{screenshot all, screenshot selection, screenshot focus, screenshot delay}
