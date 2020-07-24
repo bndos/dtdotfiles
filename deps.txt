@@ -6,6 +6,7 @@ fonts-emojione
 fonts-symbola
 clang
 clangd
+clangd-9
 make
 meson
 bat

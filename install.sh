@@ -34,6 +34,8 @@ git clone https://github.com/bndos/dwm
 sudo add-apt-repository ppa:mmstick76/alacritty
 sudo apt update
 sudo apt install alacritty -y
+# clangd-10 sometimes crashes with lsp
+sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-9 100
 
 cd dunst
 make
