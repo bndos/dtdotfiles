@@ -10,7 +10,9 @@ restart-emax &
 udiskie &
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1&
 picom &
-pavucontrol &
+
+# for java programs
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
@@ -45,7 +47,10 @@ bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Pavucontrol desktop='^7' state=floating follow=off
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=pseudo_tiled
+bspc rule -a Vivado state=floating
 # bspc rule -a Alacritty state=pseudo_tiled
 bspc rule -a Firefox state=pseudo_tiled
 bspc rule -a Jami-gnome state=floating
 
+bspc desktop -f \^7
+st -e cava &
