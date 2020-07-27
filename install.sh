@@ -71,3 +71,7 @@ git clone https://github.com/bndos/.emacs.d
 
 sudo mv ~/.local/share/themes/Kripton /usr/share/themes/
 sudo mv ~/.local/share/icons/FossaCursors /usr/share/icons
+
+# go language server that works with emacs
+mkdir go
+go get golang.org/x/tools/gopls
