@@ -3,11 +3,15 @@
 pkill emacs
 cd ~
 
-emacs --daemon=workspace1 -l ~/.emacs.d/ws1
+export EWORKSPACE=1
+emacs --daemon=workspace1
 notify-send "emacsd ws1 ready" &
-emacs --daemon=workspace2 -l ~/.emacs.d/ws2
+export EWORKSPACE=2
+emacs --daemon=workspace2
 notify-send "emacsd ws2 ready" &
-emacs --daemon=workspace3 -l ~/.emacs.d/ws3
+export EWORKSPACE=3
+emacs --daemon=workspace3
 notify-send "emacsd ws3 ready" &
-emacs --daemon=workspace4 -l ~/.emacs.d/ws4
+export EWORKSPACE=4
+emacs --daemon=workspace4
 notify-send "emacsd ws4 ready" &

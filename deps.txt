@@ -4,7 +4,10 @@ udiskie
 cmake
 fonts-emojione
 fonts-symbola
+libvterm-dev
+libvterm-bin
 clang
+clang-format
 clangd
 clangd-9
 golang
@@ -12,6 +15,7 @@ make
 meson
 bat
 lxappearance
+openjdk-11-jdk
 feh
 papirus-icon-theme
 nitrogen
