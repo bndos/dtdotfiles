@@ -11,10 +11,11 @@ cyan = #1C2323
 
 [bar/center]
 monitor = DisplayPort-0
+monitor-fallback = eDP-1
 ; bottom = true
 width = 16%
 offset-x = 42%
-height = 55
+height = 75
 fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -59,10 +60,62 @@ enable-ipc = true
 ; radius = 2
 ; override-redirect = true
 wm-restack = bspwm
-modules-left = 
+modules-left =
 modules-center = date
 modules-right =
 dpi = 153
+
+[bar/full-i3]
+monitor = ${env:MONITOR:DisplayPort-0}
+width = 100%
+height = 50
+; offset-x = 0
+; offset-y = 0%
+radius = 0.0
+fixed-center = true
+enable-ipc=true
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+;margin of bar
+border-right-size = 0
+border-left-size = 0
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Monego:style=Bold:pixelsize=10
+font-1 = FontAwesome:pixelsize=8
+
+modules-left = i3
+modules-center =
+modules-right = date
+
+; tray-position = right
+; tray-padding = 2
+;wm-restack = bspwm
+; wm-restack = i3
+
+; override-redirect = false
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+bottom=false
+dpi = 143
 
 [bar/full]
 monitor = DisplayPort-0
@@ -80,7 +133,7 @@ module-margin-right = 1
 font-0 = Monego:style=Bold:pixelsize=10
 font-1 = FontAwesome:style=Bold:pixelsize=10
 enable-ipc = true
-;tray-position = right
+tray-position = right
 ;tray-padding = 2
 ;tray-background = ${colors.background}
 ; radius = 2
@@ -90,6 +143,85 @@ modules-left = bspwm
 modules-center =
 modules-right = date
 dpi = 143
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+;#
+;#
+;#
+;#
+;#
+;#
+;
+;
+;
+;
+;
+;
+;
+;
+;
+ws-icon-0 = 0;1
+ws-icon-1 = 1;1
+ws-icon-2 = 2;2
+ws-icon-3 = 3;3
+ws-icon-4 = 4;4
+ws-icon-5 = 5;5
+ws-icon-6 = 6;6
+ws-icon-7 = 7;7
+ws-icon-8 = 8;8
+ws-icon-9 = 9;9
+ws-icon-10 = 10;0
+
+ws-icon-11 = 1:M1;1
+ws-icon-12 = 2:M2;2
+ws-icon-13 = 3:M3;3
+ws-icon-14 = 4:M4;4
+ws-icon-15 = 5:M5;5
+ws-icon-16 = 6:M6;6
+ws-icon-17 = 7:M7;7
+ws-icon-18 = 8:M8;8
+ws-icon-19 = 9:M9;9
+ws-icon-20 = 10:M0;0
+
+ws-icon-default = 
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 0
+label-mode-foreground = #000
+label-mode-background = ${colors.background}
+
+; focused = Active workspace on focused monitor
+label-active = %icon%
+label-focused = %icon%
+label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-foreground = ${colors.foreground}
+; label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+label-unfocused-foreground = ${colors.foreground-alt}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+; label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+; Separator in between workspaces
+; label-separator = |
 
 [module/bspwm]
 
@@ -206,7 +338,6 @@ ramp-capacity-foreground = ${colors.accent}
 
 
 [module/date]
-
 type = internal/date
 interval = 30
 label = "%date% %time%"
