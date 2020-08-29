@@ -3,15 +3,16 @@
 pkill emacs
 cd ~
 
-export EWORKSPACE=1
+
+export MODELINE="➊"
 emacs --daemon=workspace1
 notify-send "emacsd ws1 ready" &
-export EWORKSPACE=2
+export MODELINE="➋"
 emacs --daemon=workspace2
 notify-send "emacsd ws2 ready" &
-export EWORKSPACE=3
+export MODELINE="➌"
 emacs --daemon=workspace3
 notify-send "emacsd ws3 ready" &
-export EWORKSPACE=4
+export MODELINE="➍"
 emacs --daemon=workspace4
 notify-send "emacsd ws4 ready" &
