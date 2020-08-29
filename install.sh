@@ -30,6 +30,7 @@ git clone https://github.com/emacs-mirror/emacs.git
 
 git clone https://github.com/bndos/dmenu
 git clone https://github.com/bndos/dwm
+git clone https://github.com/bndos/st
 
 sudo add-apt-repository ppa:mmstick76/alacritty
 sudo apt update
@@ -38,6 +39,10 @@ sudo apt install alacritty -y
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-9 100
 
 cd dunst
+make
+sudo make install
+
+cd ../st
 make
 sudo make install
 
@@ -75,3 +80,5 @@ sudo mv ~/.local/share/icons/FossaCursors /usr/share/icons
 # go language server that works with emacs
 mkdir go
 go get golang.org/x/tools/gopls
+cd ~/.oh-my-zsh/themes/
+git clone https://github.com/romkatv/powerlevel10k.git
