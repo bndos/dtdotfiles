@@ -1,9 +1,11 @@
 git
 pavucontrol
+libnotify-dev
 udiskie
 cmake
 fonts-emojione
 fonts-symbola
+sxhkd
 libvterm-dev
 libvterm-bin
 clang
