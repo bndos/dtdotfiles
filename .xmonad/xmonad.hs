@@ -167,8 +167,8 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
   where
      -- full
      full = renamed [Replace "Full"]
-       $ windowNavigation
-       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       -- $ windowNavigation
+       -- $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ noBorders (Full)
 
      -- tiled
