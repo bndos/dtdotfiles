@@ -192,7 +192,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
-       $ ThreeColMid 1 (1/10) (1/2)
+       $ ThreeColMid 1 (3/100) (1/2)
 
      grid = renamed [Replace "Grid"]
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
