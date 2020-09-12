@@ -39,6 +39,7 @@ import XMonad.Hooks.InsertPosition
 
 -- actions
 import XMonad.Actions.CycleWindows
+import XMonad.Actions.GroupNavigation
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
@@ -261,6 +262,7 @@ myKeys =
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
+     , ("M1-<Tab>", nextMatch History (return True))
      , ("M-p", spawn "dmenu_run") -- dmenu
      , ("M-S-q", spawn "end-session") -- dmenu
      , ("M-z", spawn "em1") -- dmenu
@@ -359,6 +361,6 @@ main = do
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws]++ex
-                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+                        } >> updatePointer (0.25, 0.25) (0.25, 0.25) >> historyHook
           }
           `additionalKeysP` myKeys
