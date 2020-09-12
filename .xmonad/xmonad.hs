@@ -324,7 +324,7 @@ myNav2DConf = def
     }
   
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0"
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/bndo/.xmonad/xmobarrc"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
