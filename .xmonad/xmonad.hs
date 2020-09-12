@@ -1,0 +1,299 @@
+------------------------------------------------------------------------
+-- import
+------------------------------------------------------------------------
+
+import XMonad hiding ( (|||) ) -- jump to layout
+import XMonad.Layout.LayoutCombinators (JumpToLayout(..), (|||)) -- jump to layout
+import XMonad.Config.Desktop
+import System.Exit
+import qualified XMonad.StackSet as W
+import XMonad.Layout.IfMax
+
+-- data
+import Data.Char (isSpace)
+import Data.List
+import Data.Monoid
+import Data.Maybe (isJust)
+import Data.Ratio ((%)) -- for video
+import qualified Data.Map as M
+
+-- system
+import System.IO (hPutStrLn) -- for xmobar
+
+-- util
+import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
+import XMonad.Util.SpawnOnce
+import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.NamedWindows
+import XMonad.Util.WorkspaceCompare
+
+-- hooks
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
+import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat)
+import XMonad.Hooks.Place (placeHook, withGaps)
+import XMonad.Hooks.UrgencyHook
+
+-- actions
+import XMonad.Actions.CycleWindows
+import XMonad.Actions.CycleWS
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.CopyWindow -- for dwm window style tagging
+import XMonad.Actions.UpdatePointer -- update mouse postion
+
+-- layout
+import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.TabBarDecoration
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
+import XMonad.Layout.GridVariants
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.BinarySpacePartition
+
+------------------------------------------------------------------------
+-- variables
+------------------------------------------------------------------------
+
+myModMask = mod4Mask -- Sets modkey to super/windows key
+myTerminal = "st" -- Sets default terminal
+myBorderWidth = 0 -- Sets border width for windows
+myNormalBorderColor = "#839496"
+myFocusedBorderColor = "#268BD2"
+myppCurrent = "#e0ffff"
+myppVisible = "#cb4b16"
+myppHidden = "#ffffff"
+myppHiddenNoWindows = "#777777"
+myppTitle = "#FDF6E3"
+myppUrgent = "#DC322F"
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
+------------------------------------------------------------------------
+-- desktop notifications -- dunst package required
+------------------------------------------------------------------------
+
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name     <- getName w
+        Just idx <- fmap (W.findTag w) $ gets windowset
+
+        safeSpawn "notify-send" [show name, "workspace " ++ idx]
+
+------------------------------------------------------------------------
+-- Startup hook
+------------------------------------------------------------------------
+
+myStartupHook = do
+      spawnOnce "/home/bndo/bin/autostart.sh &"
+
+------------------------------------------------------------------------
+-- layout
+------------------------------------------------------------------------
+
+base03  = "#000000"
+base02  = "#073642"
+base01  = "#586e75"
+base00  = "#20273d"
+base0   = "#839496"
+base1   = "#93a1a1"
+base2   = "#eee8d5"
+base3   = "#fdf6e3"
+yellow  = "#b58900"
+orange  = "#cb4b16"
+red     = "#dc322f"
+magenta = "#d33682"
+violet  = "#6c71c4"
+blue    = "#268bd2"
+cyan    = "#2aa198"
+green       = "#859900"
+
+-- sizes
+gap         = 10
+topbar      = 20
+border      = 0
+prompt      = 20
+status      = 20
+
+active      = base00
+activeWarn  = red
+inactive    = base02
+focusColor  = blue
+unfocusColor = base02
+
+myFont      = "xft:Monego:pixelsize=1"
+myBigFont   = "-*-terminus-medium-*-*-*-*-240-*-*-*-*-*-*"
+myWideFont  = "xft:Eurostar Black Extended:"
+            ++ "style=Regular:pixelsize=180:hinting=true"
+
+-- this is a "fake title" used as a highlight bar in lieu of full borders
+-- (I find this a cleaner and less visually intrusive solution)
+topBarTheme = def
+    { fontName              = myFont
+    , inactiveBorderColor   = base03
+    , inactiveColor         = base03
+    , inactiveTextColor     = base03
+    , activeBorderColor     = active
+    , activeColor           = active
+    , activeTextColor       = active
+    , urgentBorderColor     = red
+    , urgentTextColor       = yellow
+    , decoHeight            = topbar
+    }
+
+myLayout = avoidStruts (tiled ||| full ||| grid ||| bsp)
+  where
+     -- full
+     full = renamed [Replace "Full"]
+          $ noBorders (Full)
+
+     -- tiled
+     tiled = renamed [Replace "Tall"]
+           $ noFrillsDeco shrinkText topBarTheme
+           $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+           $ ResizableTall 1 (3/100) (3/5) []
+
+     -- grid
+     grid = renamed [Replace "Grid"]
+          $ noFrillsDeco shrinkText topBarTheme
+          $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+          $ Grid (16/10)
+
+     -- bsp
+     bsp = renamed [Replace "BSP"]
+           $ noFrillsDeco shrinkText topBarTheme
+           $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+           $ emptyBSP
+
+     -- The default number of windows in the master pane
+     nmaster = 1
+
+     -- Default proportion of screen occupied by master pane
+     ratio   = 3/5
+
+     -- Percent of screen to increment by when resizing panes
+     delta   = 3/100
+
+------------------------------------------------------------------------
+-- Window rules:
+------------------------------------------------------------------------
+
+myManageHook = composeAll
+    [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
+    , className =? "Gimp"           --> doFloat
+    , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
+    , resource  =? "desktop_window" --> doIgnore
+    , resource  =? "kdesktop"       --> doIgnore
+    , isFullscreen --> doFullFloat
+    ] <+> namedScratchpadManageHook myScratchpads
+
+------------------------------------------------------------------------
+-- Key bindings. Add, modify or remove key bindings here.
+------------------------------------------------------------------------
+
+myKeys =
+    [("M-" ++ m ++ k, windows $ f i)
+        | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
+        , (f, m) <- [(W.view, ""), (W.shift, "S-"), (copy, "S-C-")]]
+    ++
+    [("S-C-a", windows copyToAll)   -- copy window to all workspaces
+     , ("S-C-c", killAllOtherCopies)  -- kill copies of window on other workspaces
+     , ("M-C-j", sendMessage MirrorExpand)
+     , ("M-C-k", sendMessage MirrorShrink)
+     , ("M-C-h", sendMessage Shrink)
+     , ("M-C-l", sendMessage Expand)
+     , ("M-S-b", sendMessage ToggleStruts)
+     , ("M-f", sendMessage $ JumpToLayout "Full")
+     , ("M-t", sendMessage $ JumpToLayout "Tall")
+     , ("M-g", sendMessage $ JumpToLayout "Grid")
+     , ("M-b", sendMessage $ JumpToLayout "BSP")
+     , ("M-i", sendMessage (IncMasterN 1))
+     , ("M-d", sendMessage (IncMasterN (-1)))
+     , ("M-<Tab>", toggleWS)
+     , ("M-p", spawn "dmenu_run") -- dmenu
+     , ("M-S-q", spawn "end-session") -- dmenu
+     , ("M-z", spawn "em1") -- dmenu
+     , ("M-S-z", spawn "em2") -- dmenu
+     , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
+     , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
+     , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
+        -- Switch between layers
+     , ("M-s", switchLayer)
+
+     -- Directional navigation of windows
+     , ("M-l", windowGo XMonad.Layout.BinarySpacePartition.R False)
+     , ("M-h" , windowGo XMonad.Layout.BinarySpacePartition.L False)
+     , ("M-k"   , windowGo U False)
+     , ("M-j" , windowGo D False)
+     , ("M-S-l", windowSwap XMonad.Layout.BinarySpacePartition.R False)
+     , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
+     , ("M-S-k"   , windowSwap U False)
+     , ("M-S-j" , windowSwap D False)
+    ]
+
+------------------------------------------------------------------------
+-- scratchpads
+------------------------------------------------------------------------
+
+myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
+              , NS "emacs-scratch" spawnEmacsScratch findEmacsScratch manageEmacsScratch
+                ]
+    where
+    role = stringProperty "WM_WINDOW_ROLE"
+    spawnTerm = myTerminal ++  " -name scratchpad"
+    findTerm = resource =? "scratchpad"
+    manageTerm = nonFloating
+    findEmacsScratch = title =? "emacs-scratch"
+    spawnEmacsScratch = "emacsclient -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch\"))'"
+    manageEmacsScratch = nonFloating
+
+------------------------------------------------------------------------
+-- main
+------------------------------------------------------------------------
+
+myNav2DConf = def
+    { defaultTiledNavigation    = centerNavigation
+    , floatNavigation           = centerNavigation
+    , screenNavigation          = lineNavigation
+    , layoutNavigation          = [("Full",          centerNavigation)
+    -- line/center same results   ,("Simple Tabs", lineNavigation)
+    --                            ,("Simple Tabs", centerNavigation)
+                                  ]
+    , unmappedWindowRect        = [("Full", singleWindowRect)
+    -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
+    -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
+                                  ]
+    }
+  
+main = do
+    xmproc0 <- spawnPipe "xmobar -x 0"
+    xmonad $ withUrgencyHook LibNotifyUrgencyHook
+      $ withNavigation2DConfig myNav2DConf
+      $ ewmh desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
+        , startupHook        = myStartupHook
+        , layoutHook         = myLayout
+        , handleEventHook    = handleEventHook desktopConfig
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth
+        , terminal           = myTerminal
+        , modMask            = myModMask
+        , normalBorderColor  = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = \x -> hPutStrLn xmproc0 x
+                        , ppCurrent = xmobarColor myppCurrent "" . wrap " [" "] " -- Current workspace in xmobar
+                        , ppVisible = xmobarColor myppVisible "" . wrap " " " "               -- Visible but not current workspace
+                        , ppHidden = xmobarColor myppHidden "" . wrap " " " "             -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "" . wrap " " " "        -- Hidden workspaces (no windows)
+                        , ppSep =  "<fc=#586E75> > </fc>"                     -- Separators in xmobar
+                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
+                        , ppExtras = [windowCount]                           -- # of windows current workspace
+                        , ppOrder  = \(ws:l:t:ex) -> [ws]++ex
+                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+          }
+          `additionalKeysP` myKeys
