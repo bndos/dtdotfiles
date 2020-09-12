@@ -1,6 +1,7 @@
 git
 pavucontrol
 libnotify-dev
+policykit-1-gnome
 udiskie
 cmake
 fonts-emojione
