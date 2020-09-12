@@ -42,6 +42,7 @@ import XMonad.Actions.CycleWindows
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
+import XMonad.Actions.GridSelect -- for dwm window style tagging
 import XMonad.Actions.UpdatePointer -- update mouse postion
 
 -- layout
@@ -275,6 +276,7 @@ myKeys =
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
+     , ("M-0", goToSelected defaultGSConfig)
         -- Switch between layers
      , ("M-s", switchLayer)
 
@@ -287,6 +289,15 @@ myKeys =
      , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
      , ("M-S-k"   , windowSwap U False)
      , ("M-S-j" , windowSwap D False)
+     , ("<XF86AudioMute>", spawn "volume mute")
+     , ("<XF86AudioLowerVolume>", spawn "volume down")
+     , ("<XF86AudioRaiseVolume>", spawn "volume up")
+     , ("<XF86MonBrightnessUp>", spawn "bluefilter up")
+     , ("<XF86MonBrightnessDown>", spawn "bluefilter down")
+     , ("<Print>", spawn "screenshot all")
+     , ("C-<Print>", spawn "screenshot selection")
+     , ("M1-<Print>", spawn "screenshot focus")
+     , ("S-<Print>", spawn "screenshot delay")
     ]
 
 ------------------------------------------------------------------------
