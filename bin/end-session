@@ -19,7 +19,7 @@ if [ "$res" = "Logout" ]; then
     pkill autostart.sh
     bspc quit
     pkill dwm
-    pkill spectrwm
+    pkill xmonad
 fi
 if [ "$res" = "Reboot" ]; then
     pkill --signal SIGKILL firefox

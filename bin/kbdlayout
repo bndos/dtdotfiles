@@ -5,9 +5,9 @@ if [ "$currentlayout" == "us" ]
   then
     setxkbmap -layout ca
     notify-send "ca"
-    xmodmap ~/.Xmodmap 
+    xmodmap ~/.Xmodmap
 else
     setxkbmap -layout us
     notify-send "us"
-    xmodmap ~/.Xmodmap 
+    xmodmap ~/.Xmodmap
 fi
