@@ -35,6 +35,7 @@ import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat)
 import XMonad.Hooks.Place (placeHook, withGaps)
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.InsertPosition
 
 -- actions
 import XMonad.Actions.CycleWindows
@@ -45,13 +46,18 @@ import XMonad.Actions.UpdatePointer -- update mouse postion
 
 -- layout
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Simplest
 import XMonad.Layout.TabBarDecoration
+import XMonad.Layout.Tabbed
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.GridVariants
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
 
 ------------------------------------------------------------------------
 -- variables
@@ -62,10 +68,10 @@ myTerminal = "st" -- Sets default terminal
 myBorderWidth = 0 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
-myppCurrent = "#e0ffff"
+myppCurrent = "#ffafaf"
 myppVisible = "#cb4b16"
-myppHidden = "#ffffff"
-myppHiddenNoWindows = "#777777"
+myppHidden = "#bbbbbb"
+myppHiddenNoWindows = "#555555"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
@@ -98,16 +104,18 @@ myStartupHook = do
 base03  = "#000000"
 base02  = "#073642"
 base01  = "#586e75"
-base00  = "#20273d"
+base00  = "#30374d"
 base0   = "#839496"
 base1   = "#93a1a1"
 base2   = "#eee8d5"
 base3   = "#fdf6e3"
+grey    = "#bbbbbb"
 yellow  = "#b58900"
 orange  = "#cb4b16"
 red     = "#dc322f"
 magenta = "#d33682"
 violet  = "#6c71c4"
+white  = "#ffffff"
 blue    = "#268bd2"
 cyan    = "#2aa198"
 green       = "#859900"
@@ -126,10 +134,8 @@ focusColor  = blue
 unfocusColor = base02
 
 myFont      = "xft:Monego:pixelsize=1"
-myBigFont   = "-*-terminus-medium-*-*-*-*-240-*-*-*-*-*-*"
-myWideFont  = "xft:Eurostar Black Extended:"
-            ++ "style=Regular:pixelsize=180:hinting=true"
-
+myBigFont   = "xft:Monego:pixelsize=120"
+-- myBigFont   = "-*-helvetica-medium-*-*-*-*-240-*-*-*-*-*-*"
 -- this is a "fake title" used as a highlight bar in lieu of full borders
 -- (I find this a cleaner and less visually intrusive solution)
 topBarTheme = def
@@ -145,29 +151,68 @@ topBarTheme = def
     , decoHeight            = topbar
     }
 
-myLayout = avoidStruts (tiled ||| full ||| grid ||| bsp)
+myTabTheme = def
+    { fontName              = myFont
+    , inactiveBorderColor   = base03
+    , inactiveColor         = base03
+    , inactiveTextColor     = base03
+    , activeBorderColor     = active
+    , activeColor           = active
+    , activeTextColor       = active
+    , decoHeight            = topbar
+    }
+
+myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
   where
      -- full
      full = renamed [Replace "Full"]
-          $ noBorders (Full)
+       $ windowNavigation
+       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ noBorders (Full)
 
      -- tiled
      tiled = renamed [Replace "Tall"]
-           $ noFrillsDeco shrinkText topBarTheme
-           $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
-           $ ResizableTall 1 (3/100) (3/5) []
+       -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       -- $ ResizableTall 1 (3/100) (3/5) [])
+
+       $ noFrillsDeco shrinkText topBarTheme           
+       -- $ windowNavigation $ subTabbed
+       $ windowNavigation
+       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       $ ResizableTall 1 (3/100) (3/5) []
 
      -- grid
+     cMaster = renamed [Replace "CM"]
+       -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+                  -- $ ResizableTall 1 (3/100) (3/5) [])
+
+       $ noFrillsDeco shrinkText topBarTheme
+       $ windowNavigation
+       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       $ ThreeColMid 1 (1/10) (1/2)
+
      grid = renamed [Replace "Grid"]
-          $ noFrillsDeco shrinkText topBarTheme
-          $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
-          $ Grid (16/10)
+       -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       -- $ ResizableTall 1 (3/100) (3/5) [])
+
+       $ noFrillsDeco shrinkText topBarTheme
+       $ windowNavigation
+       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       $ Grid (16/10)
 
      -- bsp
      bsp = renamed [Replace "BSP"]
-           $ noFrillsDeco shrinkText topBarTheme
-           $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
-           $ emptyBSP
+       -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       -- $ ResizableTall 1 (3/100) (3/5) [])
+
+       $ noFrillsDeco shrinkText topBarTheme
+       $ windowNavigation
+       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+       $ emptyBSP
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -202,15 +247,16 @@ myKeys =
     ++
     [("S-C-a", windows copyToAll)   -- copy window to all workspaces
      , ("S-C-c", killAllOtherCopies)  -- kill copies of window on other workspaces
-     , ("M-C-j", sendMessage MirrorExpand)
-     , ("M-C-k", sendMessage MirrorShrink)
-     , ("M-C-h", sendMessage Shrink)
-     , ("M-C-l", sendMessage Expand)
+     , ("M-M1-j", sendMessage MirrorExpand)
+     , ("M-M1-k", sendMessage MirrorShrink)
+     , ("M-M1-h", sendMessage Shrink)
+     , ("M-M1-l", sendMessage Expand)
      , ("M-S-b", sendMessage ToggleStruts)
      , ("M-f", sendMessage $ JumpToLayout "Full")
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
+     , ("M-c", sendMessage $ JumpToLayout "CM")
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
@@ -218,6 +264,14 @@ myKeys =
      , ("M-S-q", spawn "end-session") -- dmenu
      , ("M-z", spawn "em1") -- dmenu
      , ("M-S-z", spawn "em2") -- dmenu
+     , ("M-C-h", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.L)
+     , ("M-C-l", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.R)
+     , ("M-C-k", sendMessage $ pullGroup U)
+     , ("M-C-j", sendMessage $ pullGroup D)
+     , ("M-w", withFocused (sendMessage . MergeAll))
+     , ("M-S-w", withFocused (sendMessage . UnMerge))
+     , ("M-,", onGroup W.focusUp')
+     , ("M-.", onGroup W.focusDown')
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
@@ -274,7 +328,7 @@ main = do
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition Below Newer <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
         , handleEventHook    = handleEventHook desktopConfig
@@ -290,7 +344,7 @@ main = do
                         , ppVisible = xmobarColor myppVisible "" . wrap " " " "               -- Visible but not current workspace
                         , ppHidden = xmobarColor myppHidden "" . wrap " " " "             -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "" . wrap " " " "        -- Hidden workspaces (no windows)
-                        , ppSep =  "<fc=#586E75> > </fc>"                     -- Separators in xmobar
+                        , ppSep =  "<fc=#586E75>  = </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws]++ex
