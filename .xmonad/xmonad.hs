@@ -167,13 +167,13 @@ myTabTheme = def
 myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
   where
      -- full
-     full = renamed [Replace "Full"]
+     full = renamed [Replace "[Full]"]
        -- $ windowNavigation
        -- $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ noBorders (Full)
 
      -- tiled
-     tiled = renamed [Replace "Tall"]
+     tiled = renamed [Replace "[Tile]"]
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -185,7 +185,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        $ ResizableTall 1 (3/100) (3/5) []
 
      -- grid
-     cMaster = renamed [Replace "CM"]
+     cMaster = renamed [Replace "[CM]"]
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
                   -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -195,7 +195,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        $ ThreeColMid 1 (3/100) (1/2)
 
-     grid = renamed [Replace "Grid"]
+     grid = renamed [Replace "[Grid]"]
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -206,7 +206,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        $ Grid (16/10)
 
      -- bsp
-     bsp = renamed [Replace "BSP"]
+     bsp = renamed [Replace "[BSP]"]
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -254,11 +254,11 @@ myKeys =
      , ("M-M1-h", sendMessage Shrink)
      , ("M-M1-l", sendMessage Expand)
      , ("M-S-b", sendMessage ToggleStruts)
-     , ("M-f", sendMessage $ JumpToLayout "Full")
-     , ("M-t", sendMessage $ JumpToLayout "Tall")
-     , ("M-g", sendMessage $ JumpToLayout "Grid")
-     , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-c", sendMessage $ JumpToLayout "CM")
+     , ("M-f", sendMessage $ JumpToLayout "[Full]")
+     , ("M-t", sendMessage $ JumpToLayout "[Tile]")
+     , ("M-g", sendMessage $ JumpToLayout "[Grid]")
+     , ("M-b", sendMessage $ JumpToLayout "[BSP]")
+     , ("M-c", sendMessage $ JumpToLayout "[CM]")
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
@@ -326,11 +326,11 @@ myNav2DConf = def
     { defaultTiledNavigation    = centerNavigation
     , floatNavigation           = centerNavigation
     , screenNavigation          = lineNavigation
-    , layoutNavigation          = [("Full",          centerNavigation)
+    , layoutNavigation          = [("[Full]",          centerNavigation)
     -- line/center same results   ,("Simple Tabs", lineNavigation)
     --                            ,("Simple Tabs", centerNavigation)
                                   ]
-    , unmappedWindowRect        = [("Full", singleWindowRect)
+    , unmappedWindowRect        = [("[Full]", singleWindowRect)
     -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
     -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
                                   ]
@@ -357,10 +357,10 @@ main = do
                         , ppVisible = xmobarColor myppVisible "" . wrap " " " "               -- Visible but not current workspace
                         , ppHidden = xmobarColor myppHidden "" . wrap " *" " "             -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "" . wrap " " " "        -- Hidden workspaces (no windows)
-                        , ppSep =  "<fc=#586E75>  = </fc>"                     -- Separators in xmobar
+                        , ppSep =  "<fc=#586E75>   </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws]++ex
+                        , ppExtras = [windowCount]                          -- # of windows current workspace
+                        , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
                         } >> updatePointer (0.25, 0.25) (0.25, 0.25) >> historyHook
           }
           `additionalKeysP` myKeys
