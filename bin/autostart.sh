@@ -3,6 +3,8 @@
 xrdb ~/.Xresources&
 xsetroot -cursor_name left_ptr&
 picom --config ~/.config/picom/picomdwm.conf&
+# picom&
+flashfocus&
 nitrogen --restore&
 nightmode --recover&
 restart-emax&

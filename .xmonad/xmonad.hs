@@ -177,7 +177,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
-       $ noFrillsDeco shrinkText topBarTheme           
+       -- $ noFrillsDeco shrinkText topBarTheme           
        -- $ windowNavigation $ subTabbed
        $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
@@ -189,7 +189,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
                   -- $ ResizableTall 1 (3/100) (3/5) [])
 
-       $ noFrillsDeco shrinkText topBarTheme
+       -- $ noFrillsDeco shrinkText topBarTheme
        $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
@@ -199,7 +199,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
-       $ noFrillsDeco shrinkText topBarTheme
+       -- $ noFrillsDeco shrinkText topBarTheme
        $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
@@ -210,7 +210,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
        -- $ ifMax 1 (spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
-       $ noFrillsDeco shrinkText topBarTheme
+       -- $ noFrillsDeco shrinkText topBarTheme
        $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
@@ -267,6 +267,7 @@ myKeys =
      , ("M-S-q", spawn "end-session") -- dmenu
      , ("M-z", spawn "em1") -- dmenu
      , ("M-S-z", spawn "em2") -- dmenu
+     , ("M-n", spawn "flash_window") -- dmenu
      , ("M-C-h", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.L)
      , ("M-C-l", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.R)
      , ("M-C-k", sendMessage $ pullGroup U)
