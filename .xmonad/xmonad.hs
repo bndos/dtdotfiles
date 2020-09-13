@@ -76,7 +76,16 @@ myppHidden = "#777777"
 myppHiddenNoWindows = "#444444"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
-myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
+xmobarEscape = concatMap doubleLts
+  where doubleLts '<' = "<<"
+        doubleLts x   = [x]
+
+myWorkspaces :: [String]        
+myWorkspaces = clickable . (map xmobarEscape) $ ["1","2","3","4","5","6","7","8","9"]
+  where                                                                       
+         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
+                             (i,ws) <- zip [1..9] l,                                        
+                            let n = i ]
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
@@ -338,7 +347,7 @@ myNav2DConf = def
     }
   
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/bndo/.xmonad/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar /home/bndo/.xmonad/xmobarrc"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig

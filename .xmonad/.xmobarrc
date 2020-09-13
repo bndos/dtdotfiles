@@ -16,10 +16,10 @@ Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba
        , allDesktops = True
        , overrideRedirect = True
        , commands = [ Run Date "%H:%M" "date" 10
-		    , Run StdinReader
+		    , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "  %StdinReader% }\
+       , template = "  %UnsafeStdinReader% }\
                     \{ <fc=#cccccc>%date%   </fc>"
        }
