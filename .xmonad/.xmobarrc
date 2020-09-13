@@ -5,7 +5,7 @@ Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba
        , bgColor = "#000000"
        , fgColor = "#FDF6E3"
        , alpha = 255
-       , position = Static { xpos = 0 , ypos = 0, width = 3840, height = 65 }
+       , position = Static { xpos = 70 , ypos = 0, width = 3700, height = 65 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
@@ -20,6 +20,6 @@ Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }\
-                    \{ <fc=#cccccc>%date% </fc>"
+       , template = "  %StdinReader% }\
+                    \{ <fc=#cccccc>%date%   </fc>"
        }

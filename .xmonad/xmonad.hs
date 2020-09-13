@@ -263,7 +263,7 @@ myKeys =
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
      , ("M1-<Tab>", nextMatch History (return True))
-     , ("M-p", spawn "dmenu_run") -- dmenu
+     , ("M-p", spawn "dmenu_run -w 3775 -x 15") -- dmenu
      , ("M-S-q", spawn "end-session") -- dmenu
      , ("M-z", spawn "em1") -- dmenu
      , ("M-S-z", spawn "em2") -- dmenu
