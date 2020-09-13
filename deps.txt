@@ -3,6 +3,7 @@ pavucontrol
 libnotify-dev
 policykit-1-gnome
 udiskie
+npm
 cmake
 fonts-emojione
 fonts-symbola
@@ -100,7 +101,6 @@ xcb-proto
 libxcb-image0-dev
 libxcb-ewmh-dev
 libxcb-icccm4-dev
-
 libxcb-xkb-dev
 libxcb-xrm-dev
 libxcb-cursor-dev

@@ -82,3 +82,5 @@ mkdir go
 go get golang.org/x/tools/gopls
 cd ~/.oh-my-zsh/themes/
 git clone https://github.com/romkatv/powerlevel10k.git
+
+sudo npm install -g tslint-config-prettier tslint-plugin-prettier tslint prettier
