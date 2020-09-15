@@ -304,14 +304,12 @@ myKeys =
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
-     , ("<XF86MonBrightnessUp>", spawn "brightness up")
-     , ("<XF86MonBrightnessDown>", spawn "brightness down")
+     , ("<XF86MonBrightnessUp>", spawn "bluefilter up")
+     , ("<XF86MonBrightnessDown>", spawn "bluefilter down")
      , ("<Print>", spawn "screenshot all")
      , ("C-<Print>", spawn "screenshot selection")
      , ("M1-<Print>", spawn "screenshot focus")
      , ("S-<Print>", spawn "screenshot delay")
-     , ("M-<Up>", spawn "bluefilter up")
-     , ("M-<Down>", spawn "bluefilter down")
     ]
 
 ------------------------------------------------------------------------
@@ -323,8 +321,8 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ]
     where
     role = stringProperty "WM_WINDOW_ROLE"
-    spawnTerm = myTerminal ++  " -name scratchpad"
-    findTerm = resource =? "scratchpad"
+    spawnTerm = myTerminal ++  " -t scratchpad-st"
+    findTerm = title =? "scratchpad-st"
     manageTerm = nonFloating
     findEmacsScratch = title =? "emacs-scratch"
     spawnEmacsScratch = "emacsclient -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch\"))'"
