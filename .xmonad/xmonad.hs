@@ -285,7 +285,6 @@ myKeys =
      , ("M-S-w", withFocused (sendMessage . UnMerge))
      , ("M-,", onGroup W.focusUp')
      , ("M-.", onGroup W.focusDown')
-     , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
      , ("M-0", goToSelected defaultGSConfig)
@@ -310,7 +309,15 @@ myKeys =
      , ("C-<Print>", spawn "screenshot selection")
      , ("M1-<Print>", spawn "screenshot focus")
      , ("S-<Print>", spawn "screenshot delay")
+     , ("M-;", spawn "scratchpad --toggle 1")
+     , ("M-'", spawn "scratchpad --toggle 2")
+     , ("M-S-s", withFocused toggleFloat)
     ]
+     where
+            toggleFloat w = windows (\s -> if M.member w (W.floating s)
+                            then W.sink w s
+                            else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (4/5)) s))
+
 
 ------------------------------------------------------------------------
 -- scratchpads
