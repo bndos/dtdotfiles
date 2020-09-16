@@ -45,6 +45,7 @@ import XMonad.Actions.Navigation2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
 import XMonad.Actions.GridSelect -- for dwm window style tagging
 import XMonad.Actions.UpdatePointer -- update mouse postion
+import XMonad.Actions.Promote -- update mouse postion
 
 -- layout
 import XMonad.Layout.NoFrillsDecoration
@@ -256,8 +257,8 @@ myKeys =
         | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
         , (f, m) <- [(W.view, ""), (W.shift, "S-"), (copy, "S-C-")]]
     ++
-    [("S-C-a", windows copyToAll)   -- copy window to all workspaces
-     , ("S-C-c", killAllOtherCopies)  -- kill copies of window on other workspaces
+    [("M-S-0", windows copyToAll)   -- copy window to all workspaces
+     , ("M-C-0", killAllOtherCopies)  -- kill copies of window on other workspaces
      , ("M-M1-j", sendMessage MirrorExpand)
      , ("M-M1-k", sendMessage MirrorShrink)
      , ("M-M1-h", sendMessage Shrink)
@@ -300,6 +301,7 @@ myKeys =
      , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
      , ("M-S-k"   , windowSwap U False)
      , ("M-S-j" , windowSwap D False)
+     , ("M-<Return>" , promote)
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
