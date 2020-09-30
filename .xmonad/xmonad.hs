@@ -242,6 +242,8 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
 myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
+    , className =? "discord"        --> doFloat
+    , className =? "main.exe"       --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
@@ -301,7 +303,7 @@ myKeys =
      , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
      , ("M-S-k"   , windowSwap U False)
      , ("M-S-j" , windowSwap D False)
-     , ("M-<Return>" , promote)
+     -- , ("M-<Return>" , promote)
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
@@ -311,9 +313,11 @@ myKeys =
      , ("C-<Print>", spawn "screenshot selection")
      , ("M1-<Print>", spawn "screenshot focus")
      , ("S-<Print>", spawn "screenshot delay")
+     , ("M1-S-<Print>", spawn "screenshot delay-focus")
      , ("M-;", spawn "scratchpad --toggle 1")
      , ("M-'", spawn "scratchpad --toggle 2")
      , ("M-S-s", withFocused toggleFloat)
+     , ("M1-<Space>", spawn "kbdlayout")
     ]
      where
             toggleFloat w = windows (\s -> if M.member w (W.floating s)
@@ -360,7 +364,7 @@ main = do
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition Below Newer <+> myManageHook <+> manageHook desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition End Newer <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
         , handleEventHook    = handleEventHook desktopConfig
