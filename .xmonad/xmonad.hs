@@ -36,6 +36,7 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCente
 import XMonad.Hooks.Place (placeHook, withGaps)
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.RefocusLast
 
 -- actions
 import XMonad.Actions.CycleWindows
@@ -274,12 +275,14 @@ myKeys =
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
-     , ("M1-<Tab>", nextMatch History (return True))
-     , ("M-p", spawn "dmenu_run -w 3775 -x 15") -- dmenu
-     , ("M-S-q", spawn "end-session") -- dmenu
-     , ("M-z", spawn "em1") -- dmenu
-     , ("M-S-z", spawn "em2") -- dmenu
-     , ("M-n", spawn "flash_window") -- dmenu
+     , ("M1-<Tab>", toggleFocus)
+     , ("M-p", spawn "dmenu_run -w 3775 -x 15")
+     , ("M-S-q", spawn "end-session")
+     , ("M-z", spawn "em1")
+     , ("M-S-z", spawn "em2")
+     , ("M-x", spawn "em3")
+     , ("M-S-x", spawn "em4")
+     , ("M-n", spawn "flash_window")
      , ("M-C-h", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.L)
      , ("M-C-l", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.R)
      , ("M-C-k", sendMessage $ pullGroup U)
@@ -384,6 +387,6 @@ main = do
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                          -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
-                        } >> updatePointer (0.25, 0.25) (0.25, 0.25) >> historyHook
+                        } >> historyHook >> refocusLastLogHook
           }
           `additionalKeysP` myKeys
