@@ -370,7 +370,7 @@ main = do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition End Newer <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
-        , handleEventHook    = handleEventHook desktopConfig
+        , handleEventHook    = handleEventHook desktopConfig <+> refocusLastWhen refocusingIsActive
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , terminal           = myTerminal
@@ -387,6 +387,6 @@ main = do
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                          -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
-                        } >> historyHook >> refocusLastLogHook
+                        } >> refocusLastLogHook
           }
           `additionalKeysP` myKeys
