@@ -243,7 +243,6 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
 myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
-    , className =? "discord"        --> doFloat
     , className =? "main.exe"       --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
@@ -291,8 +290,8 @@ myKeys =
      , ("M-S-w", withFocused (sendMessage . UnMerge))
      , ("M-,", onGroup W.focusUp')
      , ("M-.", onGroup W.focusDown')
-     , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
-     , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
+     , ("M3-1", namedScratchpadAction myScratchpads "emacs-scratch1")
+     , ("M3-2", namedScratchpadAction myScratchpads "emacs-scratch2")
      , ("M-0", goToSelected defaultGSConfig)
         -- Switch between layers
      , ("M-s", switchLayer)
@@ -332,17 +331,16 @@ myKeys =
 -- scratchpads
 ------------------------------------------------------------------------
 
-myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
-              , NS "emacs-scratch" spawnEmacsScratch findEmacsScratch manageEmacsScratch
+myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manageEmacsScratch
+                , NS "emacs-scratch2" spawnEmacsScratch2 findEmacsScratch2 manageEmacsScratch
                 ]
     where
     role = stringProperty "WM_WINDOW_ROLE"
-    spawnTerm = myTerminal ++  " -t scratchpad-st"
-    findTerm = title =? "scratchpad-st"
-    manageTerm = nonFloating
-    findEmacsScratch = title =? "emacs-scratch"
-    spawnEmacsScratch = "emacsclient -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch\"))'"
-    manageEmacsScratch = nonFloating
+    findEmacsScratch1 = title =? "emacs-scratch1"
+    spawnEmacsScratch1 = "emacsclient -s workspace1 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch1\"))'"
+    findEmacsScratch2 = title =? "emacs-scratch2"
+    spawnEmacsScratch2 = "emacsclient -s workspace2 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch2\"))'"
+    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
 
 ------------------------------------------------------------------------
 -- main
