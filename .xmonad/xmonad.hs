@@ -292,6 +292,8 @@ myKeys =
      , ("M-.", onGroup W.focusDown')
      , ("M3-1", namedScratchpadAction myScratchpads "emacs-scratch1")
      , ("M3-2", namedScratchpadAction myScratchpads "emacs-scratch2")
+     , ("M3-3", namedScratchpadAction myScratchpads "emacs-scratch3")
+     , ("M3-4", namedScratchpadAction myScratchpads "emacs-scratch4")
      , ("M-0", goToSelected defaultGSConfig)
         -- Switch between layers
      , ("M-s", switchLayer)
@@ -324,7 +326,7 @@ myKeys =
      where
             toggleFloat w = windows (\s -> if M.member w (W.floating s)
                             then W.sink w s
-                            else (W.float w (W.RationalRect (1/5) (1/30) (3/5) (19/20)) s))
+                            else (W.float w (W.RationalRect (1/6) (1/6) (2/3) (2/3)) s))
 
 
 ------------------------------------------------------------------------
@@ -333,6 +335,8 @@ myKeys =
 
 myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manageEmacsScratch
                 , NS "emacs-scratch2" spawnEmacsScratch2 findEmacsScratch2 manageEmacsScratch
+                , NS "emacs-scratch3" spawnEmacsScratch3 findEmacsScratch3 manageEmacsScratch
+                , NS "emacs-scratch4" spawnEmacsScratch4 findEmacsScratch4 manageEmacsScratch
                 ]
     where
     role = stringProperty "WM_WINDOW_ROLE"
@@ -340,6 +344,10 @@ myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manag
     spawnEmacsScratch1 = "emacsclient -s workspace1 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch1\"))'"
     findEmacsScratch2 = title =? "emacs-scratch2"
     spawnEmacsScratch2 = "emacsclient -s workspace2 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch2\"))'"
+    findEmacsScratch3 = title =? "emacs-scratch3"
+    spawnEmacsScratch3 = "emacsclient -s workspace3 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch3\"))'"
+    findEmacsScratch4 = title =? "emacs-scratch4"
+    spawnEmacsScratch4 = "emacsclient -s workspace4 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch4\"))'"
     manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
 
 ------------------------------------------------------------------------

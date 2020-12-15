@@ -110,3 +110,6 @@ libjsoncpp-dev
 libmpdclient-dev
 libcurl4-openssl-dev
 libnl-genl-3-dev
+libglm-dev
+libglew-dev
+libsdl2-dev
