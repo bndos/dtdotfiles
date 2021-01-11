@@ -30,6 +30,7 @@ import XMonad.Util.WorkspaceCompare
 
 -- hooks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicBars
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat)
@@ -62,7 +63,8 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
-
+import XMonad.Layout.IndependentScreens
+  
 ------------------------------------------------------------------------
 -- variables
 ------------------------------------------------------------------------
@@ -288,8 +290,8 @@ myKeys =
      , ("M-C-j", sendMessage $ pullGroup D)
      , ("M-w", withFocused (sendMessage . MergeAll))
      , ("M-S-w", withFocused (sendMessage . UnMerge))
-     , ("M-,", onGroup W.focusUp')
-     , ("M-.", onGroup W.focusDown')
+     , ("M-M3-h", onGroup W.focusUp')
+     , ("M-M3-l", onGroup W.focusDown')
      , ("M3-1", namedScratchpadAction myScratchpads "emacs-scratch1")
      , ("M3-2", namedScratchpadAction myScratchpads "emacs-scratch2")
      , ("M3-3", namedScratchpadAction myScratchpads "emacs-scratch3")
@@ -298,6 +300,10 @@ myKeys =
         -- Switch between layers
      , ("M-s", switchLayer)
 
+     , ("M-.", nextScreen)
+     , ("M-,", prevScreen)
+     , ("M-S-.", shiftNextScreen)
+     , ("M-S-,", shiftPrevScreen)
      -- Directional navigation of windows
      , ("M-l", windowGo XMonad.Layout.BinarySpacePartition.R False)
      , ("M-h" , windowGo XMonad.Layout.BinarySpacePartition.L False)
