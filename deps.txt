@@ -1,5 +1,7 @@
 git
 pavucontrol
+autorandr
+arandr
 libnotify-dev
 policykit-1-gnome
 udiskie
