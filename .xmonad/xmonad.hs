@@ -8,6 +8,7 @@ import XMonad.Config.Desktop
 import System.Exit
 import qualified XMonad.StackSet as W
 import XMonad.Layout.IfMax
+import Control.Monad (liftM,liftM2, zipWithM_)
 
 -- data
 import Data.Char (isSpace)
@@ -246,6 +247,7 @@ myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
 myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
+    , className =? "Pavucontrol"    --> doShift (myWorkspaces !! 5)
     , className =? "main.exe"       --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
@@ -278,7 +280,7 @@ myKeys =
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-<Tab>", toggleWS)
      , ("M1-<Tab>", toggleFocus)
-     , ("M-p", spawn "dmenu_run -w 3775 -x 15")
+     , ("M-p", spawn "dmenu_run")
      , ("M-S-q", spawn "end-session")
      , ("M-z", spawn "em1")
      , ("M-S-z", spawn "em2")

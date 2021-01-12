@@ -1,9 +1,11 @@
 #!/bin/bash
 
 xrdb ~/.Xresources&
+autorandr --load desktop
 xsetroot -cursor_name left_ptr&
-picom --config ~/.config/picom/picomdwm.conf&
-# picom&
+# picom --config ~/.config/picom/picomdwm.conf&
+picom&
+dropbox start&
 flashfocus&
 nitrogen --restore&
 nightmode --recover&
@@ -12,3 +14,4 @@ dunst&
 udiskie&
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 dropbox&
+pavucontrol&

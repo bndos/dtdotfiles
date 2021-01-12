@@ -2,7 +2,7 @@
 
 pkill emacs
 cd ~
-
+find ~/.emacs.d -type f -name ".emacs.desktop.lock" -exec rm -f {} \;
 
 export MODELINE="➊"
 emacs --daemon=workspace1

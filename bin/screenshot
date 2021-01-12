@@ -21,6 +21,9 @@ case $1 in
 	scrot -d 1 -s $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
 	notify-send -t 1000 "screenshot selection saved"
 	;;
-	
+    delay-focus)
+	scrot -u -d 5 $screenshot_dir/screenshot_%y-%m-%d_%H:%M:%S.png
+	notify-send -t 1000 "screenshot focused window saved"
+	;;
 esac
 
