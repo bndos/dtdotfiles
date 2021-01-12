@@ -5,23 +5,21 @@ Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba
        , bgColor = "#000000"
        , fgColor = "#FDF6E3"
        , alpha = 255
-       , position = Static { xpos = 33 , ypos = 0, width = 1300, height = 35 }
+       , position = Static { xpos = 3910 , ypos = 0, width = 3700, height = 65 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
        , pickBroadest = False
-       , persistent = False
+       , persistent = True
        , hideOnStart = False
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
        , commands = [ Run Date "%H:%M" "date" 10
-       	            , Run Battery ["-t","<left>%","-L","50","-H","75","-h","white","-n","white","-l","red"] 10
-		    --, Run Com "battery" [] "batty" 10
-                    , Run UnsafeStdinReader
+		    , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = "  %UnsafeStdinReader% }\
-                    \{ <fc=#cccccc>%date%  %battery%   </fc>"
+                    \{ <fc=#cccccc>%date%   </fc>"
        }

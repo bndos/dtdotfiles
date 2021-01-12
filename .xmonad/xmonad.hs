@@ -41,6 +41,7 @@ import XMonad.Hooks.RefocusLast
 
 -- actions
 import XMonad.Actions.CycleWindows
+import XMonad.Actions.PhysicalScreens
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Navigation2D
@@ -375,7 +376,8 @@ myNav2DConf = def
     }
   
 main = do
-    xmproc0 <- spawnPipe "xmobar /home/bndo/.xmonad/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/bndo/.xmonad/xmobarrc0"
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/bndo/.xmonad/xmobarrc1"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
@@ -390,7 +392,7 @@ main = do
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
         , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x
+                        { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
                         , ppCurrent = xmobarColor myppCurrent "" . wrap " [" "] " -- Current workspace in xmobar
                         , ppVisible = xmobarColor myppVisible "" . wrap " " " "               -- Visible but not current workspace
                         , ppHidden = xmobarColor myppHidden "" . wrap " *" " "             -- Hidden workspaces in xmobar
@@ -399,6 +401,6 @@ main = do
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                          -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
-                        } >> refocusLastLogHook
+                        } >> refocusLastLogHook >> updatePointer (0.5, 0.5) (0, 0)
           }
           `additionalKeysP` myKeys
