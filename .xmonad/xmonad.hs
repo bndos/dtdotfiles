@@ -291,8 +291,8 @@ myKeys =
      , ("M-C-l", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.R)
      , ("M-C-k", sendMessage $ pullGroup U)
      , ("M-C-j", sendMessage $ pullGroup D)
-     , ("M-w", withFocused (sendMessage . MergeAll))
-     , ("M-S-w", withFocused (sendMessage . UnMerge))
+     , ("M3-w", withFocused (sendMessage . MergeAll))
+     , ("M3-S-w", withFocused (sendMessage . UnMerge))
      , ("M-M3-h", onGroup W.focusUp')
      , ("M-M3-l", onGroup W.focusDown')
      , ("M3-1", namedScratchpadAction myScratchpads "emacs-scratch1")
@@ -383,7 +383,7 @@ main = do
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
       $ withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition End Newer <+> myManageHook <+> manageHook desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> insertPosition Below Newer <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
         , handleEventHook    = handleEventHook desktopConfig <+> refocusLastWhen refocusingIsActive
