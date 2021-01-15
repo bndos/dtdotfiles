@@ -82,6 +82,7 @@ myppHidden = "#777777"
 myppHiddenNoWindows = "#444444"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
+
 xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
         doubleLts x   = [x]
@@ -262,7 +263,7 @@ myManageHook = composeAll
 myKeys =
     [("M-" ++ m ++ k, windows $ f i)
         | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
-        , (f, m) <- [(W.view, ""), (W.shift, "S-"), (copy, "S-C-")]]
+        , (f, m) <- [(W.greedyView, ""), (W.shift, "S-"), (copy, "S-C-")]]
     ++
     [("M-S-0", windows copyToAll)   -- copy window to all workspaces
      , ("M-C-0", killAllOtherCopies)  -- kill copies of window on other workspaces
@@ -278,6 +279,8 @@ myKeys =
      , ("M-c", sendMessage $ JumpToLayout "[CM]")
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
+     , ("M-u", moveTo Next HiddenNonEmptyWS)
+     , ("M-y", moveTo Prev HiddenNonEmptyWS)
      , ("M-<Tab>", toggleWS)
      , ("M1-<Tab>", toggleFocus)
      , ("M-p", spawn "dmenu_run")
@@ -322,11 +325,11 @@ myKeys =
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
      , ("M-<Up>", spawn "bluefilter up")
      , ("M-<Down>", spawn "bluefilter down")
-     , ("<Print>", spawn "screenshot all")
-     , ("C-<Print>", spawn "screenshot selection")
-     , ("M1-<Print>", spawn "screenshot focus")
-     , ("S-<Print>", spawn "screenshot delay")
-     , ("M1-S-<Print>", spawn "screenshot delay-focus")
+     , ("M3-=", spawn "screenshot all")
+     , ("C-M3-=", spawn "screenshot selection")
+     , ("M1-M3-=", spawn "screenshot focus")
+     , ("S-M3-=", spawn "screenshot delay")
+     , ("M1-S-M3-=", spawn "screenshot delay-focus")
      , ("M-;", spawn "scratchpad --toggle 1")
      , ("M-'", spawn "scratchpad --toggle 2")
      , ("M-S-s", withFocused toggleFloat)
