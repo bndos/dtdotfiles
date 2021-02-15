@@ -1,7 +1,7 @@
 Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold"
        , additionalFonts = []
        , borderColor = "#000000"
-       , border = FullB
+       , border = NoBorder
        , bgColor = "#000000"
        , fgColor = "#FDF6E3"
        , alpha = 255

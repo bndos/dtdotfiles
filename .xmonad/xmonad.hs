@@ -54,6 +54,7 @@ import XMonad.Actions.UpdatePointer -- update mouse postion
 import XMonad.Actions.Promote -- update mouse postion
 
 -- layout
+import XMonad.Layout.TrackFloating
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Simplest
@@ -186,7 +187,7 @@ myTabTheme = def
     , decoHeight            = topbar
     }
 
-myLayout = avoidStruts $ (tiled ||| full ||| cMaster ||| grid ||| bsp)
+myLayout = avoidStruts $ (trackFloating (useTransientFor (tiled ||| full ||| cMaster ||| grid ||| bsp)))
   where
      -- full
      full = renamed [Replace "[Full]"]
@@ -341,13 +342,37 @@ myKeys =
      , ("M1-S-M3-=", spawn "screenshot delay-focus")
      , ("M-;", spawn "scratchpad --toggle 1")
      , ("M-'", spawn "scratchpad --toggle 2")
-     , ("M-S-s", withFocused toggleFloat)
+     , ("M-S-s", toggleFloat)
      , ("M1-<Space>", spawn "kbdlayout")
     ]
-     where
-            toggleFloat w = windows (\s -> if M.member w (W.floating s)
-                            then W.sink w s
-                            else (W.float w (W.RationalRect (1/6) (1/6) (2/3) (2/3)) s))
+
+centreRect = W.RationalRect 0.25 0.25 0.5 0.5
+
+-- If the window is floating then (f), if tiled then (n)
+floatOrNot f n = withFocused $ \windowId -> do
+    floats <- gets (W.floating . windowset)
+    if windowId `M.member` floats -- if the current window is floating...
+       then f
+       else n
+
+-- Centre and float a window (retain size)
+centreFloat win = do
+    (_, W.RationalRect x y w h) <- floatLocation win
+    windows $ W.float win (W.RationalRect ((1 - w) / 2) ((1 - h) / 2) w h)
+    return ()
+
+-- Float a window in the centre
+centreFloat' w = windows $ W.float w centreRect
+
+-- Make a window my 'standard size' (half of the screen) keeping the centre of the window fixed
+standardSize win = do
+    (_, W.RationalRect x y w h) <- floatLocation win
+    windows $ W.float win (W.RationalRect x y 0.5 0.5)
+    return ()
+
+
+-- Float and centre a tiled window, sink a floating window
+toggleFloat = floatOrNot (withFocused $ windows . W.sink) (sequence_ [(withFocused centreFloat'), toggleFocus, toggleFocus])
 
 
 ------------------------------------------------------------------------
@@ -369,7 +394,7 @@ myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manag
     spawnEmacsScratch3 = "emacsclient -s workspace3 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch3\"))'"
     findEmacsScratch4 = title =? "emacs-scratch4"
     spawnEmacsScratch4 = "emacsclient -s workspace4 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch4\"))'"
-    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)) <+> doF W.swapUp
 
 ------------------------------------------------------------------------
 -- main
@@ -410,7 +435,7 @@ main = do
                         , ppCurrent = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   "               -- Visible but not current workspace
                         , ppHidden = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "             -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows ":0" . wrap "   " "   "        -- Hidden workspaces (no windows)
+                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "        -- Hidden workspaces (no windows)
                         , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
                         , ppWsSep = ""
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
@@ -421,7 +446,7 @@ main = do
                         , ppCurrent = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   "               -- Visible but not current workspace
                         , ppHidden = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "             -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows ":0" . wrap "   " "   "        -- Hidden workspaces (no windows)
+                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "        -- Hidden workspaces (no windows)
                         , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
                         , ppWsSep = ""
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace

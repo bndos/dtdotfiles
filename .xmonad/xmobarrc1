@@ -1,7 +1,7 @@
 Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgba:antialias=true:autohint=false:style=bold"
        , additionalFonts = []
        , borderColor = "#000000"
-       , border = FullB
+       , border = NoBorder
        , bgColor = "#000000"
        , fgColor = "#FDF6E3"
        , alpha = 255
@@ -20,6 +20,6 @@ Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "  %UnsafeStdinReader% }\
+       , template = "%UnsafeStdinReader% }\
                     \{ <fc=#000000,#ffffff:0>  %date%  </fc>"
        }
