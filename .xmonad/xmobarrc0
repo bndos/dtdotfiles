@@ -1,11 +1,11 @@
-Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold"
+Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold"
        , additionalFonts = []
        , borderColor = "#000000"
        , border = FullB
        , bgColor = "#000000"
        , fgColor = "#FDF6E3"
        , alpha = 255
-       , position = Static { xpos = 70 , ypos = 0, width = 3700, height = 65 }
+       , position = Static { xpos = 70 , ypos = 15, width = 3700, height = 55 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
@@ -20,6 +20,6 @@ Config { font = "xft:Monego:size=10:lcdfilter=lcddefault:hintstyle=hintnone:rgba
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "  %UnsafeStdinReader% }\
-                    \{ <fc=#cccccc>%date%   </fc>"
+       , template = "%UnsafeStdinReader%}\
+                    \{ <fc=#000000,#ffffff:0>  %date%  </fc>"
        }
