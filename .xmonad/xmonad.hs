@@ -83,7 +83,8 @@ myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
 myppCurrentBg = "#ffffff:0"
-myppVisibleBg = "#555555:0"
+myppVisibleBg = "#333333:0"
+myppVisibleBgCur = "#777777:0"
 myppVisibleBgFocus = "#90A4AD:0"
 myppHiddenFg = "#000000"
 myppHiddenBg = "#bbbbbb:0"
@@ -303,7 +304,7 @@ workspaceOnScreen n = do
        fmt1 = if tag == foc then cur else vis
           where
             cur = xmobarColor myppCurrentFg myppCurrentBg
-            vis = xmobarColor myppCurrentFg myppVisibleBg
+            vis = xmobarColor myppCurrentFg myppVisibleBgCur
    return fmt1
 
 visibleOnScreen :: ScreenId -> X (String -> String)
