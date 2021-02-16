@@ -1,0 +1,14 @@
+#!/bin/bash
+VIVADO_PATH=/opt/Xilinx/Vivado/2017.2
+VIVADO_TMP_DIR=`mktemp -d /tmp/vivado2017.2.XXXX`
+
+
+export J2D_D3D=false
+export _JAVA_OPTIONS="-Dsun.java2d.dpiaware=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true"
+export SWT_GTK3=0
+wmname LG3
+
+# change to a temp dir, vivado will create logfiles and journal files here
+cd $VIVADO_TMP_DIR
+
+vivado "$@"

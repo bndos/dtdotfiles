@@ -1,6 +1,6 @@
 #!/bin/bash
 
-res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i -w 3775 -x 15)
+res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i)
 
 if [ "$res" = "Lock" ]; then
     lock
