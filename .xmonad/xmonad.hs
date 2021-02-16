@@ -55,6 +55,7 @@ import XMonad.Actions.UpdatePointer      (updatePointer)
 import XMonad.Actions.Promote -- update mouse postion
 
 -- layout
+import XMonad.Layout.SimplestFloat
 import XMonad.Layout.TrackFloating
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.ThreeColumns
@@ -192,7 +193,7 @@ myTabTheme = def
     , decoHeight            = topbar
     }
 
-myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid ||| bsp))
+myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid ||| bsp ||| float))
   where
      -- full
      full = renamed [Replace "[Full]"]
@@ -243,6 +244,13 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid |||
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        $ emptyBSP
+
+     float = renamed [Replace "[float]"]
+       -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
+       -- $ ResizableTall 1 (3/100) (3/5) [])
+
+       -- $ noFrillsDeco shrinkText topBarTheme
+       $ simplestFloat
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -359,6 +367,7 @@ myKeys =
      , ("M-S-b", sendMessage ToggleStruts)
      , ("M-f", sendMessage $ JumpToLayout "[Full]")
      , ("M-t", sendMessage $ JumpToLayout "[Tile]")
+     , ("M-M3-t", sendMessage $ JumpToLayout "[Float]")
      , ("M-g", sendMessage $ JumpToLayout "[Grid]")
      , ("M-b", sendMessage $ JumpToLayout "[BSP]")
      , ("M-c", sendMessage $ JumpToLayout "[CM]")
