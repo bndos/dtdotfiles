@@ -335,7 +335,7 @@ myLogHook c u0 u1 = do
        <+> logHook c
 
              where
-                topPP u g h v = defaultPP
+                topPP u g h v = namedScratchpadFilterOutWorkspacePP $ defaultPP
                    { ppOutput   = hPutStrLn u
                    , ppCurrent  = h
                    , ppVisible  = v
