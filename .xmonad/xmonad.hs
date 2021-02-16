@@ -341,7 +341,7 @@ myKeys =
      , ("M-y", moveTo Prev HiddenNonEmptyWS)
      , ("M-<Tab>", toggleWS' ["NSP"])
      , ("M1-<Tab>", toggleFocus)
-     , ("M-p", spawn "dmenu_run")
+     , ("M-p", spawn "dmenu_run_history")
      , ("M-S-q", spawn "end-session")
      , ("M-z", spawn "em1")
      , ("M-S-z", spawn "em2")
