@@ -283,29 +283,27 @@ focusedTitleOnScreen n = do
                else xmobarColor "grey"  ""      $ m
     return (\ _ -> x)
 
-workspaceOnScreen :: ScreenId -> ScreenId -> X (String -> String)
-workspaceOnScreen n n1 = do
+workspaceOnScreen :: ScreenId -> X (String -> String)
+workspaceOnScreen n = do
    w <- gets windowset
    let tag = fromMaybe "<???>" $ W.lookupWorkspace n w
-   let tag1 = fromMaybe "<???>" $ W.lookupWorkspace n1 w
        foc = W.currentTag w
        fmt1 = if tag == foc then cur else vis
           where
-            cur = xmobarColor "#000000" "#ffffff:0" $ tag
-            vis = xmobarColor "#000000" "#555555:0" $ tag1
-   return $ \ _ -> fmt1
+            cur = xmobarColor "#000000" "#ffffff:0"
+            vis = xmobarColor "#000000" "#555555:0"
+   return fmt1
 
-visibleOnScreen :: ScreenId -> ScreenId -> X (String -> String)
-visibleOnScreen n n1 = do
+visibleOnScreen :: ScreenId -> X (String -> String)
+visibleOnScreen n = do
    w <- gets windowset
    let tag = fromMaybe "<???>" $ W.lookupWorkspace n w
-   let tag1 = fromMaybe "<???>" $ W.lookupWorkspace n1 w
        foc = W.currentTag w
        fmt1 = if tag == foc then cur else vis
           where
-            cur = xmobarColor "#000000" "#555555:0" $ tag1
-            vis = xmobarColor "#000000" "#90A4AD:0" $ tag
-   return $ \ _ -> fmt1
+            cur = xmobarColor "#000000" "#555555:0"
+            vis = xmobarColor "#000000" "#90A4AD:0"
+   return fmt1
 
 
             -- vis = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   " $ tag
@@ -313,10 +311,10 @@ myLogHook :: XConfig l -> Handle -> Handle -> X ()
 myLogHook c u0 u1 = do
     g0 <- focusedTitleOnScreen 0
     g1 <- focusedTitleOnScreen 1
-    h0 <- workspaceOnScreen 0 1
-    h1 <- workspaceOnScreen 1 0
-    v0 <- visibleOnScreen 0 1
-    v1 <- visibleOnScreen 1 0
+    h0 <- workspaceOnScreen 0
+    h1 <- workspaceOnScreen 1
+    v0 <- visibleOnScreen 0
+    v1 <- visibleOnScreen 1
 
     idHook
        <+> dynamicLogWithPP (topPP u0 g0 h0 v0)
