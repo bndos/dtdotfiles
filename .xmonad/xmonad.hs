@@ -80,10 +80,14 @@ myTerminal = "st" -- Sets default terminal
 myBorderWidth = 0 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
-myppCurrent = "#ffffff"
-myppVisible = "#cb4b16"
-myppHidden = "#777777"
-myppHiddenNoWindows = "#444444"
+myppCurrentFg = "#000000"
+myppCurrentBg = "#ffffff:0"
+myppVisibleBg = "#555555:0"
+myppVisibleBgFocus = "#90A4AD:0"
+myppHiddenFg = "#000000"
+myppHiddenBg = "#bbbbbb:0"
+myppHiddenNoWindowsFg = "#444444"
+myppHiddenNoWindowsBg = "#000000:0"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
@@ -290,8 +294,8 @@ workspaceOnScreen n = do
        foc = W.currentTag w
        fmt1 = if tag == foc then cur else vis
           where
-            cur = xmobarColor "#000000" "#ffffff:0"
-            vis = xmobarColor "#000000" "#555555:0"
+            cur = xmobarColor myppCurrentFg myppCurrentBg
+            vis = xmobarColor myppCurrentFg myppVisibleBg
    return fmt1
 
 visibleOnScreen :: ScreenId -> X (String -> String)
@@ -301,8 +305,8 @@ visibleOnScreen n = do
        foc = W.currentTag w
        fmt1 = if tag == foc then cur else vis
           where
-            cur = xmobarColor "#000000" "#555555:0"
-            vis = xmobarColor "#000000" "#90A4AD:0"
+            cur = xmobarColor myppCurrentFg myppVisibleBg
+            vis = xmobarColor myppCurrentFg myppVisibleBgFocus
    return fmt1
 
 
@@ -327,9 +331,9 @@ myLogHook c u0 u1 = do
                    { ppOutput   = hPutStrLn u
                    , ppCurrent  = h
                    , ppVisible  = v
-                   , ppHidden   = xmobarColor "#000000" "#bbbbbb:0"
-                   , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0"
-                   , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
+                   , ppHidden   = xmobarColor myppHiddenFg myppHiddenBg
+                   , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindowsFg myppHiddenNoWindowsBg
+                   , ppSep =  "  "                     -- Separators in xmobar
                    , ppWsSep    = ""
                    , ppTitle    = const ""
                    , ppExtras = [windowCount]                          -- # of windows current workspace
