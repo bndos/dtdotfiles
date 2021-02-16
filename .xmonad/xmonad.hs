@@ -245,7 +245,7 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid |||
        $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        $ emptyBSP
 
-     float = renamed [Replace "[float]"]
+     float = renamed [Replace "[Float]"]
        -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
