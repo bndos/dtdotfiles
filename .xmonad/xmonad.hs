@@ -87,8 +87,16 @@ myppHiddenNoWindows = "#444444"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
+xmobarEscape = concatMap doubleLts
+  where doubleLts '<' = "<<"
+        doubleLts x   = [x]
+
 myWorkspaces :: [String]        
-myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces = clickable . (map xmobarEscape) $ ["   1   ","   2   ","   3   ","   4   ","   5   ","   6   ","   7   ","   8   ","   9   "]
+  where                                                                       
+         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
+                             (i,ws) <- zip [1..9] l,                                        
+                            let n = i ]
 
 windowCount :: X (Maybe String)
 windowCount = Just . show . length . W.index . windowset <$> get
@@ -271,8 +279,8 @@ focusedTitleOnScreen n = do
                (fmap show . getName . W.focus)
                t
     let x = if n == (W.screen . W.current) ws
-               then xmobarColor "black" "green" . wrap "  " "  " $ m
-               else xmobarColor "grey"  ""      . wrap "  " "  " $ m
+               then xmobarColor "black" "green" $ m
+               else xmobarColor "grey"  ""      $ m
     return (\ _ -> x)
 
 workspaceOnScreen :: ScreenId -> X (String -> String)
@@ -282,30 +290,45 @@ workspaceOnScreen n = do
        foc = W.currentTag w
        fmt1 = if tag == foc then cur else vis
           where
-            cur = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " $ map toUpper tag
-            vis = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   " $ tag
+            cur = xmobarColor "#000000" "#ffffff:0" $ tag
+            vis = const "" $ tag
    return $ \ _ -> fmt1
 
+visibleOnScreen :: ScreenId -> X (String -> String)
+visibleOnScreen n = do
+   w <- gets windowset
+   let tag = fromMaybe "<???>" $ W.lookupWorkspace n w
+       foc = W.currentTag w
+       fmt1 = if tag == foc then cur else vis
+          where
+            cur = const "" $ tag
+            vis = xmobarColor "#000000" "#90A4AD:0" $ tag
+   return $ \ _ -> fmt1
+
+
+            -- vis = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   " $ tag
 myLogHook :: XConfig l -> Handle -> Handle -> X ()
 myLogHook c u0 u1 = do
     g0 <- focusedTitleOnScreen 0
     g1 <- focusedTitleOnScreen 1
     h0 <- workspaceOnScreen 0
     h1 <- workspaceOnScreen 1
+    v0 <- visibleOnScreen 0
+    v1 <- visibleOnScreen 1
 
     idHook
-       <+> dynamicLogWithPP (topPP u0 g0 h0)
-       <+> dynamicLogWithPP (topPP u1 g1 h1)
+       <+> dynamicLogWithPP (topPP u0 g0 h0 v0)
+       <+> dynamicLogWithPP (topPP u1 g1 h1 v1)
        <+> ewmhDesktopsLogHook
        <+> logHook c
 
              where
-                topPP u g h = defaultPP
+                topPP u g h v = defaultPP
                    { ppOutput   = hPutStrLn u
                    , ppCurrent  = h
-                   , ppVisible  = const ""
-                   , ppHidden   = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "
-                   , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "
+                   , ppVisible  = v
+                   , ppHidden   = xmobarColor "#000000" "#bbbbbb:0"
+                   , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0"
                    , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
                    , ppWsSep    = ""
                    , ppTitle    = const ""
