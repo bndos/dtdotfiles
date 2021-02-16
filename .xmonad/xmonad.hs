@@ -346,7 +346,7 @@ myKeys =
      , ("M1-<Space>", spawn "kbdlayout")
     ]
 
-centreRect = W.RationalRect 0.25 0.25 0.5 0.5
+centreRect = W.RationalRect (1/6) (1/6) (2/3) (2/3)
 
 -- If the window is floating then (f), if tiled then (n)
 floatOrNot f n = withFocused $ \windowId -> do
@@ -440,6 +440,7 @@ main = do
                         , ppWsSep = ""
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                          -- # of windows current workspace
+                        , ppSort    = getSortByXineramaRule
                         , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
                         } >> dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc1 x
@@ -451,6 +452,7 @@ main = do
                         , ppWsSep = ""
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras = [windowCount]                          -- # of windows current workspace
+                        , ppSort    = getSortByXineramaRule
                         , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
                         } >> refocusLastLogHook >> updatePointer (0.5, 0.5) (0, 0)
           }
