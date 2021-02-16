@@ -51,8 +51,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
 import XMonad.Actions.GridSelect -- for dwm window style tagging
-import XMonad.Actions.UpdatePointer      (updatePointer)
-import XMonad.Actions.Promote -- update mouse postion
+import XMonad.Actions.Warp
 
 -- layout
 import XMonad.Layout.SimplestFloat
@@ -402,10 +401,11 @@ myKeys =
      , ("M-s", switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
 
-     , ("M-.", nextScreen)
-     , ("M-,", prevScreen)
-     , ("M-S-.", shiftNextScreen)
-     , ("M-S-,", shiftPrevScreen)
+     , ("M-o", warpToWindow (1%2) (1%2))
+     , ("M-.", sequence_ [viewScreen def 1, warpToWindow (1%2) (1%2)])
+     , ("M-,", sequence_ [viewScreen def 0, warpToWindow (1%2) (1%2)])
+     , ("M-S-.", sendToScreen def 1)
+     , ("M-S-,", sendToScreen def 0)
      -- Directional navigation of windows
      , ("M-l", windowGo XMonad.Layout.BinarySpacePartition.R False)
      , ("M-h" , windowGo XMonad.Layout.BinarySpacePartition.L False)
@@ -415,7 +415,7 @@ myKeys =
      , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
      , ("M-S-k"   , windowSwap U False)
      , ("M-S-j" , windowSwap D False)
-     -- , ("M-<Return>" , promote)
+     , ("M-<Return>" , sequence_ [windows W.focusMaster, toggleFocus, windows W.swapMaster])
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
@@ -516,6 +516,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0.5, 0.5) (0, 0)
+        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook
           }
           `additionalKeysP` myKeys
