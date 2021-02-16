@@ -6,20 +6,21 @@ import XMonad hiding ( (|||) ) -- jump to layout
 import XMonad.Layout.LayoutCombinators (JumpToLayout(..), (|||)) -- jump to layout
 import XMonad.Config.Desktop
 import System.Exit
+import System.Directory                  (getCurrentDirectory)
 import qualified XMonad.StackSet as W
 import XMonad.Layout.IfMax
 import Control.Monad (liftM,liftM2, zipWithM_)
 
 -- data
-import Data.Char (isSpace)
-import Data.List
+import Data.Char (isSpace, toUpper)
+import qualified Data.List as L
 import Data.Monoid
-import Data.Maybe (isJust)
+import Data.Maybe (isJust, fromMaybe)
 import Data.Ratio ((%)) -- for video
 import qualified Data.Map as M
 
 -- system
-import System.IO (hPutStrLn) -- for xmobar
+import System.IO (hPutStrLn, Handle) -- for xmobar
 
 -- util
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
@@ -34,7 +35,7 @@ import XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.DynamicBars as Bars
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
-import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat)
+import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat, transience')
 import XMonad.Hooks.Place (placeHook, withGaps)
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.InsertPosition
@@ -50,7 +51,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
 import XMonad.Actions.GridSelect -- for dwm window style tagging
-import XMonad.Actions.UpdatePointer -- update mouse postion
+import XMonad.Actions.UpdatePointer      (updatePointer)
 import XMonad.Actions.Promote -- update mouse postion
 
 -- layout
@@ -86,19 +87,11 @@ myppHiddenNoWindows = "#444444"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
-xmobarEscape = concatMap doubleLts
-  where doubleLts '<' = "<<"
-        doubleLts x   = [x]
-
 myWorkspaces :: [String]        
-myWorkspaces = clickable . (map xmobarEscape) $ ["1","2","3","4","5","6","7","8","9"]
-  where                                                                       
-         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                             (i,ws) <- zip [1..9] l,                                        
-                            let n = i ]
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+windowCount = Just . show . length . W.index . windowset <$> get
 
 
 ------------------------------------------------------------------------
@@ -187,7 +180,7 @@ myTabTheme = def
     , decoHeight            = topbar
     }
 
-myLayout = avoidStruts $ (trackFloating (useTransientFor (tiled ||| full ||| cMaster ||| grid ||| bsp)))
+myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid ||| bsp))
   where
      -- full
      full = renamed [Replace "[Full]"]
@@ -261,8 +254,64 @@ myManageHook = insertPosition Below Newer <+> composeAll
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
+    , transience'
     , isDialog --> doF W.swapUp 
     ] <+> namedScratchpadManageHook myScratchpads
+
+
+focusedTitleOnScreen :: ScreenId -> X (String -> String)
+focusedTitleOnScreen n = do
+    ws <- gets windowset
+    let ss = (W.current ws) : (W.visible ws)
+        s  = L.find ((n==) . W.screen) ss
+        t  = maybe Nothing
+                   (W.stack . W.workspace)
+                   s
+    m <- maybe (return "<empty>")
+               (fmap show . getName . W.focus)
+               t
+    let x = if n == (W.screen . W.current) ws
+               then xmobarColor "black" "green" . wrap "  " "  " $ m
+               else xmobarColor "grey"  ""      . wrap "  " "  " $ m
+    return (\ _ -> x)
+
+workspaceOnScreen :: ScreenId -> X (String -> String)
+workspaceOnScreen n = do
+   w <- gets windowset
+   let tag = fromMaybe "<???>" $ W.lookupWorkspace n w
+       foc = W.currentTag w
+       fmt1 = if tag == foc then cur else vis
+          where
+            cur = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " $ map toUpper tag
+            vis = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   " $ tag
+   return $ \ _ -> fmt1
+
+myLogHook :: XConfig l -> Handle -> Handle -> X ()
+myLogHook c u0 u1 = do
+    g0 <- focusedTitleOnScreen 0
+    g1 <- focusedTitleOnScreen 1
+    h0 <- workspaceOnScreen 0
+    h1 <- workspaceOnScreen 1
+
+    idHook
+       <+> dynamicLogWithPP (topPP u0 g0 h0)
+       <+> dynamicLogWithPP (topPP u1 g1 h1)
+       <+> ewmhDesktopsLogHook
+       <+> logHook c
+
+             where
+                topPP u g h = defaultPP
+                   { ppOutput   = hPutStrLn u
+                   , ppCurrent  = h
+                   , ppVisible  = const ""
+                   , ppHidden   = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "
+                   , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "
+                   , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
+                   , ppWsSep    = ""
+                   , ppTitle    = const ""
+                   , ppExtras = [windowCount]                          -- # of windows current workspace
+                   , ppOrder  = \(ws:l:t:ex) -> [ws, l] ++ ex
+                   }
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -430,30 +479,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x
-                        , ppCurrent = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   "               -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "             -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "        -- Hidden workspaces (no windows)
-                        , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
-                        , ppWsSep = ""
-                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras = [windowCount]                          -- # of windows current workspace
-                        , ppSort    = getSortByXineramaRule
-                        , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
-                        } >> dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc1 x
-                        , ppCurrent = xmobarColor "#000000" "#ffffff:0" . wrap "   " "   " -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   "               -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#000000" "#bbbbbb:0" . wrap "   " "   "             -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows "#000000:0" . wrap "   " "   "        -- Hidden workspaces (no windows)
-                        , ppSep =  " <fc=#586E75>   </fc>"                     -- Separators in xmobar
-                        , ppWsSep = ""
-                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras = [windowCount]                          -- # of windows current workspace
-                        , ppSort    = getSortByXineramaRule
-                        , ppOrder  = \(ws:l:t:ex) -> [ws, l]++ex
-                        } >> refocusLastLogHook >> updatePointer (0.5, 0.5) (0, 0)
+        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0.5, 0.5) (0, 0)
           }
           `additionalKeysP` myKeys
