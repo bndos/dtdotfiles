@@ -48,9 +48,8 @@ import XMonad.Actions.CycleWindows
 import XMonad.Actions.PhysicalScreens
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.CycleWS
-import XMonad.Actions.Navigation2D
+import qualified XMonad.Actions.Navigation2D as Nav2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
-import XMonad.Actions.GridSelect -- for dwm window style tagging
 import XMonad.Actions.Warp
 
 -- layout
@@ -64,9 +63,7 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
-import XMonad.Layout.GridVariants
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.IndependentScreens
@@ -97,10 +94,10 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 myWorkspaces :: [String]        
-myWorkspaces = clickable . (map xmobarEscape) $ ["   1   ","   2   ","   3   ","   4   ","   5   ","   6   ","   7   ","   8   ","   9   "]
+myWorkspaces = clickable . (map xmobarEscape) $ ["   1   ","   2   ","   3   ","   4   ","   5   ","   6   ","   7   ","   8   ","   9   ", "   0   "]
   where                                                                       
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                             (i,ws) <- zip [1..9] l,                                        
+                             (i,ws) <- zip ([1..9] ++ [0]) l,                                        
                             let n = i ]
 
 windowCount :: X (Maybe String)
@@ -193,13 +190,13 @@ myTabTheme = def
     , decoHeight            = topbar
     }
 
-myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid ||| bsp ||| float))
+myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
   where
      -- full
      full = renamed [Replace "[Full]"]
        -- $ windowNavigation
        -- $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
-       $ noBorders (Full)
+       $ configurableNavigation noNavigateBorders $ noBorders (Full)
 
      -- tiled
      tiled = renamed [Replace "[Tile]"]
@@ -208,10 +205,9 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid |||
 
        -- $ noFrillsDeco shrinkText topBarTheme           
        -- $ windowNavigation $ subTabbed
-       $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       $ ResizableTall 1 (3/100) (3/5) []
+       $ configurableNavigation noNavigateBorders $ ResizableTall 1 (3/100) (3/5) []
 
      -- grid
      cMaster = renamed [Replace "[CM]"]
@@ -219,38 +215,17 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| grid |||
                   -- $ ResizableTall 1 (3/100) (3/5) [])
 
        -- $ noFrillsDeco shrinkText topBarTheme
-       $ windowNavigation
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       $ ThreeColMid 1 (3/100) (1/2)
-
-     grid = renamed [Replace "[Grid]"]
-       -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       -- $ ResizableTall 1 (3/100) (3/5) [])
-
-       -- $ noFrillsDeco shrinkText topBarTheme
-       $ windowNavigation
-       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
-       $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       $ Grid (16/10)
+       $ configurableNavigation noNavigateBorders $ ThreeColMid 1 (3/100) (1/2)
 
      -- bsp
-     bsp = renamed [Replace "[BSP]"]
-       -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       -- $ ResizableTall 1 (3/100) (3/5) [])
-
-       -- $ noFrillsDeco shrinkText topBarTheme
-       $ windowNavigation
-       $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
-       $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
-       $ emptyBSP
-
      float = renamed [Replace "[Float]"]
        -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
        -- $ noFrillsDeco shrinkText topBarTheme
-       $ simplestFloat
+       $ configurableNavigation noNavigateBorders $ simplestFloat
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -355,7 +330,7 @@ toggleOrViewNoSP = toggleOrDoSkip ["NSP"] W.greedyView
 
 myKeys =
     [("M-" ++ m ++ k, windows $ f i)
-        | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
+        | (i, k) <- zip (myWorkspaces) (map show ([1..9] ++ [0]))
         , (f, m) <- [(W.view, ""), (W.greedyView, "C-"), (W.shift, "S-"), (copy, "S-C-")]]
     ++
     [("M-S-0", windows copyToAll)   -- copy window to all workspaces
@@ -384,8 +359,8 @@ myKeys =
      , ("M-x", spawn "em3")
      , ("M-S-x", spawn "em4")
      , ("M-n", spawn "flash_window")
-     , ("M-C-h", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.L)
-     , ("M-C-l", sendMessage $ pullGroup XMonad.Layout.WindowNavigation.R)
+     , ("M-C-h", sendMessage $ pullGroup L)
+     , ("M-C-l", sendMessage $ pullGroup R)
      , ("M-C-k", sendMessage $ pullGroup U)
      , ("M-C-j", sendMessage $ pullGroup D)
      , ("M3-w", withFocused (sendMessage . MergeAll))
@@ -396,9 +371,8 @@ myKeys =
      , ("M3-2", namedScratchpadAction myScratchpads "emacs-scratch2")
      , ("M3-3", namedScratchpadAction myScratchpads "emacs-scratch3")
      , ("M3-4", namedScratchpadAction myScratchpads "emacs-scratch4")
-     , ("M-0", goToSelected defaultGSConfig)
         -- Switch between layers
-     , ("M-s", switchLayer)
+     , ("M-s", Nav2D.switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
 
      , ("M-o", warpToWindow (1%2) (1%2))
@@ -407,14 +381,14 @@ myKeys =
      , ("M-S-.", sendToScreen def 1)
      , ("M-S-,", sendToScreen def 0)
      -- Directional navigation of windows
-     , ("M-l", windowGo XMonad.Layout.BinarySpacePartition.R False)
-     , ("M-h" , windowGo XMonad.Layout.BinarySpacePartition.L False)
-     , ("M-k"   , windowGo U False)
-     , ("M-j" , windowGo D False)
-     , ("M-S-l", windowSwap XMonad.Layout.BinarySpacePartition.R False)
-     , ("M-S-h" , windowSwap XMonad.Layout.BinarySpacePartition.L False)
-     , ("M-S-k"   , windowSwap U False)
-     , ("M-S-j" , windowSwap D False)
+     , ("M-l", myFocus R)
+     , ("M-h" , myFocus L)
+     , ("M-k"   , myFocus U)
+     , ("M-j" , myFocus D)
+     , ("M-S-l", sendMessage $ Swap R)
+     , ("M-S-h" , sendMessage $ Swap L)
+     , ("M-S-k"   , sendMessage $ Swap U)
+     , ("M-S-j" , sendMessage $ Swap D)
      , ("M-<Return>" , sequence_ [windows W.focusMaster, toggleFocus, windows W.swapMaster])
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
@@ -460,6 +434,19 @@ standardSize win = do
 -- Float and centre a tiled window, sink a floating window
 toggleFloat = floatOrNot (withFocused $ windows . W.sink) (sequence_ [(withFocused centreFloat'), toggleFocus, toggleFocus])
 
+-- Get the name of the active layout.
+getActiveLayoutDescription :: X String
+getActiveLayoutDescription = do
+    workspaces <- gets windowset
+    return $ description . W.layout . W.workspace . W.current $ workspaces
+
+myFocusNotFloat dir = do
+  layout <- getActiveLayoutDescription
+  case layout of
+    "[Full]" -> Nav2D.windowGo dir False
+    _        -> sendMessage $ Go dir
+myFocus dir = floatOrNot (sequence_ [Nav2D.windowGo dir False, windows W.swapMaster]) (myFocusNotFloat dir)
+
 
 ------------------------------------------------------------------------
 -- scratchpads
@@ -482,29 +469,29 @@ myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manag
     spawnEmacsScratch4 = "emacsclient -s workspace4 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch4\"))'"
     manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)) <+> doF W.swapUp
 
-------------------------------------------------------------------------
--- main
-------------------------------------------------------------------------
-
 myNav2DConf = def
-    { defaultTiledNavigation    = centerNavigation
-    , floatNavigation           = centerNavigation
-    , screenNavigation          = lineNavigation
-    , layoutNavigation          = [("[Full]",          centerNavigation)
+    { Nav2D.defaultTiledNavigation    = Nav2D.centerNavigation
+    , Nav2D.floatNavigation           = Nav2D.centerNavigation
+    , Nav2D.screenNavigation          = Nav2D.lineNavigation
+    , Nav2D.layoutNavigation          = [("[Full]", Nav2D.centerNavigation)
     -- line/center same results   ,("Simple Tabs", lineNavigation)
     --                            ,("Simple Tabs", centerNavigation)
-                                  ]
-    , unmappedWindowRect        = [("[Full]", singleWindowRect)
+                                        ]
+    , Nav2D.unmappedWindowRect  = [("[Full]", Nav2D.singleWindowRect)
     -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
     -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
                                   ]
     }
-  
+
+------------------------------------------------------------------------
+-- main
+------------------------------------------------------------------------
+
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/bndo/.xmonad/xmobarrc0"
     xmproc1 <- spawnPipe "xmobar -x 1 /home/bndo/.xmonad/xmobarrc1"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook
-      $ withNavigation2DConfig myNav2DConf
+      $ Nav2D.withNavigation2DConfig myNav2DConf
       $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+>  myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook <+> setWMName "LG3D"
