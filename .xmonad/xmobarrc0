@@ -4,7 +4,7 @@ Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hin
        , border = NoBorder
        , borderWidth = 2
        , bgColor = "#000000"
-       , fgColor = "#FDF6E3"
+       , fgColor = "#ffffff"
        , alpha = 255
        , position = Static { xpos = 300 , ypos = 15, width = 3240, height = 60 }
        , textOffset = -1
