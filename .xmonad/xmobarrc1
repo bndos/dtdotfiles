@@ -1,4 +1,4 @@
-Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgba:antialias=true:autohint=false:style=bold"
+Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgba:antialias=true:autohint=false:style=bold"
        , additionalFonts = []
        , borderColor = "#000000"
        , border = NoBorder
@@ -20,6 +20,6 @@ Config { font = "xft:Monego:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }\
-                    \{ <fc=#000000,#ffffff:0>  %date%  </fc>"
+       , template = " %UnsafeStdinReader% }\
+                    \{  <fc=#000000,#90A4AD:8><action=notify-send %mydate% >  </action></fc><action=notify-send %mydate% ><fc=#000000,#ffffff:8> %date% </fc></action> "
        }

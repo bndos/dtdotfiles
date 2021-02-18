@@ -78,14 +78,14 @@ myBorderWidth = 0 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
-myppCurrentBg = "#ffffff:0"
-myppVisibleBg = "#333333:0"
-myppVisibleBgCur = "#777777:0"
-myppVisibleBgFocus = "#90A4AD:0"
+myppCurrentBg = "#ffffff:8"
+myppVisibleBg = "#333333:8"
+myppVisibleBgCur = "#777777:8"
+myppVisibleBgFocus = "#90A4AD:8"
 myppHiddenFg = "#000000"
-myppHiddenBg = "#bbbbbb:0"
+myppHiddenBg = "#bbbbbb:8"
 myppHiddenNoWindowsFg = "#444444"
-myppHiddenNoWindowsBg = "#000000:0"
+myppHiddenNoWindowsBg = "#000000:8"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
@@ -94,7 +94,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 myWorkspaces :: [String]        
-myWorkspaces = clickable . (map xmobarEscape) $ ["   1   ","   2   ","   3   ","   4   ","   5   ","   6   ","   7   ","   8   ","   9   ", "   0   "]
+myWorkspaces = clickable . (map xmobarEscape) $ ["  1  ","  2  ","  3  ","  4  ","  5  ","  6  ","  7  ","  8  ","  9  ",  "  0  "]
   where                                                                       
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip ([1..9] ++ [0]) l,                                        
@@ -293,7 +293,7 @@ visibleOnScreen n = do
    return fmt1
 
 
-            -- vis = xmobarColor "#000000" "#90A4AD:0" . wrap "   " "   " $ tag
+            -- vis = xmobarColor "#000000" "#90A4AD:8" . wrap "   " "   " $ tag
 myLogHook :: XConfig l -> Handle -> Handle -> X ()
 myLogHook c u0 u1 = do
     g0 <- focusedTitleOnScreen 0
@@ -317,7 +317,7 @@ myLogHook c u0 u1 = do
                    , ppHidden   = xmobarColor myppHiddenFg myppHiddenBg
                    , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindowsFg myppHiddenNoWindowsBg
                    , ppSep =  "  "                     -- Separators in xmobar
-                   , ppWsSep    = ""
+                   , ppWsSep    = " "
                    , ppTitle    = const ""
                    , ppExtras = [windowCount]                          -- # of windows current workspace
                    , ppOrder  = \(ws:l:t:ex) -> [ws, l] ++ ex
@@ -330,11 +330,11 @@ toggleOrViewNoSP = toggleOrDoSkip ["NSP"] W.greedyView
 
 myKeys =
     [("M-" ++ m ++ k, windows $ f i)
-        | (i, k) <- zip (myWorkspaces) (map show ([1..9] ++ [0]))
+        | (i, k) <- zip (myWorkspaces) (map show ([1 :: Int .. 9 :: Int] ++ [0 :: Int]))
         , (f, m) <- [(W.view, ""), (W.greedyView, "C-"), (W.shift, "S-"), (copy, "S-C-")]]
     ++
-    [("M-S-0", windows copyToAll)   -- copy window to all workspaces
-     , ("M-C-0", killAllOtherCopies)  -- kill copies of window on other workspaces
+    [("M-C-0", windows copyToAll)   -- copy window to all workspaces
+     , ("M-C-S-0", killAllOtherCopies)  -- kill copies of window on other workspaces
      , ("M-M1-k", sendMessage MirrorExpand)
      , ("M-M1-j", sendMessage MirrorShrink)
      , ("M-M1-h", sendMessage Shrink)
