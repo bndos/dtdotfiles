@@ -50,7 +50,7 @@ import XMonad.Actions.GroupNavigation
 import XMonad.Actions.CycleWS
 import qualified XMonad.Actions.Navigation2D as Nav2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
-import XMonad.Actions.Warp
+import XMonad.Actions.UpdatePointer
 
 -- layout
 import XMonad.Layout.SimplestFloat
@@ -375,9 +375,8 @@ myKeys =
      , ("M-s", Nav2D.switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
 
-     , ("M-o", warpToWindow (1%2) (1%2))
-     , ("M-.", sequence_ [viewScreen def 1, warpToWindow (1%2) (1%2)])
-     , ("M-,", sequence_ [viewScreen def 0, warpToWindow (1%2) (1%2)])
+     , ("M-.", viewScreen def 1)
+     , ("M-,", viewScreen def 0)
      , ("M-S-.", sendToScreen def 1)
      , ("M-S-,", sendToScreen def 0)
      -- Directional navigation of windows
@@ -503,6 +502,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook
+        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0,1) (0,0)
           }
           `additionalKeysP` myKeys
