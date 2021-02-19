@@ -333,8 +333,8 @@ myKeys =
         | (i, k) <- zip (myWorkspaces) (map show ([1 :: Int .. 9 :: Int] ++ [0 :: Int]))
         , (f, m) <- [(W.view, ""), (W.greedyView, "C-"), (W.shift, "S-"), (copy, "S-C-")]]
     ++
-    [("M-C-0", windows copyToAll)   -- copy window to all workspaces
-     , ("M-C-S-0", killAllOtherCopies)  -- kill copies of window on other workspaces
+    [("M-M3-0", windows copyToAll)   -- copy window to all workspaces
+     , ("M-M3-S-0", killAllOtherCopies)  -- kill copies of window on other workspaces
      , ("M-M1-k", sendMessage MirrorExpand)
      , ("M-M1-j", sendMessage MirrorShrink)
      , ("M-M1-h", sendMessage Shrink)
