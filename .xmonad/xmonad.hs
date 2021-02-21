@@ -502,6 +502,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0.02,0.95) (0,0)
+        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0.95,0.95) (0,0)
           }
           `additionalKeysP` myKeys
