@@ -30,6 +30,7 @@ if [ "$res" = "Reboot" ]; then
     reboot
 fi
 if [ "$res" = "Poweroff" ]; then
+    rm ~/Dropbox/.dropbox.cache -rf
     pkill --signal SIGKILL firefox
     pkill emacs
     pkill dunst
