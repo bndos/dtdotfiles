@@ -392,6 +392,8 @@ myKeys =
      , ("<XF86AudioMute>", spawn "volume mute")
      , ("<XF86AudioLowerVolume>", spawn "volume down")
      , ("<XF86AudioRaiseVolume>", spawn "volume up")
+     , ("<XF86MonBrightnessUp>", spawn "brightness up")
+     , ("<XF86MonBrightnessDown>", spawn "brightness down")
      , ("M-=", spawn "bluefilter up")
      , ("M--", spawn "bluefilter down")
      , ("M3-=", spawn "screenshot all")
