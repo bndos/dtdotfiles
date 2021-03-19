@@ -35,7 +35,7 @@ import XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.DynamicBars as Bars
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
-import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat, transience')
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Place (placeHook, withGaps)
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.InsertPosition
@@ -67,7 +67,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.IndependentScreens
-  
+
 ------------------------------------------------------------------------
 -- variables
 ------------------------------------------------------------------------
@@ -78,14 +78,14 @@ myBorderWidth = 0 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
-myppCurrentBg = "#ffffff:8"
-myppVisibleBg = "#333333:8"
-myppVisibleBgCur = "#777777:8"
-myppVisibleBgFocus = "#90A4AD:8"
+myppCurrentBg = "#ffffff:9"
+myppVisibleBg = "#333333:9"
+myppVisibleBgCur = "#777777:9"
+myppVisibleBgFocus = "#90A4AD:9"
 myppHiddenFg = "#000000"
-myppHiddenBg = "#bbbbbb:8"
+myppHiddenBg = "#bbbbbb:9"
 myppHiddenNoWindowsFg = "#444444"
-myppHiddenNoWindowsBg = "#000000:8"
+myppHiddenNoWindowsBg = "#000000:9"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
@@ -93,11 +93,11 @@ xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
         doubleLts x   = [x]
 
-myWorkspaces :: [String]        
+myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape) $ ["  1  ","  2  ","  3  ","  4  ","  5  ","  6  ","  7  ","  8  ","  9  ",  "  0  "]
-  where                                                                       
+  where
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                             (i,ws) <- zip ([1..9] ++ [0]) l,                                        
+                             (i,ws) <- zip ([1..9] ++ [0]) l,
                             let n = i ]
 
 windowCount :: X (Maybe String)
@@ -193,24 +193,24 @@ myTabTheme = def
 myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
   where
      -- full
-     full = renamed [Replace "[Full]"]
+     full = renamed [Replace "Full"]
        -- $ windowNavigation
        -- $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ configurableNavigation noNavigateBorders $ noBorders (Full)
 
      -- tiled
-     tiled = renamed [Replace "[Tile]"]
+     tiled = renamed [Replace "Tile"]
        -- $ ifMax 1 (spacingRaw False (Border 30 0 30 0) True (Border 0 30 0 30) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
-       -- $ noFrillsDeco shrinkText topBarTheme           
+       -- $ noFrillsDeco shrinkText topBarTheme
        -- $ windowNavigation $ subTabbed
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
        $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        $ configurableNavigation noNavigateBorders $ ResizableTall 1 (3/100) (3/5) []
 
      -- grid
-     cMaster = renamed [Replace "[CM]"]
+     cMaster = renamed [Replace "CM"]
        -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
                   -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -220,7 +220,7 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
        $ configurableNavigation noNavigateBorders $ ThreeColMid 1 (3/100) (1/2)
 
      -- bsp
-     float = renamed [Replace "[Float]"]
+     float = renamed [Replace "Float"]
        -- $ ifMax 1 (spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
        -- $ ResizableTall 1 (3/100) (3/5) [])
 
@@ -240,7 +240,7 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
 -- Window rules:
 ------------------------------------------------------------------------
 
-myManageHook = insertPosition Below Newer <+> composeAll
+myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
     , className =? "Pavucontrol"    --> doShift (myWorkspaces !! 5)
@@ -250,7 +250,6 @@ myManageHook = insertPosition Below Newer <+> composeAll
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
     , transience'
-    , isDialog --> doF W.swapUp 
     ] <+> namedScratchpadManageHook myScratchpads
 
 
@@ -266,8 +265,8 @@ focusedTitleOnScreen n = do
                (fmap show . getName . W.focus)
                t
     let x = if n == (W.screen . W.current) ws
-               then xmobarColor "black" "green" $ m
-               else xmobarColor "grey"  ""      $ m
+               then xmobarColor myppCurrentFg myppCurrentBg . wrap " " " " . shorten 30 $ m
+               else xmobarColor "grey"  ""  . shorten 30 $ m
     return (\ _ -> x)
 
 workspaceOnScreen :: ScreenId -> X (String -> String)
@@ -292,8 +291,17 @@ visibleOnScreen n = do
             vis = xmobarColor myppCurrentFg myppVisibleBgFocus
    return fmt1
 
+layoutOnScreen :: ScreenId -> X (String -> String)
+layoutOnScreen n = do
+   w <- gets windowset
+   let tag = fromMaybe "<???>" $ W.lookupWorkspace n w
+       foc = W.currentTag w
+       fmt1 = if tag == foc then cur else vis
+          where
+            cur = xmobarColor myppCurrentFg myppCurrentBg
+            vis = xmobarColor myppCurrentFg myppVisibleBgCur
+   return fmt1
 
-            -- vis = xmobarColor "#000000" "#90A4AD:8" . wrap "   " "   " $ tag
 myLogHook :: XConfig l -> Handle -> Handle -> X ()
 myLogHook c u0 u1 = do
     g0 <- focusedTitleOnScreen 0
@@ -302,15 +310,17 @@ myLogHook c u0 u1 = do
     h1 <- workspaceOnScreen 1
     v0 <- visibleOnScreen 0
     v1 <- visibleOnScreen 1
+    l0 <- layoutOnScreen 0
+    l1 <- layoutOnScreen 1
 
     idHook
-       <+> dynamicLogWithPP (topPP u0 g0 h0 v0)
-       <+> dynamicLogWithPP (topPP u1 g1 h1 v1)
+       <+> dynamicLogWithPP (topPP u0 g0 h0 v0 l0)
+       <+> dynamicLogWithPP (topPP u1 g1 h1 v1 l1)
        <+> ewmhDesktopsLogHook
        <+> logHook c
 
              where
-                topPP u g h v = namedScratchpadFilterOutWorkspacePP $ defaultPP
+                topPP u g h v l = namedScratchpadFilterOutWorkspacePP $ defaultPP
                    { ppOutput   = hPutStrLn u
                    , ppCurrent  = h
                    , ppVisible  = v
@@ -318,9 +328,10 @@ myLogHook c u0 u1 = do
                    , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindowsFg myppHiddenNoWindowsBg
                    , ppSep =  "  "                     -- Separators in xmobar
                    , ppWsSep    = " "
-                   , ppTitle    = const ""
+                   , ppTitle    = g
+                   , ppLayout = l . wrap " " " "
                    , ppExtras = [windowCount]                          -- # of windows current workspace
-                   , ppOrder  = \(ws:l:t:ex) -> [ws, l] ++ ex
+                   , ppOrder  = \(ws:l:ex) -> [ws, l]
                    }
 
 ------------------------------------------------------------------------
@@ -340,12 +351,12 @@ myKeys =
      , ("M-M1-h", sendMessage Shrink)
      , ("M-M1-l", sendMessage Expand)
      , ("M-S-b", sendMessage ToggleStruts)
-     , ("M-f", sendMessage $ JumpToLayout "[Full]")
-     , ("M-t", sendMessage $ JumpToLayout "[Tile]")
-     , ("M-M3-t", sendMessage $ JumpToLayout "[Float]")
-     , ("M-g", sendMessage $ JumpToLayout "[Grid]")
-     , ("M-b", sendMessage $ JumpToLayout "[BSP]")
-     , ("M-c", sendMessage $ JumpToLayout "[CM]")
+     , ("M-f", sendMessage $ JumpToLayout "Full")
+     , ("M-t", sendMessage $ JumpToLayout "Tile")
+     , ("M-M3-t", sendMessage $ JumpToLayout "Float")
+     , ("M-g", sendMessage $ JumpToLayout "Grid")
+     , ("M-b", sendMessage $ JumpToLayout "BSP")
+     , ("M-c", sendMessage $ JumpToLayout "CM")
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
      , ("M-u", moveTo Next HiddenNonEmptyWS)
@@ -466,17 +477,17 @@ myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manag
     spawnEmacsScratch3 = "emacsclient -s workspace3 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch3\"))'"
     findEmacsScratch4 = title =? "emacs-scratch4"
     spawnEmacsScratch4 = "emacsclient -s workspace4 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch4\"))'"
-    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)) <+> doF W.swapUp
+    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)) <+> doF W.swapMaster
 
 myNav2DConf = def
     { Nav2D.defaultTiledNavigation    = Nav2D.centerNavigation
     , Nav2D.floatNavigation           = Nav2D.centerNavigation
     , Nav2D.screenNavigation          = Nav2D.lineNavigation
-    , Nav2D.layoutNavigation          = [("[Full]", Nav2D.centerNavigation)
+    , Nav2D.layoutNavigation          = [("Full", Nav2D.centerNavigation)
     -- line/center same results   ,("Simple Tabs", lineNavigation)
     --                            ,("Simple Tabs", centerNavigation)
                                         ]
-    , Nav2D.unmappedWindowRect  = [("[Full]", Nav2D.singleWindowRect)
+    , Nav2D.unmappedWindowRect  = [("Full", Nav2D.singleWindowRect)
     -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
     -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
                                   ]
