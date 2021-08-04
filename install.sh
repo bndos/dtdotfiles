@@ -13,6 +13,7 @@ git config --global credential.helper \
 cd ~/Downloads/clones
 git clone https://github.com/bndos/dtdotfiles
 cd dtdotfiles
+sudo cp xmonad.desktop /usr/share/xsessions/
 cp .zshrc ~
 cp -r .config/* ~/.config
 cp -r bin/ ~
@@ -88,3 +89,6 @@ cd ~/.oh-my-zsh/themes/
 git clone https://github.com/romkatv/powerlevel10k.git
 
 sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tslint prettier
+
+cabal install xmonad xmonad-contrib
+cabal install xmobar --flags="all_extensions"
