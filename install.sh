@@ -2,8 +2,13 @@ sudo apt update
 sudo apt upgrade -y
 xargs -a deps.txt sudo apt-get install -y
 sudo pip3 install flashfocus
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mkdir -p ~/Downloads/clones ~/Downloads/programs
+
+sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
+git config --global credential.helper \
+   /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
 cd ~/Downloads/clones
 git clone https://github.com/bndos/dtdotfiles
@@ -29,7 +34,6 @@ git clone --recursive https://github.com/polybar/polybar
 git clone https://github.com/emacs-mirror/emacs.git
 
 git clone https://github.com/bndos/dmenu
-git clone https://github.com/bndos/dwm
 git clone https://github.com/bndos/st
 
 sudo add-apt-repository ppa:mmstick76/alacritty

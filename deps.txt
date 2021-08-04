@@ -115,3 +115,5 @@ libnl-genl-3-dev
 libglm-dev
 libglew-dev
 libsdl2-dev
+libsecret-1-dev
+cabal-install
