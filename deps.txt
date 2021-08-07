@@ -118,3 +118,4 @@ libsdl2-dev
 libsecret-1-dev
 cabal-install
 redshift
+gthumb
