@@ -77,7 +77,14 @@ sudo make install
 mkdir -p ~/.cache/emacs/saves
 
 cd
-git clone https://github.com/bndos/.emacs.d
+git clone https://github.com/bndos/.doom.d
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+~/.emacs.d/bin/doom sync
+cp bookmarks ~/.emacs.d/.local/etc
+
+git config --global user.email "grover-brando.tovar-oblitas@polymtl.ca"
+git config --global user.name "Brando"
 
 sudo mv ~/.local/share/themes/Kripton /usr/share/themes/
 sudo mv ~/.local/share/icons/FossaCursors /usr/share/icons
@@ -90,5 +97,6 @@ git clone https://github.com/romkatv/powerlevel10k.git
 
 sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tslint prettier
 
+cabal update
 cabal install xmonad xmonad-contrib
 cabal install xmobar --flags="all_extensions"
