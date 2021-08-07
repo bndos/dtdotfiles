@@ -21,6 +21,7 @@ cp -r Pictures/* ~/Pictures
 cp -r .local/share/* ~/.local/share
 cp -r .oh-my-zsh/themes/* ~/.oh-my-zsh/themes
 cp -r .oh-my-zsh/lib/* ~/.oh-my-zsh/lib
+cp -r .xmonad ~
 cp .Xresources ~
 cp .zprofile ~
 cp .bash_profile ~
