@@ -415,7 +415,7 @@ myKeys =
      , ("M-;", spawn "scratchpad --toggle 1")
      , ("M-'", spawn "scratchpad --toggle 2")
      , ("M-S-s", toggleFloat)
-     , ("M1-<Space>", spawn "kbdlayout")
+     , ("M-M1-<Space>", spawn "kbdlayout")
     ]
 
 centreRect = W.RationalRect (1/6) (1/6) (2/3) (2/3)
@@ -455,8 +455,12 @@ getActiveLayoutDescription = do
 myFocusNotFloat dir = do
   layout <- getActiveLayoutDescription
   case layout of
-    "[Full]" -> Nav2D.windowGo dir False
-    _        -> sendMessage $ Go dir
+    "Full" -> case dir of
+                D -> windows W.focusDown
+                U -> windows W.focusUp
+                R -> windows W.focusDown
+                L -> windows W.focusUp
+    _      -> sendMessage $ Go dir
 myFocus dir = floatOrNot (sequence_ [Nav2D.windowGo dir False, windows W.swapMaster]) (myFocusNotFloat dir)
 
 
