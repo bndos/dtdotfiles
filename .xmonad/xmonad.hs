@@ -299,7 +299,7 @@ layoutOnScreen n = do
        fmt1 = if tag == foc then cur else vis
           where
             cur = xmobarColor myppCurrentFg myppCurrentBg
-            vis = xmobarColor myppCurrentFg myppVisibleBgCur
+            vis = xmobarColor myppCurrentFg myppCurrentFg
    return fmt1
 
 myLogHook :: XConfig l -> Handle -> Handle -> X ()
@@ -328,7 +328,7 @@ myLogHook c u0 u1 = do
                    , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindowsFg myppHiddenNoWindowsBg
                    , ppSep =  "  "                     -- Separators in xmobar
                    , ppWsSep    = " "
-                   , ppTitle    = g
+                   , ppTitle    = const ""
                    , ppLayout = l . wrap " " " "
                    , ppExtras = [windowCount]                          -- # of windows current workspace
                    , ppOrder  = \(ws:l:ex) -> [ws, l]
