@@ -36,9 +36,7 @@ import qualified XMonad.Hooks.DynamicBars as Bars
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.Place (placeHook, withGaps)
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.RefocusLast
 import XMonad.Hooks.SetWMName
 
@@ -50,7 +48,7 @@ import XMonad.Actions.GroupNavigation
 import XMonad.Actions.CycleWS
 import qualified XMonad.Actions.Navigation2D as Nav2D
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
-import XMonad.Actions.UpdatePointer
+import XMonad.Actions.Warp
 
 -- layout
 import XMonad.Layout.SimplestFloat
@@ -196,6 +194,7 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
      full = renamed [Replace "Full"]
        -- $ windowNavigation
        -- $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
+       $ spacingRaw False (Border gap 0 0 0) True (Border 0 0 0 0) True
        $ configurableNavigation noNavigateBorders $ noBorders (Full)
 
      -- tiled
@@ -206,7 +205,7 @@ myLayout = avoidStruts $ (trackFloating (tiled ||| full ||| cMaster ||| float))
        -- $ noFrillsDeco shrinkText topBarTheme
        -- $ windowNavigation $ subTabbed
        $ addTabs shrinkText myTabTheme $ subLayout [] Simplest
-       $ spacingRaw False (Border gap 0 gap 0) True (Border 0 gap 0 gap) True
+       $ spacingRaw False (Border 0 gap 0 gap) True (Border gap 0 gap 0) True
        $ configurableNavigation noNavigateBorders $ ResizableTall 1 (3/100) (3/5) []
 
      -- grid
@@ -386,8 +385,9 @@ myKeys =
      , ("M-s", Nav2D.switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
 
-     , ("M-.", viewScreen def 1)
-     , ("M-,", viewScreen def 0)
+     , ("M-o", warpToWindow 1 1)
+     , ("M-.", sequence_ [viewScreen def 1, warpToWindow 1 1])
+     , ("M-,", sequence_ [viewScreen def 0, warpToWindow 1 1])
      , ("M-S-.", sendToScreen def 1)
      , ("M-S-,", sendToScreen def 0)
      -- Directional navigation of windows
@@ -519,6 +519,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook >> updatePointer (0.95,0.95) (0,0)
+        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook
           }
           `additionalKeysP` myKeys
