@@ -385,9 +385,9 @@ myKeys =
      , ("M-s", Nav2D.switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
 
-     , ("M-o", warpToWindow 1 1)
-     , ("M-.", sequence_ [viewScreen def 1, warpToWindow 1 1])
-     , ("M-,", sequence_ [viewScreen def 0, warpToWindow 1 1])
+     , ("M-o", warpToWindow (9%10) (9%10))
+     , ("M-.", sequence_ [viewScreen def 1, warpToWindow (9%10) (9%10)])
+     , ("M-,", sequence_ [viewScreen def 0, warpToWindow (9%10) (9%10)])
      , ("M-S-.", sendToScreen def 1)
      , ("M-S-,", sendToScreen def 0)
      -- Directional navigation of windows
