@@ -1,1 +1,1 @@
-/home/bndo/.profile
+.profile

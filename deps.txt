@@ -119,3 +119,4 @@ libsecret-1-dev
 cabal-install
 redshift
 gthumb
+c2hs
