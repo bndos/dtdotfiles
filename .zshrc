@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bndo/.mujoco/mujoco200/bin
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bndo/.mujoco/mujoco200/bin
 export TERM="xterm-256color"
 export EDITOR="em1"
 export TERMINAL="terminator"
@@ -411,3 +411,10 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+vterm_prompt_end() {
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
+}
+setopt PROMPT_SUBST
+PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%2~\a" }
