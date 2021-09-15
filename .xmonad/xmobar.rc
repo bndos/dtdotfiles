@@ -6,7 +6,7 @@ Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hin
        , bgColor = "#000000"
        , fgColor = "#ffffff"
        , alpha = 255
-       , position = Static { xpos = 50 , ypos = 10, width = 1266, height = 45 }
+       , position = Static { xpos = 20 , ypos = 5, width = 1326, height = 40 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
@@ -17,12 +17,12 @@ Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hin
        , allDesktops = True
        , overrideRedirect = True
        , commands = [ Run Date "%H:%M" "date" 10
-		    , Run UnsafeStdinReader
-		    , Run Com "date" ["+\"%a %b %_d\""] "mydate" 0
-		    , Run Com "battery" [] "mybat" 0
+                  , Run UnsafeStdinReader
+                  , Run Com "date" ["+\"%a %b %_d\""] "mydate" 0
+                  , Run Com "battery" [] "mybat" 0
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = " %UnsafeStdinReader%}\
-                    \{  <fc=#000000,#90A4AD:8><action=notify-send %mydate% >  </action></fc><action=notify-send %mydate% ><fc=#000000,#ffffff:8> %date% </fc></action> %mybat% "
+                    \{  <fc=#000000,#90A4AD:6><action=notify-send %mydate% >  </action></fc><action=notify-send %mydate% ><fc=#000000,#ffffff:6> %date% </fc></action> %mybat% "
        }
