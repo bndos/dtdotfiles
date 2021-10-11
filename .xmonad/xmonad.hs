@@ -77,11 +77,11 @@ myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
 myppCurrentBg = "#ffffff:9"
-myppVisibleBg = "#bbbbbb:9"
-myppVisibleBgCur = "#777777:9"
-myppVisibleBgFocus = "#bbbbbb:9"
-myppHiddenFg = "#000000"
-myppHiddenBg = "#333333:9"
+myppVisibleBg = "#777777:9"
+myppVisibleBgCur = "#333333:9"
+myppVisibleBgFocus = "#777777:9"
+myppHiddenFg = "#bbbbbb"
+myppHiddenBg = "#000000:9"
 myppHiddenNoWindowsFg = "#444444"
 myppHiddenNoWindowsBg = "#000000:9"
 myppTitle = "#FDF6E3"
@@ -147,8 +147,8 @@ cyan    = "#2aa198"
 green       = "#859900"
 
 -- sizes
-gap         = 20
-topbar      = 20
+gap         = 10
+topbar      = 10
 border      = 0
 prompt      = 20
 status      = 20
