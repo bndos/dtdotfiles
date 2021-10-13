@@ -15,3 +15,4 @@ udiskie&
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 dropbox&
 pavucontrol&
+setxkbmap -layout us

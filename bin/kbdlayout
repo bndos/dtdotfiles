@@ -1,13 +1,13 @@
 #!/bin/bash
-currentlayout=$(xkblayout-state print "%s")
+currentvariant=$(xkblayout-state print "%v")
 
-if [ "$currentlayout" == "us" ]
+if [ "$currentvariant" == "intl" ]
   then
-    setxkbmap -layout ca
-    notify-send "ca"
-    xmodmap ~/.Xmodmap
-else
     setxkbmap -layout us
     notify-send "us"
+    xmodmap ~/.Xmodmap
+else
+    setxkbmap -layout us -variant intl
+    notify-send "us intl"
     xmodmap ~/.Xmodmap
 fi
