@@ -2,7 +2,7 @@
     frame_width = 16
     frame_color = "#222222"
 
-    font = Monaco Nerd Font 10
+    font = Monaco 10
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -172,6 +172,7 @@
 [urgency_critical]
     background = "#D62929"
     foreground = "#222222"
+    frame_color = "#D62929"
     timeout = 0
 
 

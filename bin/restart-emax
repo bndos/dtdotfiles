@@ -6,13 +6,13 @@ find ~/.emacs.d -type f -name ".emacs.desktop.lock" -exec rm -f {} \;
 
 export MODELINE="➊"
 emacs --daemon=workspace1
-notify-send "emacsd ws1 ready" &
+dunstify -i emacs "emacsd ws1 ready" &
 export MODELINE="➋"
 emacs --daemon=workspace2
-notify-send "emacsd ws2 ready" &
+dunstify -i emacs "emacsd ws2 ready" &
 export MODELINE="➌"
 emacs --daemon=workspace3
-notify-send "emacsd ws3 ready" &
+dunstify -i emacs "emacsd ws3 ready" &
 export MODELINE="➍"
 emacs --daemon=workspace4
-notify-send "emacsd ws4 ready" &
+dunstify -i emacs "emacsd ws4 ready" &
