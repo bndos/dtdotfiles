@@ -16,3 +16,4 @@ udiskie&
 dropbox&
 pavucontrol&
 setxkbmap -layout us
+xmodmap ~/.Xmodmap
