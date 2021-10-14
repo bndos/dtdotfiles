@@ -21,7 +21,7 @@ function send_notification {
     icon="${icon}/colors-chromablue.svg"
     fi
 
-    dunstify -i $icon -r 2593 -u low "bluefilter" -h int:value:"$filter_perc"
+    dunstify -i $icon -r 2593 -u low "Bluefilter" -h int:value:"$filter_perc"
 }
 
 filter_file=$HOME/.cache/filter
@@ -36,11 +36,11 @@ then
     send_notification $filter_perc
     if [ $filter_perc -ne 100 ]
        then
-	   filter_perc=$(($(cat $filter_file) + 5))
-	   send_notification $filter_perc
-	   gamma=$(( 6500 - $filter_perc * 55 ))
-	   redshift -PO $gamma
-	   echo $filter_perc > $filter_file
+       filter_perc=$(($(cat $filter_file) + 5))
+       send_notification $filter_perc
+       gamma=$(( 6500 - $filter_perc * 55 ))
+       redshift -PO $gamma
+       echo $filter_perc > $filter_file
     fi
 elif [ "$1" == "down" ]
 then
@@ -48,10 +48,10 @@ then
     send_notification $filter_perc
     if [ $filter_perc -ne 0 ]
        then
-	   filter_perc=$(($(cat $filter_file) - 5))
-	   send_notification $filter_perc
-	   gamma=$(( 6500 - $filter_perc * 55 ))
-	   redshift -PO $gamma
-	   echo $filter_perc > $filter_file
+       filter_perc=$(($(cat $filter_file) - 5))
+       send_notification $filter_perc
+       gamma=$(( 6500 - $filter_perc * 55 ))
+       redshift -PO $gamma
+       echo $filter_perc > $filter_file
     fi
 fi

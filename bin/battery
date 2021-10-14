@@ -43,27 +43,27 @@ $percent = $2;
 # Display different icons for battery status
 if ($status eq 'Discharging') {
     if ($percent < 7) {
-	$full_text .= "<fc=#000000,#bd2c40:8> \x{f244} </fc>";
+	$full_text .= "<fc=#000000,#bd2c40:6> \x{f244} </fc>";
 	`notify-send -u critical "      Battery low $full_text$percent%"`;
     }elsif ($percent < 20) {
-        $full_text .= "<fc=#000000,#C47641:8> \x{f244}  </fc>";
+        $full_text .= "<fc=#000000,#C47641:6> \x{f244}  </fc>";
     } elsif ($percent < 40) {
-        $full_text .= "<fc=#000000,#90A4AD:8> \x{f243}  </fc>";
+        $full_text .= "<fc=#000000,#90A4AD:6> \x{f243}  </fc>";
     } elsif ($percent < 60) {
-        $full_text .= "<fc=#000000,#90A4AD:8> \x{f242}  </fc>";
+        $full_text .= "<fc=#000000,#90A4AD:6> \x{f242}  </fc>";
     } elsif ($percent < 85) {
-        $full_text .= "<fc=#000000,#90A4AD:8> \x{f241}  </fc>";
+        $full_text .= "<fc=#000000,#90A4AD:6> \x{f241}  </fc>";
     } elsif ($percent <= 100) {
-        $full_text .= "<fc=#000000,#90A4AD:8> \x{f240}  </fc>";
+        $full_text .= "<fc=#000000,#90A4AD:6> \x{f240}  </fc>";
     }
 } else {
-    $full_text .= "<fc=#000000,#90A4AD:8> \x{f1e6}  </fc>";
+    $full_text .= "<fc=#000000,#90A4AD:6> \x{f1e6}  </fc>";
 }
 
-$short_text = "<fc=#000000,#ffffff:8> $percent% </fc>";
+$short_text = "<fc=#000000,#ffffff:6> $percent% </fc>";
 
 # if ($acpi =~ /(\d\d:\d\d):/) {
-$full_text .= "<fc=#000000,#ffffff:8> $percent% </fc>";
+$full_text .= "<fc=#000000,#ffffff:6> $percent% </fc>";
 # }
 
 # Print text

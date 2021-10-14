@@ -15,32 +15,29 @@ function send_notification {
     light -S $brightness
     # Make the bar with the special character ─ (it's not dash -)
     # https://en.wikipedia.org/wiki/Box-drawing_character
-    bar=$(seq -s "─" $(($brightness / 5 + 1)) | sed 's/[0-9]//g')
     # Send the notification
-    if (( $brightness == 100 ))
+
+    icon="~/.local/share/icons/"
+    if (( $brightness > 60 ))
     then
-	dunstify -i ~/.local/share/icons/brightness-high.svg -r 2593 -u low  "$brightness $bar"
-    elif (( $brightness > 70 ))
+    icon="${icon}brightness-high.svg"
+    elif (( $brightness > 20 ))
     then
-	dunstify -i ~/.local/share/icons/brightness-high.svg -r 2593 -u low  "$brightness  $bar"
-    elif (( $brightness > 35 )) && (( $brightness < 75 ))
-    then
-	dunstify -i ~/.local/share/icons/brightness-medium.svg -r 2593 -u low  "$brightness  $bar"
-    elif (( $brightness <= 5 ))
-    then
-	dunstify -i ~/.local/share/icons/brightness-low.svg -r 2593 -u low  "$brightness   $bar"
+    icon="${icon}brightness-medium.svg"
     else
-	dunstify -i ~/.local/share/icons/brightness-low.svg -r 2593 -u low  "$brightness  $bar"
+    icon="${icon}brightness-low.svg"
     fi
+
+    dunstify -i $icon -r 2593 -u low "Brightness" -h int:value:"$brightness"
 }
 
 case $1 in
     up)
-	xbacklight -inc 5
-	send_notification
-	;;
+    xbacklight -inc 5
+    send_notification
+    ;;
     down)
-	xbacklight -dec 5
-	send_notification
-	;;
+    xbacklight -dec 5
+    send_notification
+    ;;
 esac
