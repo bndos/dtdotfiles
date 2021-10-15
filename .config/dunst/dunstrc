@@ -153,9 +153,9 @@
     # Limit icons size.
     max_icon_size=32
 
-    mouse_left_click = close_current
+    mouse_left_click = do_action, context
     mouse_middle_click = close_all
-    mouse_right_click = do_action, context
+    mouse_right_click = close_current
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
