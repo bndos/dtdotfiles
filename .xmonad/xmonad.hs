@@ -78,12 +78,12 @@ myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
 myppCurrentBg = "#ffffff:9"
 myppVisibleBg = "#777777:9"
-myppVisibleBgCur = "#333333:9"
-myppVisibleBgFocus = "#777777:9"
-myppHiddenFg = "#bbbbbb"
-myppHiddenBg = "#000000:9"
+myppVisibleBgCur = "#777777:9"
+myppVisibleBgFocus = "#ffffff:9"
+myppHiddenFg = "#000000"
+myppHiddenBg = "#333333:9"
 myppHiddenNoWindowsFg = "#444444"
-myppHiddenNoWindowsBg = "#000000:9"
+myppHiddenNoWindowsBg = "#151515:9"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
@@ -147,8 +147,8 @@ cyan    = "#2aa198"
 green       = "#859900"
 
 -- sizes
-gap         = 10
-topbar      = 10
+gap         = 8
+topbar      = 8
 border      = 0
 prompt      = 20
 status      = 20
@@ -298,7 +298,7 @@ layoutOnScreen n = do
        fmt1 = if tag == foc then cur else vis
           where
             cur = xmobarColor myppCurrentFg myppCurrentBg
-            vis = xmobarColor myppCurrentFg myppCurrentFg
+            vis = xmobarColor myppHiddenNoWindowsBg myppHiddenNoWindowsBg
    return fmt1
 
 myLogHook :: XConfig l -> Handle -> Handle -> X ()
@@ -388,8 +388,8 @@ myKeys =
      , ("M-o", warpToWindow (9%10) (9%10))
      , ("M-.", sequence_ [viewScreen def 1, warpToScreen 1 (1%2) (1%2), warpToWindow (9%10) (9%10)])
      , ("M-,", sequence_ [viewScreen def 0, warpToScreen 0 (1%2) (1%2), warpToWindow (9%10) (9%10)])
-     , ("M-S-.", sendToScreen def 1)
-     , ("M-S-,", sendToScreen def 0)
+     , ("M-S-.", sequence_ [sendToScreen def 1, viewScreen def 1, warpToScreen 1 (1%2) (1%2), warpToWindow (9%10) (9%10)])
+     , ("M-S-,", sequence_ [sendToScreen def 0, viewScreen def 0, warpToScreen 0 (1%2) (1%2), warpToWindow (9%10) (9%10)])
      -- Directional navigation of windows
      , ("M-l", myFocus R)
      , ("M-h" , myFocus L)
