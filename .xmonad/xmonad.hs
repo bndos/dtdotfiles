@@ -148,7 +148,7 @@ green       = "#859900"
 
 -- sizes
 gap         = 8
-topbar      = 8
+topbar      = 23
 border      = 0
 prompt      = 20
 status      = 20
@@ -159,7 +159,7 @@ inactive    = base02
 focusColor  = blue
 unfocusColor = base02
 
-myFont      = "xft:Monego:pixelsize=1"
+myFont      = "xft:Consolas:size=10"
 myBigFont   = "xft:Monego:pixelsize=120"
 -- myBigFont   = "-*-helvetica-medium-*-*-*-*-240-*-*-*-*-*-*"
 -- this is a "fake title" used as a highlight bar in lieu of full borders
@@ -171,7 +171,7 @@ topBarTheme = def
     , inactiveTextColor     = base03
     , activeBorderColor     = active
     , activeColor           = active
-    , activeTextColor       = active
+    , activeTextColor       = white
     , urgentBorderColor     = red
     , urgentTextColor       = yellow
     , decoHeight            = topbar
@@ -181,10 +181,10 @@ myTabTheme = def
     { fontName              = myFont
     , inactiveBorderColor   = base03
     , inactiveColor         = base03
-    , inactiveTextColor     = base03
-    , activeBorderColor     = active
-    , activeColor           = active
-    , activeTextColor       = active
+    , inactiveTextColor     = white
+    , activeBorderColor     = white
+    , activeColor           = white
+    , activeTextColor       = base03
     , decoHeight            = topbar
     }
 
