@@ -1,70 +1,74 @@
-# Open document in fit-width mode by default
-# set adjust-open "best-fit"
-
-set page-padding 6
-
-# One page per row by default
-set pages-per-row 1
-
-#stop at page boundries
-set scroll-page-aware "true"
-set scroll-full-overlap 0.01
-
-#title
+# default setup
 set window-title-basename true
 set window-title-page true
-set statusbar-home-tilde true
+set statusbar-basename true
+set statusbar-h-padding 32
+set statusbar-v-padding 16
+set page-padding 3
+set selection-clipboard "clipboard"
 
-#zoom settings
-set zoom-min 10
-#remove status bar
-set guioptions ""
-
-# zathurarc-dark
-set font "Monego 14"
-set default-bg "#101010" #00
-set default-fg "#ffffff" #01
-
-set statusbar-fg "#ffffff" #04
-set statusbar-bg "#101010" #01
-
-set inputbar-bg "#101010" #00 currently not used
-set inputbar-fg "#FFFFFF" #02
-
-set notification-error-bg "#AC4142" #08
-set notification-error-fg "#151515" #00
-
-set notification-warning-bg "#AC4142" #08
-set notification-warning-fg "#151515" #00
-
-set highlight-color "#F4BF75" #0A
-set highlight-active-color "#6A9FB5" #0D
-
-set completion-highlight-fg "#151515" #02
-set completion-highlight-bg "#90A959" #0C
-
-set completion-bg "#101010" #02
-set completion-fg "#E0E0E0" #0C
-
-set notification-bg "#90A959" #0B
-set notification-fg "#151515" #00
-
-set recolor-lightcolor "#101010" #00
-set recolor-darkcolor "#E0E0E0" #06
-set recolor-reverse-video "true"
-set recolor-keephue "true"
-
-
-# set render-loading "false"
-set scroll-step 50
-
-#bindings
+# mapping
+map u scroll half-up
+map d scroll half-down
+map H scroll half-left
+map L scroll half-right
 map [normal]     h   navigate previous
 map [fullscreen] h   navigate previous
 map [normal]     l navigate next
 map [fullscreen] l navigate next
+map D toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
 map i recolor
+map P print
 
-# set recolor "true"
-#clipboard
-set selection-clipboard "clipboard"
+set font "Consolas 10"
+# highlighting
+set highlight-color orange
+set highlight-active-color red
+
+# recolor options
+set recolor-darkcolor "#eeeeee"
+set recolor-lightcolor "#151515"
+set recolor-keephue true
+
+# menu colors (: TAB)
+set completion-bg "#000000"
+set completion-fg "#eeeeee"
+set completion-highlight-bg "#D64C4B"
+set completion-highlight-fg black
+
+# group titles in menu (:open TAB)
+set completion-group-fg "#eeeeee"
+set completion-group-bg "#000000"
+
+# index menu colors
+set index-bg                    "#000000" # Background
+set index-fg                    "#eeeeee" # Foreground
+set index-active-bg             "#D64C4B" # Current Line
+set index-active-fg             "#000000" # Foreground
+
+# :bdelete ENTER (no bookmarks, shows errors)
+set notification-error-bg       "#D64C4B" # red
+set notification-error-fg       "#eeeeee"
+
+set notification-warning-bg     "#ffb86c" # Orange
+set notification-warning-fg     "#44475a" # Selection
+
+# :blist ENTER (when no bookmarks, shows a notification)
+set notification-bg             "#D68844" # orange
+set notification-fg             "#000000"
+
+# typing bar bottom
+set inputbar-bg "#000000" # Background
+set inputbar-fg "#eeeeee" # Background
+# regular bar bottom
+set statusbar-bg "#000000" # Background
+set statusbar-fg "#ffffff" # Foreground
+
+set n-completion-items 10 # number of items displayed in menu
+
+
+# set default-bg purple
