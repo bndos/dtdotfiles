@@ -412,6 +412,7 @@ myKeys =
      , ("M1-M3-=", spawn "screenshot focus")
      , ("S-M3-=", spawn "screenshot delay")
      , ("M1-S-M3-=", spawn "screenshot delay-focus")
+     , ("M-[", spawn "dunstctl history-pop")
      , ("M-;", spawn "scratchpad --toggle 1")
      , ("M-'", spawn "scratchpad --toggle 2")
      , ("M-S-s", toggleFloat)
