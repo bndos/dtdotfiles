@@ -3,7 +3,7 @@ set window-title-basename true
 set window-title-page true
 set statusbar-basename true
 set statusbar-h-padding 32
-set statusbar-v-padding 16
+set statusbar-v-padding 10
 set page-padding 3
 set selection-clipboard "clipboard"
 
@@ -24,7 +24,7 @@ map J zoom out
 map i recolor
 map P print
 
-set font "Consolas 10"
+set font "Consolas 9"
 # highlighting
 set highlight-color orange
 set highlight-active-color red
@@ -65,8 +65,8 @@ set notification-fg             "#000000"
 set inputbar-bg "#000000" # Background
 set inputbar-fg "#eeeeee" # Background
 # regular bar bottom
-set statusbar-bg "#000000" # Background
-set statusbar-fg "#ffffff" # Foreground
+set statusbar-bg "#999999" # Background
+set statusbar-fg "#000000" # Foreground
 
 set n-completion-items 10 # number of items displayed in menu
 
