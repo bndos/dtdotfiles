@@ -417,6 +417,7 @@ myKeys =
      , ("M-'", spawn "scratchpad --toggle 2")
      , ("M-S-s", toggleFloat)
      , ("M-M1-<Space>", spawn "kbdlayout")
+     , ("M3-<Backspace>", spawn "setxkbmap && dunstify -i keyboard reset")
     ]
 
 centreRect = W.RationalRect (1/6) (1/6) (2/3) (2/3)
