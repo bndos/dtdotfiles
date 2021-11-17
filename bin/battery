@@ -43,8 +43,8 @@ $percent = $2;
 # Display different icons for battery status
 if ($status eq 'Discharging') {
     if ($percent < 7) {
-	$full_text .= "<fc=#000000,#bd2c40:6> \x{f244} </fc>";
-	`notify-send -u critical "      Battery low $full_text$percent%"`;
+        $full_text .= "<fc=#000000,#bd2c40:6> \x{f244}  </fc>";
+        `dunstify -i battery-empty "Battery low $percent%"`;
     }elsif ($percent < 20) {
         $full_text .= "<fc=#000000,#C47641:6> \x{f244}  </fc>";
     } elsif ($percent < 40) {
