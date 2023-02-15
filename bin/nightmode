@@ -3,23 +3,25 @@
 function send_notification {
     filter_perc=$1
 
-    bar=$(seq -s "─" $(($filter_perc / 5 + 1)) | sed 's/[0-9]//g')
+    icon="~/.local/share/icons/"
     # Send the notification
     if (( $filter_perc == 100 ))
     then
-	dunstify -i ~/.local/share/icons/colors-chromared.svg -r 2593 -u low  "$filter_perc $bar"
+    icon="${icon}/colors-chromared.svg"
     elif (( $filter_perc > 70 ))
     then
-	dunstify -i ~/.local/share/icons/color-picker-black.svg -r 2593 -u low  "$filter_perc  $bar"
+    icon="${icon}/color-picker-black.svg"
     elif (( $filter_perc > 35 )) && (( $filter_perc < 75 ))
     then
-	dunstify -i ~/.local/share/icons/color-picker-white.svg -r 2593 -u low  "$filter_perc  $bar"
+    icon="${icon}/color-picker-white.svg"
     elif (( $filter_perc <= 5 ))
     then
-	dunstify -i ~/.local/share/icons/colors-chromablue.svg -r 2593 -u low  "$filter_perc   $bar"
+    icon="${icon}/colors-chromablue.svg"
     else
-	dunstify -i ~/.local/share/icons/colors-chromablue.svg -r 2593 -u low  "$filter_perc  $bar"
+    icon="${icon}/colors-chromablue.svg"
     fi
+
+    dunstify -i $icon -r 2593 -u low "Bluefilter" -h int:value:"$filter_perc"
 }
 
 filter_file=$HOME/.cache/filter

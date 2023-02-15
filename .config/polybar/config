@@ -1,6 +1,6 @@
 [colors]
-background = #da000000
-background-alt = #51474F
+background = #dd000000
+background-alt = #222222
 foreground = #d8dee8
 foreground-alt = #585c46
 accent = #bd93f9
@@ -118,11 +118,12 @@ bottom=false
 dpi = 143
 
 [bar/full]
-monitor = DisplayPort-0
+monitor = ${env:MONITOR:}
 monitor-fallback = eDP-1
 ; bottom = true
 width = 94%
-offset-x = 3%%
+offset-x = 3%
+offset-y = 7
 height = 55
 fixed-center = true
 background = ${colors.background}
@@ -131,8 +132,8 @@ padding-left = 3
 padding-right = 5
 module-margin-left = 1
 module-margin-right = 1
-font-0 = Monego:style=Bold:pixelsize=10
-font-1 = FontAwesome:style=Bold:pixelsize=10
+font-0 = Ubuntu:style=Bold:pixelsize=12
+font-1 = FontAwesome:style=Bold:pixelsize=12
 enable-ipc = true
 tray-position = right
 ;tray-padding = 2
@@ -227,11 +228,11 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 [module/bspwm]
 
 type = internal/bspwm
-label-focused = 
-label-focused-background= ${colors.cyan}
+label-focused = 
+label-focused-background= ${colors.background}
 label-focused-foreground= ${colors.foreground}
 label-focused-padding = 2
-label-occupied = 
+label-occupied = 
 label-occupied-padding = 2
 label-occupied-foreground= ${colors.foreground}
 label-urgent = %name%

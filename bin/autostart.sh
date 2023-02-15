@@ -15,5 +15,7 @@ udiskie&
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1&
 dropbox&
 pavucontrol&
+python -m keyring --disable&
 setxkbmap -layout us
 xmodmap ~/.Xmodmap
+xset s 600

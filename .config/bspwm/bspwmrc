@@ -1,10 +1,12 @@
 #! /bin/sh
+autorandr --load desktop
+nitrogen --restore&
 xrdb ~/.Xresources&
 xsetroot -cursor_name left_ptr &
 ~/.config/polybar/launch.sh &
 dunst&
 sxhkd &
-nitrogen --restore&
+nightmode --recover&
 flashfocus &
 restart-emax &
 udiskie &
@@ -17,7 +19,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
-bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
+bspc monitor HDMI-A-0 -d  "" "" "" "" "" "" "" "" "" ""
+bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  "" "" "" "" "" "" "" "" "" ""
 # bspc monitor DisplayPort-0 -d  '' '' '' '' '' '' '' '' '' ''
 # bspc monitor DisplayPort-0 -d  "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
@@ -26,7 +29,7 @@ gap=20
 
 #This creates negative padding eaual to window gap so that gaps are shown only between windows and not on desktop edges.
 bspc config window_gap $gap;
-bspc config top_padding 53
+bspc config top_padding -10
 bspc config left_padding -5
 bspc config right_padding -5
 bspc config bottom_padding -10
@@ -46,11 +49,12 @@ bspc config pointer_follows_focus true
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Pavucontrol desktop='^7' state=floating follow=off
-bspc rule -a Emacs state=tiled
-bspc rule -a Zathura state=pseudo_tiled
+# bspc rule -a Emacs state=pseudo_tiled
+# bspc rule -a St state=pseudo_tiled
+# bspc rule -a Zathura state=pseudo_tiled
 bspc rule -a Vivado state=floating
 # bspc rule -a Alacritty state=pseudo_tiled
-bspc rule -a Firefox state=pseudo_tiled
+# bspc rule -a Firefox state=pseudo_tiled
 bspc rule -a Jami-gnome state=floating
 
 bspc desktop -f \^7

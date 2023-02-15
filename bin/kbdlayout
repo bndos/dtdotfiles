@@ -4,10 +4,10 @@ currentvariant=$(xkblayout-state print "%v")
 if [ "$currentvariant" == "intl" ]
   then
     setxkbmap -layout us
-    dunstify -i keyboard "us"
+    dunstify -i ibus-keyboard "us"
     xmodmap ~/.Xmodmap
 else
     setxkbmap -layout us -variant intl
-    dunstify -i keyboard "us intl"
+    dunstify -i ibus-keyboard "us intl"
     xmodmap ~/.Xmodmap
 fi

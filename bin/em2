@@ -1,2 +1,2 @@
 #!/bin/bash
-emacsclient -s workspace2 -c -n
+emacsclient -s workspace2 -c -n -F "((alpha-background . 0.98))"

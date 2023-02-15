@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + d
-	dmenu_run -w 3775 -x 15
+	dmenu_run_history
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -52,7 +52,16 @@ super + {t,shift + t,s,f}
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
+# Add focused window to a tabbed instance in given direction
+#
+hyper + t; {h,j,k,l}
+    tabc1 $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
 
+# Remove one tab from tabbed
+hyper + t; r
+    tabbed=$(bspc query -N -n focused); \
+    child=$(tabc.sh $tabbed list | head -n1); \
+    tabc1 $tabbed remove $child
 #
 # focus/swap
 #
@@ -60,6 +69,10 @@ super + ctrl + {m,x,y,z}
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
+
+# focus the node in the given direction
+super + {minus,equal}
+	bluefilter {down,up}
 
 # focus the node for the given path jump
 # super + {p,b,comma,period}
@@ -104,11 +117,22 @@ super + {o,i}
 	bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}'
+# focus or send to the given desktop
+super + {1-9,0}
+	d='^{1-9,10}'; \
+	bspc desktop -f $d.local || bspc desktop -s $d
 
-super + alt + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{11,12,13,14,15,16,17,18,19,20}'
+super + alt + {1-9,0}
+	d='^{11,12,13,14,15,16,17,18,19,20}'; \
+	bspc desktop -f $d.local || bspc desktop -s $d
+
+super + alt + shift + {1-9,0}
+	bspc node -d '^{11,12,13,14,15,16,17,18,19,20}'
+
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}'
 
 bspc
 
@@ -141,7 +165,9 @@ super + ctrl + shift + space
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+  STEP=30; SELECTION={1,2,3,4}; \
+  bspc node -z $(echo "left $STEP 0,bottom 0 -$STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+  bspc node -z $(echo "right -$STEP 0,top 0 -$STEP,bottom 0 $STEP,left $STEP 0" | cut -d',' -f$SELECTION)
 
 # contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
@@ -156,6 +182,21 @@ super + shift + r
 
 super + r
         bspc node @/ -R 90
+
+# add to tabbed container
+ctrl + alt + {Left,Down,Up,Right}
+    tabc attach $(bspc query -N -n) {$(bspc query -N -n west),$(bspc query -N -n south),$(bspc query -N -n north),$(bspc query -N -n east)}
+
+# create/remove from tabbed container
+super + a
+    id=$(bspc query -N -n); \
+    [[ "$(tabc printclass $id)" == "tabbed" ]] \
+    && tabc detach $id \
+    || tabc create $id
+
+# toggle autoattach in tabbed container
+super + shift + a
+    tabc autoattach $(bspc query -N -n)
 
 super + z
         em1
