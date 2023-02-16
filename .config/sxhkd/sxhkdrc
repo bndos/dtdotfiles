@@ -66,9 +66,10 @@ hyper + t; r
 # focus/swap
 #
 
-# focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+  LAYOUT=$(bspc query -T -d | jq -r .layout); \
+  [[ "$LAYOUT" == "tiled" ]] && bspc node -{f,s} {west,south,north,east}.local; \
+  [[ "$LAYOUT" == "monocle" ]] && bspc node -{f,s} {prev,next,prev,next}.local.leaf
 
 # focus the node in the given direction
 super + {minus,equal}
@@ -93,7 +94,7 @@ super + shift + comma
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local
+	bspc node -f {next,prev}.local.leaf
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -104,7 +105,7 @@ super + shift + bracket{left,right}
 
 # focus the last node/desktop
 super + Tab
-        bspc desktop -f last.occupied
+	bspc desktop -f last.local.occupied
 
 super + shift + Return
 	bspc node -s last.local; \
@@ -145,7 +146,7 @@ super + {shift + g,  v, shift + v, g}
 	bspc node -p {west,south,north,east}
 
 super + e
-        bspc node -n 'last.!automatic.local'
+	bspc node -n 'last.!automatic.local'
 
 # preselect the ratio
 super + ctrl + {1-9}
