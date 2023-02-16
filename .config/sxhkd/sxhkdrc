@@ -227,8 +227,20 @@ XF86AudioMute
 XF86MonBrightnessUp
 	bluefilter up
 
-XF86MonBrightnessDown
-	bluefilter down
+XF86AudioPlay
+	spotifycli --playpause
+
+XF86AudioPause
+	spotifycli --playpause
+
+XF86AudioNext
+	spotifycli --next
+
+XF86AudioPrev
+	spotifycli --prev
+
+XF86AudioLowerVolume
+	volume down
 
 super + shift + e
         end-session
