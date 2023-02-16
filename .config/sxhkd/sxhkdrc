@@ -7,7 +7,7 @@ super + Return
 	st
 
 # program launcher
-super + d
+super + p
 	dmenu_run_history
 
 # make sxhkd reload its configuration files:
@@ -204,7 +204,7 @@ super + z
 super + shift + z
         em2
 
-alt + space
+super + alt + space
         kbdlayout
 
 super + n
