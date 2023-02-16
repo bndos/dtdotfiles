@@ -94,7 +94,7 @@ super + shift + comma
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local.leaf
+	bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -228,10 +228,10 @@ XF86MonBrightnessUp
 	bluefilter up
 
 XF86AudioPlay
-	spotifycli --playpause
+	spotifycli --play
 
 XF86AudioPause
-	spotifycli --playpause
+	spotifycli --pause
 
 XF86AudioNext
 	spotifycli --next
