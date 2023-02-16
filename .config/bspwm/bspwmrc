@@ -51,7 +51,7 @@ bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Pavucontrol desktop='^7' state=floating follow=off
 bspc rule -a Logseq desktop='^5' state=floating follow=off
 # bspc rule -a Logseq desktop='^5' state=pseudo_tile follow=on
-# bspc rule -a Emacs state=pseudo_tiled
+bspc rule -a Emacs state=pseudo_tiled
 # bspc rule -a St state=pseudo_tiled
 # bspc rule -a Zathura state=pseudo_tiled
 bspc rule -a Vivado state=floating
