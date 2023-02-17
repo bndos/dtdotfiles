@@ -1,6 +1,10 @@
+set start_view=sorted
+colorscheme solarized-dark
+colorscheme jellybeans
+colorscheme zenburn
+colorscheme night
 q
 add .
 update-cache -f
 refresh
-colorscheme solarized-dark
 set status_display_program=/usr/local/bin/cmus-notify
