@@ -248,5 +248,5 @@ super + shift + e
 super + {semicolon, apostrophe}
         {scratchpad --toggle 1, scratchpad --toggle 2}
 
-{Print, ctrl + Print, alt + Print, shift + Print}
+hyper + {equal, ctrl + equal, alt + equal, shift + equal}
 	{screenshot all, screenshot selection, screenshot focus, screenshot delay}
