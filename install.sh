@@ -73,6 +73,7 @@ make -j$(nproc)
 sudo make install
 
 cd ../../emacs
+g checkout emacs-28.2
 make -j$(nproc)
 sudo make install
 mkdir -p ~/.cache/emacs/saves
