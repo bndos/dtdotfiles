@@ -99,6 +99,3 @@ git clone https://github.com/romkatv/powerlevel10k.git
 
 sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tslint prettier
 
-cabal update
-cabal install xmonad xmonad-contrib
-cabal install xmobar --flags="all_extensions"

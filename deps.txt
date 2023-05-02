@@ -1,6 +1,7 @@
 git
 pavucontrol
 autorandr
+jq
 arandr
 libnotify-dev
 policykit-1-gnome
@@ -15,7 +16,6 @@ libvterm-bin
 clang
 clang-format
 clangd
-clangd-9
 golang
 make
 meson
