@@ -32,42 +32,31 @@ export ENHANCD_COMMAND='c'
 # =============================================================================
 # Check if zplug is installed
 
-[ ! -d ~/.zplug ] && git clone https://github.com/zplug/zplug ~/.zplug
+[ ! -d ~/.zplug ] && echo "---------zplug---------" && git clone https://github.com/zplug/zplug ~/.zplug
 source ~/.zplug/init.zsh
-
-# zplug
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+[ ! -d ~/.zplug/repos/zsh-users ] && mkdir -p ~/.zplug/repos/zsh-users
+[ ! -d ~/.zplug/repos/plugins ] && mkdir -p ~/.zplug/repos/plugins
 
 # Syntax highlighting and tab completion
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zplug/repos/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# [ ! -d  ~/.zplug/repos/zsh-users/zsh-syntax-highlighting ] && echo "---------zsh-syntax---------" && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zplug/repos/zsh-users/zsh-syntax-highlighting
+
 autoload -Uz compinit
 # oh-my-zsh
 
 # Miscellaneous commands
-zplug "k4rthik/git-cal",  as:command
-zplug "peco/peco",        as:command, from:gh-r
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, \
-use:"*${(L)$(uname -s)}*amd64*"
-zplug "junegunn/fzf", use:"shell/*.zsh", as:plugin
-
-# Simple zsh calculator
-zplug "arzzen/calc.plugin.zsh"
 
 
 # zplug "plugins/common-aliases",    from:oh-my-zsh
 # Supports oh-my-zsh plugins and the like
-if [[ $OSTYPE = (linux)* ]]; then
-    zplug "plugins/archlinux",     from:oh-my-zsh, if:"(( $+commands[pacman] ))"
-    zplug "plugins/dnf",           from:oh-my-zsh, if:"(( $+commands[dnf] ))"
-fi
-
+# [ ! -d  ~/.zplug/repos/zsh-users/zsh-completions ] && echo "---------zsh-completions---------" && git clone https://github.com/zsh-users/zsh-completions.git ~/.zplug/repos/zsh-users/zsh-completions
 zplug "zsh-users/zsh-completions"
+# [ ! -d ~/.zplug/repos/zsh-users/zsh-autosuggestions ] && echo "---------zsh-autosuggestions---------" && git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zplug/repos/zsh-users/zsh-autosuggestions
 zplug "zsh-users/zsh-autosuggestions"
 # zsh-syntax-highlighting must be loaded after executing compinit command
 # and sourcing other plugins
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:3
+# [ ! -d ~/.zplug/repos/plugins/colored-man-pages ] && git clone https://github.com/ael-code/zsh-colored-man-pages.git ~/.zplug/repos/plugins/colored-man-pages
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 # =============================================================================
 #                                   Options
@@ -200,11 +189,13 @@ zstyle ":completion:*:default" list-colors ${(s.:.)LS_COLORS}
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
-    printf "Install plugins? [y/N]: "
+    echo "Install plugins? [y/N]: "
     if read -q; then
         echo; zplug install
     fi
 fi
+
+source ~/.zplug/repos/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 if zplug check "zsh-users/zsh-history-substring-search"; then
 	zmodload zsh/terminfo
@@ -250,8 +241,8 @@ fi
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
 # ZSH_THEME="gozilla"
-# ZSH_THEME="dracula"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="dracula"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="instantos"
 # ZSH_THEME="cloud"
 # ZSH_THEME="af-magic"
@@ -416,5 +407,5 @@ vterm_prompt_end() {
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
 }
 setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+# PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%2~\a" }

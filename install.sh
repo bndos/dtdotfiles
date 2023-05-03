@@ -38,11 +38,9 @@ git clone https://github.com/emacs-mirror/emacs.git
 git clone https://github.com/bndos/dmenu
 git clone https://github.com/bndos/st
 
-sudo add-apt-repository ppa:mmstick76/alacritty
 sudo apt update
-sudo apt install alacritty -y
 # clangd-10 sometimes crashes with lsp
-sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-9 100
+# sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-9 100
 
 cd dunst
 make
@@ -81,9 +79,9 @@ mkdir -p ~/.cache/emacs/saves
 cd
 git clone https://github.com/bndos/.doom.d
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.emacs.d/.local/etc
 ~/.emacs.d/bin/doom install
 ~/.emacs.d/bin/doom sync
-cp bookmarks ~/.emacs.d/.local/etc
 
 git config --global user.email "grover-brando.tovar-oblitas@polymtl.ca"
 git config --global user.name "Brando"
