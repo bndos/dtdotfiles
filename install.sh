@@ -79,9 +79,9 @@ mkdir -p ~/.cache/emacs/saves
 cd
 git clone https://github.com/bndos/.doom.d
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.emacs.d/.local/etc
 ~/.emacs.d/bin/doom install
 ~/.emacs.d/bin/doom sync
+cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.emacs.d/.local/etc
 
 git config --global user.email "grover-brando.tovar-oblitas@polymtl.ca"
 git config --global user.name "Brando"
