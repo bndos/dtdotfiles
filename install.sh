@@ -96,3 +96,6 @@ cd ~/.oh-my-zsh/themes/
 git clone https://github.com/romkatv/powerlevel10k.git
 
 sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tslint prettier
+sudo apt install nvidia-driver-530
+# run
+# sudo prime-select nvidia
