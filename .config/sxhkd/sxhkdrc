@@ -225,7 +225,10 @@ XF86AudioMute
 	volume mute
 
 XF86MonBrightnessUp
-	bluefilter up
+	brightness up
+
+XF86MonBrightnessDown
+	brightness down
 
 XF86AudioPlay
 	spotifycli --play

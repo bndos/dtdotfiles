@@ -12,7 +12,6 @@ function get_brightness {
 
 function send_notification {
     brightness=`get_brightness`
-    light -S $brightness
     # Make the bar with the special character ─ (it's not dash -)
     # https://en.wikipedia.org/wiki/Box-drawing_character
     # Send the notification
@@ -33,11 +32,14 @@ function send_notification {
 
 case $1 in
     up)
-    xbacklight -inc 5
+    brightnessctl set +5%
     send_notification
     ;;
     down)
-    xbacklight -dec 5
+    if (( $(get_brightness) > 5 ))
+    then
+        brightnessctl set 5%-
+    fi
     send_notification
     ;;
 esac
