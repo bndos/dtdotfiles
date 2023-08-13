@@ -122,12 +122,13 @@ super + shift + {1-9,0}
 	bspc node -d '^{1-9,10}'
 # focus or send to the given desktop
 super + {1-9,0}
-	d='^{1-9,10}'; \
-	bspc desktop -f $d.local || bspc desktop -s $d
+	d=($(bspc query --desktops --monitor));\
+	i='{1-9,10}'; \
+	bspc desktop -f ${d[$i]}
 
 super + alt + {1-9,0}
-	d='^{11,12,13,14,15,16,17,18,19,20}'; \
-	bspc desktop -f $d.local || bspc desktop -s $d
+	i='{1-9,10}'; \
+	swap-desktops $i
 
 super + alt + shift + {1-9,0}
 	bspc node -d '^{11,12,13,14,15,16,17,18,19,20}'
