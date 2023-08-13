@@ -99,3 +99,4 @@ sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tsl
 sudo apt install nvidia-driver-530
 # run
 # sudo prime-select nvidia
+# install plasma if bspwm doesnt work with gdm
