@@ -7,6 +7,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 mkdir -p ~/Downloads/clones ~/Downloads/programs
 
 sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
+echo "paste the token for the password"
 git config --global credential.helper \
    /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
@@ -72,6 +73,8 @@ sudo make install
 
 cd ../../emacs
 g checkout emacs-28.2
+./autogen.sh
+./configure --with-native-compilation --with-json --with-imagemagick --with-xwidgets
 make -j$(nproc)
 sudo make install
 mkdir -p ~/.cache/emacs/saves
