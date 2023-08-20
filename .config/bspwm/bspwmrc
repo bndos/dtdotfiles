@@ -1,8 +1,9 @@
 #! /bin/sh
 autorandr --load desktop
-nitrogen --restore&
-xrdb ~/.Xresources&
-xsetroot -cursor_name left_ptr &
+nitrogen --restore
+xrdb ~/.Xresources
+xsetroot -cursor_name left_ptr
+dropbox start&
 ~/.config/polybar/launch.sh &
 dunst&
 sxhkd &
@@ -53,7 +54,7 @@ bspc rule -a Logseq desktop='^5' state=floating follow=off
 # bspc rule -a Logseq desktop='^5' state=pseudo_tile follow=on
 bspc rule -a Emacs state=pseudo_tiled
 # bspc rule -a St state=pseudo_tiled
-# bspc rule -a Zathura state=pseudo_tiled
+bspc rule -a Zathura state=pseudo_tiled
 bspc rule -a Vivado state=floating
 bspc rule -a St state=pseudo_tiled
 # bspc rule -a Alacritty state=pseudo_tiled
