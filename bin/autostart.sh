@@ -1,13 +1,13 @@
 #!/bin/bash
 
-xrdb ~/.Xresources&
+xrdb ~/.Xresources
 autorandr --load desktop
-xsetroot -cursor_name left_ptr&
+xsetroot -cursor_name left_ptr
+nitrogen --restore
 # picom --config ~/.config/picom/picomdwm.conf&
 picom&
 dropbox start&
 flashfocus&
-nitrogen --restore&
 nightmode --recover&
 restart-emax&
 dunst&

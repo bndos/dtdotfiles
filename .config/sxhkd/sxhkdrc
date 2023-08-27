@@ -134,7 +134,8 @@ super + alt + {1-9,0}
 	swap-desktops $i
 
 super + alt + shift + {1-9,0}
-	bspc node -d '^{11,12,13,14,15,16,17,18,19,20}'
+	i='{1-9,10}'; \
+	send-to-monitor $i
 
 super + shift + {1-9,0}
 	bspc node -d '^{1-9,10}'
