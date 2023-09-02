@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+cd=($(bspc query --desktops --monitor))
+d=($(bspc query --desktops))
+od=("${(@)d:|cd}")
+bspc node -d ${od[$1]}

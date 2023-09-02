@@ -1,8 +1,9 @@
 #! /bin/sh
 autorandr --load desktop
-nitrogen --restore&
-xrdb ~/.Xresources&
-xsetroot -cursor_name left_ptr &
+nitrogen --restore
+xrdb ~/.Xresources
+xsetroot -cursor_name left_ptr
+dropbox start&
 ~/.config/polybar/launch.sh &
 dunst&
 sxhkd &
@@ -12,6 +13,7 @@ restart-emax &
 udiskie &
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1&
 picom &
+pavucontrol &
 
 # for java programs
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -40,7 +42,7 @@ bspc config bottom_padding -10
 bspc config automatic_scheme alternate
 bspc config directional_focus_tightness low
 bspc config border_width          0
-bspc config presel_feedback_color \#51474F
+bspc config presel_feedback_color \#000000
 bspc config split_ratio           0.60
 bspc config borderless_monocle    true
 bspc config gapless_monocle       false
@@ -54,7 +56,7 @@ bspc rule -a Logseq desktop='^5' state=floating follow=off
 # bspc rule -a Logseq desktop='^5' state=pseudo_tile follow=on
 bspc rule -a Emacs state=pseudo_tiled
 # bspc rule -a St state=pseudo_tiled
-# bspc rule -a Zathura state=pseudo_tiled
+bspc rule -a Zathura state=pseudo_tiled
 bspc rule -a Vivado state=floating
 bspc rule -a St state=pseudo_tiled
 # bspc rule -a Alacritty state=pseudo_tiled

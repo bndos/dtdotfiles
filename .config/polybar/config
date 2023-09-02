@@ -2,7 +2,7 @@
 dpi = 164
 
 [colors]
-background = #dd000000
+background = #d3000000
 background-alt = #222222
 foreground = #d8dee8
 foreground-alt = #585c46

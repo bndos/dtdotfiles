@@ -24,7 +24,7 @@ map J zoom out
 map i recolor
 map P print
 
-set font "Consolas 9"
+set font "Consolas 12"
 # highlighting
 set highlight-color orange
 set highlight-active-color red
@@ -71,4 +71,7 @@ set statusbar-fg "#000000" # Foreground
 set n-completion-items 10 # number of items displayed in menu
 
 
-# set default-bg purple
+# set window parameters
+set window-height 2000
+set window-width 1400
+set adjust_window width

@@ -342,15 +342,15 @@ source ~/.zplug/repos/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 playtube () {
-	mplayer -cookies -cookies-file /tmp/cook.txt $(youtube-dl -g --cookies /tmp/cook.txt "$1")
+    mplayer -cookies -cookies-file /tmp/cook.txt $(youtube-dl -g --cookies /tmp/cook.txt "$1")
 }
 
 mntphone () {
-	simple-mtpfs --device 1 ~/phone
+    simple-mtpfs --device 1 ~/phone
 }
 
 umntphone () {
-	fusermount -u ~/phone
+    fusermount -u ~/phone
 }
 
 yttomp3(){
@@ -364,31 +364,31 @@ ytdl(){
 }
 
 pkgsearch () {
-	  pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
+    pacman -Ss $1 | grep community | cut -d"/" -f 2 | cut -d" " -f 1
 }
 
 grep-finals () {
-	    curl -s https://www.polymtl.ca/etudes/cours/horaires-examens-controles | grep $1 -A 25
+    curl -s https://www.polymtl.ca/etudes/cours/horaires-examens-controles | grep $1 -A 25
 }
 
 grep-excel () {
-	   xlsx2csv $1 | grep $2
+    xlsx2csv $1 | grep $2
 }
 
 ef() {
-     fzf | xargs -r -I % $EDITOR % ;
+    fzf | xargs -r -I % $EDITOR % ;
 }
 
 goto() {
-       cd $(cat ~/.config/bmdirs | fzf)
+    cd $(cat ~/.config/bmdirs | fzf)
 }
 
 open() {
-       nohup $1 $2 </dev/null >/dev/null 2>&1 &
+    nohup $1 $2 </dev/null >/dev/null 2>&1 &
 }
 
-mhdays() {
-	 echo $((($(date +%s)-$(date +%s --date "2020-04-07"))/(3600*24))) days
+compress_video () {
+    ffmpeg -i $1 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k -movflags +faststart -vf scale=-2:720,format=yuv420p $2
 }
 
 if [[ -n ${LAUNCHER} ]]; then
@@ -397,7 +397,7 @@ if [[ -n ${LAUNCHER} ]]; then
 fi
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
+    source /etc/profile.d/vte.sh
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

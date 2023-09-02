@@ -7,9 +7,11 @@ export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 export PATH=~/Downloads/programs/go1.18.3.linux-amd64/go/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+export PATH=$HOME/Downloads/programs/julia/bin:$PATH
 # export PATH=$GOROOT/bin:$PATH
 export G0111MODULE=ON
 export _JAVA_AWT_WM_NONREPARENTING=1
 # export XDG_CURRENT_DESKTOP=KDE
 # export DESKTOP_DESSION=KDE
-. "$HOME/.cargo/env"
+# export PIPENV_VENV_IN_PROJECT=1
+export POETRY_VIRTUALENVS_IN_PROJECT=1
