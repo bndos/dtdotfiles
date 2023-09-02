@@ -32,7 +32,7 @@ cd ~/Downloads/programs
 git clone https://github.com/dunst-project/dunst.git
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/alacritty/alacritty.git
-git clone https://github.com/sdhand/picom.git
+git clone https://github.com/yshui/picom.git
 git clone --recursive https://github.com/polybar/polybar
 git clone https://github.com/emacs-mirror/emacs.git
 

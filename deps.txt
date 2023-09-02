@@ -121,3 +121,6 @@ redshift
 ripgrep
 gthumb
 c2hs
+xclip
+libxcb-dpms0
+libxcb-dpms0-dev
