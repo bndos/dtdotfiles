@@ -83,8 +83,8 @@ cd
 git clone https://github.com/bndos/.doom.d ~/.config/doom
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
-~/.emacs.d/bin/doom sync
-cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.emacs.d/.local/etc
+~/.config/emacs/bin/doom sync
+cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.config/emacs/.local/etc
 
 git config --global user.email "grover-brando.tovar-oblitas@polymtl.ca"
 git config --global user.name "Brando"
