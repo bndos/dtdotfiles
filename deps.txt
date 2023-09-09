@@ -116,6 +116,13 @@ libglm-dev
 libglew-dev
 libsdl2-dev
 libsecret-1-dev
+libjansson-dev
+libgccjit-11-dev
+libgccjit-10-dev
+libgccjit-12-dev
+libwebkit2gtk-4.1-dev
+libwebkit2gtk-4.0-dev
+libmagickwand-dev
 cabal-install
 redshift
 ripgrep

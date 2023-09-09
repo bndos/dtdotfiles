@@ -72,7 +72,7 @@ make -j$(nproc)
 sudo make install
 
 cd ../../emacs
-g checkout emacs-28.2
+g checkout emacs-29.1
 ./autogen.sh
 ./configure --with-native-compilation --with-json --with-imagemagick --with-xwidgets
 make -j$(nproc)
@@ -80,9 +80,9 @@ sudo make install
 mkdir -p ~/.cache/emacs/saves
 
 cd
-git clone https://github.com/bndos/.doom.d
-git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-~/.emacs.d/bin/doom install
+git clone https://github.com/bndos/.doom.d ~/.config/doom
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
 ~/.emacs.d/bin/doom sync
 cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.emacs.d/.local/etc
 
@@ -99,7 +99,7 @@ cd ~/.oh-my-zsh/themes/
 git clone https://github.com/romkatv/powerlevel10k.git
 
 sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tslint prettier
-sudo apt install nvidia-driver-530
+# sudo apt install nvidia-driver-530
 # run
 # sudo prime-select nvidia
 # install plasma if bspwm doesnt work with gdm
