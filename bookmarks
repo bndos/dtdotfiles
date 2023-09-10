@@ -1,8 +1,20 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("h-agenda"
+(("z-dotfiles"
+ (filename . "~/Downloads/clones/dtdotfiles/")
+ (front-context-string . ".p10k.zsh\n  -rw-")
+ (rear-context-string . "3K Aug 17 14:19 ")
+ (position . 618)
+ (last-modified 25854 1279 884426 9000))
+("g-school"
+ (filename . "~/Dropbox/Applications/GoodNotes 5/GoodNotes/")
+ (front-context-string . "INF8460\n  drwxr-")
+ (rear-context-string . "0K Sep  7 22:59 ")
+ (position . 261)
+ (last-modified 25854 1252 749109 395000))
+("h-agenda"
  (filename . "~/Dropbox/agenda.org")
  (front-context-string . "void\n     TaskGe")
  (rear-context-string . "*\n     ,*/\n     ")
@@ -62,11 +74,6 @@
  (front-context-string . "autostart.sh\n  -")
  (rear-context-string . "96 Jul  7 17:46 ")
  (position . 204))
-("z-dotfliles"
- (filename . "~/Downloads/clones/dtdotfiles/")
- (front-context-string . ".bash_profile\n  ")
- (rear-context-string . "82 Jul  7 17:46 ")
- (position . 233))
 ("z-zsh"
  (filename . "~/.zshrc")
  (front-context-string . "export LD_LIBRAR")
