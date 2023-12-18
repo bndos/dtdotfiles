@@ -84,13 +84,8 @@ super + {minus,equal}
 super + {period, comma}
           bspc monitor -f {east, west}.\!focused
 
-super + shift + period
-          bspc node -m east.\!focused; \
-          bspc monitor -f east.\!focused;
-
-super + shift + comma
-          bspc node -m west.\!focused; \
-          bspc monitor -f west.\!focused;
+super + shift + {period, comma}
+          bspc node -m {east.\!focused, west.\!focused} -f;
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
@@ -230,10 +225,7 @@ XF86AudioMute
 	volume mute
 
 XF86MonBrightnessUp
-	brightness up
-
-XF86MonBrightnessDown
-	brightness down
+	bluefilter up
 
 XF86AudioPlay
 	spotifycli --play
