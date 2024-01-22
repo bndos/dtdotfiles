@@ -10,9 +10,10 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 # polybar center &
 # polybar right &
 if type "xrandr"; then
+  export PRIMARY_MONITOR=$(xrandr --query | grep " connected primary" | cut -d" " -f1)
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
     MONITOR=$m polybar --reload full&
-    sleep 0.1
+    sleep 0.01
   done
 else
   polybar --reload full &

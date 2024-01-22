@@ -1,8 +1,5 @@
-[dpi]
-dpi = 164
-
 [colors]
-background = #d3000000
+background = #bb000000
 background-alt = #222222
 foreground = #d8dee8
 foreground-alt = #585c46
@@ -38,7 +35,7 @@ wm-restack = bspwm
 modules-left =
 modules-center = bspwm
 modules-right =
-dpi = ${dpi.dpi}
+dpi = 143
 
 [bar/right]
 monitor = DisplayPort-0
@@ -66,7 +63,7 @@ wm-restack = bspwm
 modules-left =
 modules-center = date
 modules-right =
-dpi = ${dpi.dpi}
+dpi = 153
 
 [bar/full-i3]
 monitor = ${env:MONITOR:DisplayPort-0}
@@ -118,7 +115,21 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 bottom=false
-dpi = ${dpi.dpi}
+dpi = 143
+
+[module/arrow]
+type = custom/script
+cursor = pointer
+exec = echo "     "
+click-left = bash $HOME/.config/polybar/tinybar.sh
+click-right = bash $HOME/.config/polybar/killbar.sh
+
+[module/sep]
+type = custom/script
+cursor = pointer
+exec = echo ""
+click-left = bash $HOME/.config/polybar/tinybar.sh
+click-right = bash $HOME/.config/polybar/killbar.sh
 
 [bar/full]
 monitor = ${env:MONITOR:}
@@ -126,7 +137,7 @@ monitor-fallback = eDP-1
 ; bottom = true
 width = 50%
 offset-x = 25%
-offset-y = 7
+offset-y = -25
 height = 75
 fixed-center = true
 background = ${colors.background}
@@ -135,21 +146,48 @@ padding-left = 8
 padding-right = 11
 module-margin-left = 1
 module-margin-right = 1
-font-0 = Ubuntu:style=Bold:pixelsize=12
-font-1 = FontAwesome:style=Bold:pixelsize=12
+font-0 = "Ubuntu:style=Bold:pixelsize=12;15"
+font-1 = "FontAwesome:style=Bold:pixelsize=12;15"
 enable-ipc = true
-tray-position = center
-tray-detached = true
-tray-maxsize = 40
+; tray-position = center
+; tray-detached = true
 ;tray-padding = 2
 ;tray-background = ${colors.background}
-; radius = 2
+; radius = 11
 ; override-redirect = false
 wm-restack = bspwm
 modules-left = bspwm
 modules-center =
-modules-right = date battery
-dpi = ${dpi.dpi}
+modules-right = date arrow
+dpi = 143
+
+[bar/tray]
+monitor-strict = false
+width = 20
+height = 50
+offset-x = 74% ######### offset values only dtermine the position of bar in the screen set it accordingly to your need
+offset-y = 65
+override-redirect = false  ############### to make offset vales to work override-direct value must be true
+fixed-center = true
+background = ${colors.background}
+;foreground = ${colors.foreground}
+radius = 10
+line-size = 0
+line-color = #f00
+padding-left = 0
+padding-right = 1
+module-margin-left = 0
+module-margin-right = 0
+modules-right =  sep
+tray-position = right
+tray-detached = false
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 1
+tray-maxsize = 20
+tray-scale = 1.0
+tray-background = ${colors.background}
+dpi = 143
 
 [module/i3]
 type = internal/i3
@@ -332,22 +370,22 @@ battery = BAT0
 adapter = ACAD
 poll-interval = 60
 format-charging = <ramp-capacity> <label-charging>
-label-charging = %percentage%% 
-label-full = %percentage%% 
-format-discharging = <label-discharging> <ramp-capacity>
+label-charging =  %percentage%%
+label-full = Full
+format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.foreground}
+ramp-capacity-foreground = ${colors.accent}
 
 
 [module/date]
 type = internal/date
 interval = 30
-label = "%date% %time%   | "
+label = "%date% %time%"
 date =
 date-alt = %a %d
 time = %H:%M
