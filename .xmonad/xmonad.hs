@@ -17,6 +17,7 @@ import qualified Data.List as L
 import Data.Monoid
 import Data.Maybe (isJust, fromMaybe)
 import Data.Ratio ((%)) -- for video
+import Data.Default.Class (def)
 import qualified Data.Map as M
 
 -- system
@@ -26,13 +27,12 @@ import System.IO (hPutStrLn, Handle) -- for xmobar
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
-import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows
 import XMonad.Util.WorkspaceCompare
 
 -- hooks
-import XMonad.Hooks.DynamicLog
-import qualified XMonad.Hooks.DynamicBars as Bars
+import XMonad.Hooks.DynamicLog (xmobarPP, dynamicLogWithPP, ppOutput, ppCurrent, ppVisible, ppHidden, ppHiddenNoWindows, ppTitle, ppUrgent, ppExtras, ppOrder, ppSep, ppWsSep, ppLayout, ppSort, shorten, wrap, xmobarColor, xmobarAction)
+import qualified XMonad.Hooks.StatusBar as Bars
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
 import XMonad.Hooks.ManageHelpers
@@ -64,7 +64,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
-import XMonad.Layout.IndependentScreens
+import XMonad.Layout.IndependentScreens as IS
 
 ------------------------------------------------------------------------
 -- variables
@@ -249,7 +249,7 @@ myManageHook = composeAll
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
     , transience'
-    ] <+> namedScratchpadManageHook myScratchpads
+    ]
 
 
 focusedTitleOnScreen :: ScreenId -> X (String -> String)
@@ -305,8 +305,8 @@ myLogHook :: XConfig l -> Handle -> Handle -> X ()
 myLogHook c u0 u1 = do
     g0 <- focusedTitleOnScreen 0
     g1 <- focusedTitleOnScreen 1
-    h0 <- workspaceOnScreen 0
-    h1 <- workspaceOnScreen 1
+    h0 <- Main.workspaceOnScreen 0
+    h1 <- Main.workspaceOnScreen 1
     v0 <- visibleOnScreen 0
     v1 <- visibleOnScreen 1
     l0 <- layoutOnScreen 0
@@ -315,11 +315,10 @@ myLogHook c u0 u1 = do
     idHook
        <+> dynamicLogWithPP (topPP u0 g0 h0 v0 l0)
        <+> dynamicLogWithPP (topPP u1 g1 h1 v1 l1)
-       <+> ewmhDesktopsLogHook
        <+> logHook c
 
              where
-                topPP u g h v l = namedScratchpadFilterOutWorkspacePP $ defaultPP
+                topPP u g h v l = xmobarPP
                    { ppOutput   = hPutStrLn u
                    , ppCurrent  = h
                    , ppVisible  = v
@@ -358,11 +357,11 @@ myKeys =
      , ("M-c", sendMessage $ JumpToLayout "CM")
      , ("M-i", sendMessage (IncMasterN 1))
      , ("M-d", sendMessage (IncMasterN (-1)))
-     , ("M-u", moveTo Next HiddenNonEmptyWS)
-     , ("M-y", moveTo Prev HiddenNonEmptyWS)
+     , ("M-u", moveTo Next (hiddenWS :&: Not emptyWS))
+     , ("M-y", moveTo Prev (hiddenWS :&: Not emptyWS))
      , ("M-<Tab>", toggleWS' ["NSP"])
      , ("M1-<Tab>", toggleFocus)
-     , ("M-p", spawn "dmenu_run_history")
+     , ("M-p", spawn "~/.config/rofi/launchers/type-7/launcher.sh")
      , ("M-S-q", spawn "end-session")
      , ("M-z", spawn "em1")
      , ("M-S-z", spawn "em2")
@@ -377,10 +376,6 @@ myKeys =
      , ("M3-S-w", withFocused (sendMessage . UnMerge))
      , ("M-M3-h", onGroup W.focusUp')
      , ("M-M3-l", onGroup W.focusDown')
-     , ("M3-1", namedScratchpadAction myScratchpads "emacs-scratch1")
-     , ("M3-2", namedScratchpadAction myScratchpads "emacs-scratch2")
-     , ("M3-3", namedScratchpadAction myScratchpads "emacs-scratch3")
-     , ("M3-4", namedScratchpadAction myScratchpads "emacs-scratch4")
         -- Switch between layers
      , ("M-s", Nav2D.switchLayer)
      , ("M-M1-0", sequence_ [toggleScreenSpacingEnabled, toggleWindowSpacingEnabled])
@@ -466,27 +461,6 @@ myFocusNotFloat dir = do
 myFocus dir = floatOrNot (sequence_ [Nav2D.windowGo dir False, windows W.swapMaster]) (myFocusNotFloat dir)
 
 
-------------------------------------------------------------------------
--- scratchpads
-------------------------------------------------------------------------
-
-myScratchpads = [ NS "emacs-scratch1" spawnEmacsScratch1 findEmacsScratch1 manageEmacsScratch
-                , NS "emacs-scratch2" spawnEmacsScratch2 findEmacsScratch2 manageEmacsScratch
-                , NS "emacs-scratch3" spawnEmacsScratch3 findEmacsScratch3 manageEmacsScratch
-                , NS "emacs-scratch4" spawnEmacsScratch4 findEmacsScratch4 manageEmacsScratch
-                ]
-    where
-    role = stringProperty "WM_WINDOW_ROLE"
-    findEmacsScratch1 = title =? "emacs-scratch1"
-    spawnEmacsScratch1 = "emacsclient -s workspace1 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch1\"))'"
-    findEmacsScratch2 = title =? "emacs-scratch2"
-    spawnEmacsScratch2 = "emacsclient -s workspace2 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch2\"))'"
-    findEmacsScratch3 = title =? "emacs-scratch3"
-    spawnEmacsScratch3 = "emacsclient -s workspace3 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch3\"))'"
-    findEmacsScratch4 = title =? "emacs-scratch4"
-    spawnEmacsScratch4 = "emacsclient -s workspace4 -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch4\"))'"
-    manageEmacsScratch = (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)) <+> doF W.swapMaster
-
 myNav2DConf = def
     { Nav2D.defaultTiledNavigation    = Nav2D.centerNavigation
     , Nav2D.floatNavigation           = Nav2D.centerNavigation
@@ -521,6 +495,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = myLogHook defaultConfig xmproc0 xmproc1 >> refocusLastLogHook
+        , logHook = myLogHook def xmproc0 xmproc1 >> refocusLastLogHook
           }
           `additionalKeysP` myKeys
