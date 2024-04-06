@@ -76,14 +76,14 @@ myBorderWidth = 0 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myppCurrentFg = "#000000"
-myppCurrentBg = "#ffffff:9"
-myppVisibleBg = "#777777:9"
-myppVisibleBgCur = "#777777:9"
-myppVisibleBgFocus = "#ffffff:9"
+myppCurrentBg = "#ffffff:14"
+myppVisibleBg = "#777777:14"
+myppVisibleBgCur = "#777777:14"
+myppVisibleBgFocus = "#ffffff:14"
 myppHiddenFg = "#000000"
-myppHiddenBg = "#333333:9"
+myppHiddenBg = "#333333:14"
 myppHiddenNoWindowsFg = "#444444"
-myppHiddenNoWindowsBg = "#151515:9"
+myppHiddenNoWindowsBg = "#151515:14"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 
@@ -92,7 +92,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = clickable . (map xmobarEscape) $ ["  1  ","  2  ","  3  ","  4  ","  5  ","  6  ","  7  ","  8  ","  9  ",  "  0  "]
+myWorkspaces = clickable . (map xmobarEscape) $ [" 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 ", " 0 "]
   where
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip ([1..9] ++ [0]) l,
@@ -326,10 +326,10 @@ myLogHook c u0 u1 = do
                    , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindowsFg myppHiddenNoWindowsBg
                    , ppSep =  "  "                     -- Separators in xmobar
                    , ppWsSep    = " "
-                   , ppTitle    = const ""
-                   , ppLayout = l . wrap " " " "
+                   , ppTitle    = const " "
+                   , ppLayout = l . wrap "  " "  "
                    , ppExtras = [windowCount]                          -- # of windows current workspace
-                   , ppOrder  = \(ws:l:ex) -> [ws, l]
+                   , ppOrder  = \(ws:l:t:ex) -> [t] ++ [ws, l] ++ ex
                    }
 
 ------------------------------------------------------------------------
