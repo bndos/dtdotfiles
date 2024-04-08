@@ -4,8 +4,11 @@ xrdb ~/.Xresources
 autorandr --load desktop
 xsetroot -cursor_name left_ptr
 nitrogen --restore
+xset -dpms
+xset s off
 # picom --config ~/.config/picom/picomdwm.conf&
 picom&
+xscreensaver -no-splash&
 dropbox start&
 flashfocus&
 nightmode --recover&

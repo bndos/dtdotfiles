@@ -28,6 +28,7 @@ nitrogen
 cargo
 curl
 xdotool
+xscreensaver
 xdo
 imagemagick
 gcc

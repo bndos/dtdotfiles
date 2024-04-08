@@ -3,10 +3,10 @@
 res=$(echo -e "Lock\nSuspend\nLogout\nReboot\nPoweroff" | dmenu -i)
 
 if [ "$res" = "Lock" ]; then
-    lock
+    xscreensaver-command --lock
 fi
 if [ "$res" = "Suspend" ]; then
-    lock&
+    xscreensaver-command --lock&
     sleep 3
     systemctl suspend
 fi
@@ -14,7 +14,6 @@ if [ "$res" = "Logout" ]; then
     pkill --signal SIGKILL firefox
     pkill emacs
     pkill dunst
-    pkill compton
     pkill flashfocus
     pkill autostart.sh
     bspc quit
@@ -25,7 +24,6 @@ if [ "$res" = "Reboot" ]; then
     pkill --signal SIGKILL firefox
     pkill emacs
     pkill dunst
-    pkill compton
     pkill flashfocus
     reboot
 fi
@@ -34,7 +32,6 @@ if [ "$res" = "Poweroff" ]; then
     pkill --signal SIGKILL firefox
     pkill emacs
     pkill dunst
-    pkill compton
     poweroff
 fi
 exit 0
