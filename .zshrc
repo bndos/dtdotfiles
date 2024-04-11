@@ -241,8 +241,8 @@ fi
 # ZSH_THEME="edvardm"
 # ZSH_THEME="awesomepanda"
 # ZSH_THEME="gozilla"
-ZSH_THEME="dracula"
-# ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="dracula"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="instantos"
 # ZSH_THEME="cloud"
 # ZSH_THEME="af-magic"
@@ -265,6 +265,7 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins to load
 plugins=(git
+        pyenv
         virtualenv)
 source $ZSH/oh-my-zsh.sh
 
@@ -409,3 +410,23 @@ vterm_prompt_end() {
 setopt PROMPT_SUBST
 # PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%2~\a" }
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/bndo/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/bndo/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/bndo/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/bndo/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+eval "$(direnv hook zsh)"
