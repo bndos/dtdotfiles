@@ -8,10 +8,21 @@ export PATH=~/Downloads/programs/go1.18.3.linux-amd64/go/bin:$PATH
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/Downloads/programs/julia/bin:$PATH
+export PATH=$HOME/MATLAB/R2023b/bin:$PATH
+export PATH=$HOME/Downloads/programs/Unreal_Engine/Engine/Binaries/Linux:$PATH
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 # export PATH=$GOROOT/bin:$PATH
 export G0111MODULE=ON
+export JULIA_DEPOT_PATH=~/.julia
 export _JAVA_AWT_WM_NONREPARENTING=1
 # export XDG_CURRENT_DESKTOP=KDE
 # export DESKTOP_DESSION=KDE
 # export PIPENV_VENV_IN_PROJECT=1
 export POETRY_VIRTUALENVS_IN_PROJECT=1
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.mujoco/mujoco210/bin
+export GTK_THEME=Adwaita:dark
+export GTK_ICON_THEME=ePapirus
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
