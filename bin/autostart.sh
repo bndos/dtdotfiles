@@ -21,4 +21,4 @@ pavucontrol&
 python -m keyring --disable&
 setxkbmap -layout us
 xmodmap ~/.Xmodmap
-xset s 600
+# xset s 600
