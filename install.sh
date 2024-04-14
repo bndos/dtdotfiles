@@ -72,7 +72,7 @@ make -j$(nproc)
 sudo make install
 
 cd ../../emacs
-g checkout emacs-29.1
+g checkout emacs-29.3
 ./autogen.sh
 ./configure --with-native-compilation --with-json --with-imagemagick --with-xwidgets
 make -j$(nproc)
