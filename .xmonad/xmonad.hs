@@ -92,7 +92,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = clickable . (map xmobarEscape) $ [" 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 ", " 0 "]
+myWorkspaces = clickable . (map xmobarEscape) $ ["   1   ","   2   ","   3   ","   4   ","   5   ","   6   ","   7   ","   8   ","   9   " ,   "   0   "]
   where
          clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip ([1..9] ++ [0]) l,
@@ -159,7 +159,7 @@ inactive    = base02
 focusColor  = blue
 unfocusColor = base02
 
-myFont      = "xft:Consolas:size=10"
+myFont      = "xft:Monego:size=10"
 myBigFont   = "xft:Monego:pixelsize=120"
 -- myBigFont   = "-*-helvetica-medium-*-*-*-*-240-*-*-*-*-*-*"
 -- this is a "fake title" used as a highlight bar in lieu of full borders

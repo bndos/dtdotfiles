@@ -1,4 +1,4 @@
-Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgba:antialias=true:autohint=false:style=bold"
+Config { font = "xft:MesloLGS-normal-13"
        , additionalFonts = []
        , borderColor = "#000000"
        , border = NoBorder
@@ -6,7 +6,7 @@ Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hin
        , bgColor = "#000000"
        , fgColor = "#ffffff"
        , alpha = 255
-       , position = Static { xpos = 1000 , ypos = 5, width = 1840, height = 57 }
+       , position = Static { xpos = 1000 , ypos = 5, width = 1840, height = 67 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
@@ -23,5 +23,5 @@ Config { font = "xft:Monego Nerd Font:size=9:style=Bold:lcdfilter=lcddefault:hin
        , sepChar = "%"
        , alignSep = "}{"
        , template = " %UnsafeStdinReader%}\
-                    \{  <fc=#000000,#90A4AD:13><action=notify-send %mydate% >  </action></fc><action=notify-send %mydate% ><fc=#000000,#ffffff:13> %date% </fc></action>    "
+                    \{  <fc=#000000,#90A4AD:13><action=notify-send %mydate% > TIME </action></fc><action=notify-send %mydate% ><fc=#000000,#ffffff:13> %date% </fc></action>    "
        }
