@@ -337,10 +337,10 @@ export EDITOR="em1"
 export VISUAL="em1"
 # export PATH=$PATH:/usr/local/avr
 
-autoload -Uz bracketed-paste-magic
+# autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 source ~/.zplug/repos/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
-zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+# zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 playtube () {
     mplayer -cookies -cookies-file /tmp/cook.txt $(youtube-dl -g --cookies /tmp/cook.txt "$1")
@@ -427,6 +427,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
 
 eval "$(direnv hook zsh)"
