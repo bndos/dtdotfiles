@@ -3,7 +3,6 @@ sudo apt upgrade -y
 xargs -a deps.txt sudo apt-get install -y
 sudo pip3 install flashfocus
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mkdir -p ~/Downloads/clones ~/Downloads/programs
 
 sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
@@ -103,3 +102,5 @@ sudo npm install -g typescript tslint-config-prettier tslint-plugin-prettier tsl
 # run
 # sudo prime-select nvidia
 # install plasma if bspwm doesnt work with gdm
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
