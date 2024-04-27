@@ -1,13 +1,15 @@
 [colors]
 background = #bb000000
 background-alt = #222222
-foreground = #d8dee8
+foreground = #ffffff
 foreground-alt = #585c46
 accent = #bd93f9
 alert = #ebcb8b
 orange = #5F2513
 black = #000000
 cyan = #1C2323
+date_bg = #ff0000    ; Red background for the date
+time_bg = #00ff00
 
 [bar/center]
 monitor = DisplayPort-0
@@ -169,23 +171,23 @@ dpi = 143
 [bar/full]
 monitor = ${env:MONITOR:}
 monitor-fallback = eDP-1
-border-top-size = 30
-border-bottom-size = 2
+border-top-size = 50
+border-bottom-size = 11
 border-size = 0
 border-color = ${colors.background}
 ; bottom = true
 width = 80%
 offset-x = 10%
 offset-y = -40
-height = 60
+height = 35
 fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 padding = 2
 module-margin-left = 1
 module-margin-right = 1
-font-0 = "Comic Mono:style=Bold:pixelsize=12;10"
-font-1 = "FontAwesome:style=Bold:pixelsize=12;10"
+font-0 = "Comic Mono:style=Bold:pixelsize=12;5"
+font-1 = "FontAwesome:style=Bold:pixelsize=12;5"
 enable-ipc = true
 ; tray-position = center
 ; tray-detached = true
@@ -424,10 +426,13 @@ ramp-capacity-foreground = ${colors.accent}
 [module/date]
 type = internal/date
 interval = 30
-label = "%date% %time%"
+label = "%date%%time%"
 date =
 date-alt = %a %d
 time = %H:%M
 time-alt =
-format-prefix =
+format = <label>
+format-padding=1
+format-background = ${colors.foreground}
+format-foreground = ${colors.background}
 format-prefix-foreground = ${colors.accent}
