@@ -2,7 +2,25 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("z-dotfiles"
+(("h-papers"
+ (filename . "~/School/papers/")
+ (front-context-string . "Vaswani et al. -")
+ (rear-context-string . "88 Mar 30 11:27 ")
+ (position . 1022)
+ (last-modified 26151 3711 797871 735000))
+("h-rofi"
+ (filename . "~/.config/rofi/")
+ (front-context-string . "applets\n  drwxrw")
+ (rear-context-string . "0K Jan 21 16:02 ")
+ (position . 72)
+ (last-modified 26149 43472 988543 512000))
+("polyt"
+ (filename . "~/.config/doom/config.org")
+ (front-context-string . " ████╗ ████║\"\n;;")
+ (rear-context-string . "═══██╗ ██╔═══██╗")
+ (position . 1522)
+ (last-modified 26149 42898 972672 92000))
+("z-dotfiles"
  (filename . "~/Downloads/clones/dtdotfiles/")
  (front-context-string . ".p10k.zsh\n  -rw-")
  (rear-context-string . "3K Aug 17 14:19 ")
@@ -95,10 +113,11 @@
  (rear-context-string . " + d\n	dmenu_run ")
  (position . 118))
 ("z-emacs"
- (filename . "~/.emacs.d/config.org")
+ (filename . "~/.config/doom/config.org")
  (front-context-string . "1)) ;; Vertical ")
  (rear-context-string . "ist '(height . 8")
- (position . 3910))
+ (position . 3910)
+ (last-modified 26149 44485 304090 889000))
 ("z-dunstrc"
  (filename . "~/.config/dunst/dunstrc")
  (front-context-string . "[global]\n    ###")

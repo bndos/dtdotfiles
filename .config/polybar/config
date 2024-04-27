@@ -83,7 +83,7 @@ line-color = #f00
 ;margin of bar
 border-right-size = 0
 border-left-size = 0
-border-color = #00000000
+border-color = {colors.background}
 
 padding-left = 2
 padding-right = 2
@@ -120,7 +120,7 @@ dpi = 143
 [module/arrow]
 type = custom/script
 cursor = pointer
-exec = echo "     "
+exec = echo "  "
 click-left = bash $HOME/.config/polybar/tinybar.sh
 click-right = bash $HOME/.config/polybar/killbar.sh
 
@@ -131,23 +131,27 @@ exec = echo ""
 click-left = bash $HOME/.config/polybar/tinybar.sh
 click-right = bash $HOME/.config/polybar/killbar.sh
 
-[bar/full]
+[bar/big-full]
 monitor = ${env:MONITOR:}
 monitor-fallback = eDP-1
+border-top-size = 30
+border-bottom-size = 2
+border-size = 0
+border-color = ${colors.background}
 ; bottom = true
-width = 50%
-offset-x = 25%
-offset-y = -25
-height = 75
+width = 80%
+offset-x = 10%
+offset-y = -40
+height = 80
 fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
-padding-left = 8
-padding-right = 11
+padding-left = 1
+padding-right = 4
 module-margin-left = 1
 module-margin-right = 1
-font-0 = "Ubuntu:style=Bold:pixelsize=12;15"
-font-1 = "FontAwesome:style=Bold:pixelsize=12;15"
+font-0 = "Comic Mono:style=Bold:pixelsize=20;10"
+font-1 = "FontAwesome:style=Bold:pixelsize=20;10"
 enable-ipc = true
 ; tray-position = center
 ; tray-detached = true
@@ -157,7 +161,41 @@ enable-ipc = true
 ; override-redirect = false
 wm-restack = bspwm
 modules-left = bspwm
-modules-center =
+modules-center = xwindow
+modules-right = date arrow
+dpi = 143
+
+
+[bar/full]
+monitor = ${env:MONITOR:}
+monitor-fallback = eDP-1
+border-top-size = 30
+border-bottom-size = 2
+border-size = 0
+border-color = ${colors.background}
+; bottom = true
+width = 80%
+offset-x = 10%
+offset-y = -40
+height = 60
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+padding = 2
+module-margin-left = 1
+module-margin-right = 1
+font-0 = "Comic Mono:style=Bold:pixelsize=12;10"
+font-1 = "FontAwesome:style=Bold:pixelsize=12;10"
+enable-ipc = true
+; tray-position = center
+; tray-detached = true
+;tray-padding = 2
+;tray-background = ${colors.background}
+; radius = 11
+; override-redirect = false
+wm-restack = bspwm
+modules-left = bspwm
+modules-center = xwindow
 modules-right = date arrow
 dpi = 143
 
@@ -165,7 +203,7 @@ dpi = 143
 monitor-strict = false
 width = 20
 height = 50
-offset-x = 74% ######### offset values only dtermine the position of bar in the screen set it accordingly to your need
+offset-x = 89% ######### offset values only dtermine the position of bar in the screen set it accordingly to your need
 offset-y = 65
 override-redirect = false  ############### to make offset vales to work override-direct value must be true
 fixed-center = true
@@ -274,22 +312,23 @@ type = internal/bspwm
 label-focused = 
 label-focused-background= ${colors.background}
 label-focused-foreground= ${colors.foreground}
-label-focused-padding = 2
+label-focused-padding-left = 1
 label-occupied = 
-label-occupied-padding = 2
+label-occupied-padding-left = 1
 label-occupied-foreground= ${colors.foreground}
 label-urgent = %name%
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding-left = 1
 label-empty = %name%
 label-empty-foreground = ${colors.foreground}
-label-empty-padding = 2
+label-empty-padding-left = 1
 
 
 [module/xwindow]
-
+format = <label>
+; format-background = ${colors.background-alt}
 type = internal/xwindow
-label = %title:0:45:.%
+label = %title:0:15:...%
 
 
 [module/mpd]

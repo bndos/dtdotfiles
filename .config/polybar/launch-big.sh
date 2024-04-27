@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Terminate already running bar instances
+killall -q polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+# Launch bar1 and bar2
+# polybar center &
+# polybar right &
+if type "xrandr"; then
+  export PRIMARY_MONITOR=$(xrandr --query | grep " connected primary" | cut -d" " -f1)
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload big-full&
+    sleep 0.01
+  done
+else
+  polybar --reload big-full &
+fi
