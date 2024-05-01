@@ -37,9 +37,10 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       2000px;
+    width:                       70%;
+    height:                      30%;
     x-offset:                    0px;
-    y-offset:                    -400px;
+    y-offset:                    -20%;
 
     /* properties for all widgets */
     enabled:                     true;
