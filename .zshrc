@@ -15,19 +15,6 @@ export FILE="vu"
 ZSH=$HOME/.oh-my-zsh
 
 # =============================================================================
-#                                   Variables
-# =============================================================================
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-
-export FZF_DEFAULT_OPTS='--height 40% --reverse --border --inline-info --color=dark,bg+:235,hl+:10,pointer:5'
-
-export ENHANCD_FILTER="fzf:peco:percol"
-export ENHANCD_COMMAND='c'
-
-# =============================================================================
 #                                   Plugins
 # =============================================================================
 # Check if zplug is installed
@@ -61,13 +48,6 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 # =============================================================================
 #                                   Options
 # =============================================================================
-
-# improved less option
-export LESS="--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS"
-
-# Key timeout and character sequences
-KEYTIMEOUT=1
-WORDCHARS='*?_-[]~=./&;!#$%^(){}<>'
 
 # History
 HISTFILE=~/.zsh_history
@@ -167,7 +147,7 @@ bindkey "^[h" backward-kill-word
 #                                 Completions
 # =============================================================================
 
-zstyle ':completion:*' rehash true
+zstyle ':completion:*' rehash false
 #zstyle ':completion:*' verbose yes
 #zstyle ':completion:*:descriptions' format '%B%d%b'
 #zstyle ':completion:*:messages' format '%d'
@@ -195,39 +175,6 @@ if ! zplug check; then
     fi
 fi
 
-source ~/.zplug/repos/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-if zplug check "zsh-users/zsh-history-substring-search"; then
-	zmodload zsh/terminfo
-	bindkey "$terminfo[kcuu1]" history-substring-search-up
-	bindkey "$terminfo[kcud1]" history-substring-search-down
-	bindkey "^[[1;5A" history-substring-search-up
-	bindkey "^[[1;5B" history-substring-search-down
-fi
-
-if zplug check "zsh-users/zsh-syntax-highlighting"; then
-	#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor line)
-	ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
-
-	typeset -A ZSH_HIGHLIGHT_STYLES
-	ZSH_HIGHLIGHT_STYLES[cursor]='bg=yellow'
-	ZSH_HIGHLIGHT_STYLES[globbing]='none'
-	ZSH_HIGHLIGHT_STYLES[path]='fg=white'
-	ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=grey'
-	ZSH_HIGHLIGHT_STYLES[alias]='fg=cyan'
-	ZSH_HIGHLIGHT_STYLES[builtin]='fg=cyan'
-	ZSH_HIGHLIGHT_STYLES[function]='fg=cyan'
-	ZSH_HIGHLIGHT_STYLES[command]='fg=green'
-	ZSH_HIGHLIGHT_STYLES[precommand]='fg=green'
-	ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=green'
-	ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=yellow'
-	ZSH_HIGHLIGHT_STYLES[redirection]='fg=magenta'
-	ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=cyan,bold'
-	ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
-	ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
-	ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
-fi
 
 # # PROMPT
 # Show OS info when opening a new terminal
@@ -257,15 +204,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="afowler"
 # ZSH_THEME="pi"
 
-# Command auto-correction.
-ENABLE_CORRECTION="true"
-
 # Command execution time stamp shown in the history command output.
 HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins to load
 plugins=(git
-        pyenv
         virtualenv)
 source $ZSH/oh-my-zsh.sh
 
