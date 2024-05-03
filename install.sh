@@ -79,11 +79,17 @@ sudo make install
 mkdir -p ~/.cache/emacs/saves
 
 cd
-git clone https://github.com/bndos/.doom.d ~/.config/doom
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+export LSP_USE_PLISTS=true
 ~/.config/emacs/bin/doom install
 ~/.config/emacs/bin/doom sync
 cp ~/Downloads/clones/dtdotfiles/bookmarks ~/.config/emacs/.local/etc
+
+emacs &
+sleep 10
+pkill emacs
+rm -rf ~/.config/doom
+git clone https://github.com/bndos/.doom.d ~/.config/doom
 
 git config --global user.email "grover-brando.tovar-oblitas@polymtl.ca"
 git config --global user.name "Brando"
