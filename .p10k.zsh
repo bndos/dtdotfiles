@@ -54,7 +54,7 @@
     vcs                       # git status
     command_execution_time    # previous command duration
     # =========================[ Line #2 ]=========================
-    newline                   # \n
+    # newline                   # \n
     virtualenv                # python virtual environment
     prompt_char               # prompt symbol
   )
@@ -99,7 +99,10 @@
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
   # Don't show Python version.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
-  typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
+  typeset -g POWERLEVEL9K_VIRTUALENV_LEFT_DELIMITER='(env '
+  typeset -g POWERLEVEL9K_VIRTUALENV_RIGHT_DELIMITER=')'
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND='yellow'
+
 
   # Blue current directory.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue

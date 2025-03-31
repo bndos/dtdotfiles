@@ -6,8 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bndo/.mujoco/mujoco200/bin
-export TERM="xterm-256color"
-export EDITOR="em1"
+# export TERM="xterm-256color"
 export TERMINAL="terminator"
 export BROWSER="firefox"
 export READER="zathura"
@@ -235,10 +234,10 @@ alias egrep='() { $(whence -p egrep) --color=auto $@ }'
 # Custom helper aliases
 alias rm='rm -v'
 
-alias em1="devour emacsclient -s workspace1 -c"
-alias em2="devour emacsclient -s workspace2 -c"
-alias em3="devour emacsclient -s workspace3 -c"
-alias em4="devour emacsclient -s workspace4 -c"
+alias em1="emacsclient -s workspace1 -c"
+alias em2="emacsclient -s workspace2 -c"
+alias em3="emacsclient -s workspace3 -c"
+alias em4="emacsclient -s workspace4 -c"
 alias cat="batcat"
 # alias ls='ls -l --color=always --group-directories-first --human-readable'
 alias ip="ip -c"
@@ -276,8 +275,6 @@ alias emax='emacsclient -s workspace1 -c -n'
 # alias pgrep='pgrep -ai'
 
 export ALTERNATE_EDITOR=""
-export EDITOR="em1"
-export VISUAL="em1"
 # export PATH=$PATH:/usr/local/avr
 
 # autoload -Uz bracketed-paste-magic
@@ -354,22 +351,9 @@ setopt PROMPT_SUBST
 # PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%2~\a" }
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/bndo/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/bndo/anaconda3/etc/profile.d/conda.sh" ]; then
-#         . "/home/bndo/anaconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/bndo/anaconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
-
 eval "$(direnv hook zsh)"
+
+. "$HOME/.cargo/env"
+
+[ -f "/home/bndo/.ghcup/env" ] && . "/home/bndo/.ghcup/env" # ghcup-env
+bindkey -r "^G"
